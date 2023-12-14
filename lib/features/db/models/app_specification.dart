@@ -13,6 +13,7 @@ import 'package:pump_app/features/form/bloc/get_form_cubit/get_form_cubit.dart';
 import 'package:pump_app/features/form/ui/widget/header_widget.dart';
 import 'package:pump_app/features/form/ui/widget/list_string_widget.dart';
 import 'package:pump_app/features/form/ui/widget/list_widget.dart';
+import 'package:pump_app/features/form/ui/widget/number_widget.dart';
 import 'package:pump_app/features/form/ui/widget/r_list_widget.dart';
 import 'package:pump_app/main.dart';
 
@@ -20,6 +21,7 @@ import '../../../core/app/app_widget.dart';
 import '../../../core/util/my_style.dart';
 import '../../form/bloc/update_r_list_cubit/update_r_list_cubit.dart';
 import '../../form/ui/widget/string_widget.dart';
+import '../../form/ui/widget/yes_or_no_widget.dart';
 
 class Questions {
   Questions({
@@ -67,13 +69,13 @@ class Questions {
       case QType.date:
         return 0.0.verticalSpace;
       case QType.number:
-        return 0.0.verticalSpace;
+        return NumberWidget(q: this);
       case QType.mCheckbox:
         return 0.0.verticalSpace;
       case QType.table:
         return 0.0.verticalSpace;
       case QType.yesOrNo:
-        return 0.0.verticalSpace;
+        return YesNoWidget(q: this);
       case QType.header:
         return HeaderWidget(q: this);
     }
