@@ -13,6 +13,7 @@ class MyTextFormOutLineWidget extends StatefulWidget {
     this.hint = '',
     this.maxLines = 1,
     this.obscureText = false,
+    this.isRequired = false,
     this.textAlign = TextAlign.start,
     this.maxLength = 1000,
     this.onChanged,
@@ -39,6 +40,7 @@ class MyTextFormOutLineWidget extends StatefulWidget {
   final int maxLines;
   final int maxLength;
   final bool obscureText;
+  final bool isRequired;
   final TextAlign textAlign;
   final Function(String)? onChanged;
   final Function(bool)? onChangedFocus;
@@ -129,10 +131,17 @@ class _MyTextFormOutLineWidgetState extends State<MyTextFormOutLineWidget> {
         text: widget.label.toUpperCase(),
         color: AppColorManager.gray,
         size: 16.0.spMin,
+        drawableStart: widget.isRequired
+            ? DrawableText(
+                text: ' * ',
+                color: Colors.red,
+                drawablePadding: 5.0.w,
+              )
+            : null,
       ),
       counter: const SizedBox(),
       alignLabelWithHint: true,
-      labelStyle: TextStyle(color: widget.color ?? AppColorManager.mainColor),
+      labelStyle: TextStyle(color: widget.color),
       suffixIcon: widget.obscureText ? suffixIcon : widget.iconWidgetLift,
       prefixIcon: widget.obscureText ? null : suffixIcon,
     );
@@ -145,29 +154,23 @@ class _MyTextFormOutLineWidgetState extends State<MyTextFormOutLineWidget> {
 
     return StatefulBuilder(builder: (context, state) {
       onChangeObscure = () => state(() {});
-      return Transform.scale(
-        scaleX: 1.01,
-        child: ClipRect(
-          clipper: RectCustomClipper(),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 15.0).h,
-            child: TextFormField(
-              validator: widget.validator,
-              decoration: inputDecoration,
-              maxLines: widget.maxLines,
-              readOnly: !(widget.enable ?? true),
-              initialValue: widget.initialValue,
-              obscureText: obscureText,
-              textAlign: widget.textAlign,
-              onChanged: widget.onChanged,
-              style: textStyle,
-              focusNode: focusNode,
-              textDirection: widget.textDirection,
-              maxLength: widget.maxLength,
-              controller: widget.controller,
-              keyboardType: widget.keyBordType,
-            ),
-          ),
+      return Padding(
+        padding: const EdgeInsets.symmetric(vertical: 15.0).h,
+        child: TextFormField(
+          validator: widget.validator,
+          decoration: inputDecoration,
+          maxLines: widget.maxLines,
+          readOnly: !(widget.enable ?? true),
+          initialValue: widget.initialValue,
+          obscureText: obscureText,
+          textAlign: widget.textAlign,
+          onChanged: widget.onChanged,
+          style: textStyle,
+          focusNode: focusNode,
+          textDirection: widget.textDirection,
+          maxLength: widget.maxLength,
+          controller: widget.controller,
+          keyboardType: widget.keyBordType,
         ),
       );
     });
@@ -193,8 +196,9 @@ class MyEditTextWidget extends StatelessWidget {
     this.radios,
     this.textInputAction,
     this.onFieldSubmitted,
+    this.isRequired = false,
   }) : super(key: key);
-
+  final bool isRequired;
   final String hint;
   final int maxLines;
   final int maxLength;
@@ -256,7 +260,7 @@ class MyEditTextWidget extends StatelessWidget {
       errorMaxLines: 0,
       constraints: BoxConstraints(maxWidth: .9.sw, minWidth: .3.sw),
       border: border,
-      fillColor: backgroundColor ?? AppColorManager.offWhit.withOpacity(0.27),
+      fillColor: backgroundColor ?? AppColorManager.lightGray,
       filled: true,
       enabled: enable ?? true,
       prefixIcon: suffixIcon ?? 0.0.verticalSpace,
@@ -267,18 +271,6 @@ class MyEditTextWidget extends StatelessWidget {
       builder: (context, state) {
         onChangeObscure = () => state(() {});
         return TextFormField(
-          // onTap: () {
-          //   if (controller != null) {
-          //     if (controller!.selection ==
-          //         TextSelection.fromPosition(
-          //             TextPosition(offset: controller!.text.length - 1))) {
-          //       state(() {
-          //         controller!.selection = TextSelection.fromPosition(
-          //             TextPosition(offset: controller!.text.length));
-          //       });
-          //     }
-          //   }
-          // },
           obscureText: obscureText,
           decoration: inputDecoration,
           maxLines: maxLines,

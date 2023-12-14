@@ -17,7 +17,7 @@ class SnakeBarWidget extends StatelessWidget {
       onPressed: () => ScaffoldMessenger.of(context).clearSnackBars(),
     );
 
-    return Container(
+    return SizedBox(
       width: 0.9.sw,
       child: DrawableText(
         padding: EdgeInsets.symmetric(horizontal: 0.02.sw),

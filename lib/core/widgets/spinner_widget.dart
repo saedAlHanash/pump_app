@@ -1,7 +1,9 @@
+import 'package:collection/collection.dart';
 import 'package:drawable_text/drawable_text.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pump_app/main.dart';
 
 import '../strings/app_color_manager.dart';
 
@@ -10,23 +12,29 @@ class SpinnerWidget<T> extends StatefulWidget {
     Key? key,
     required this.items,
     this.hint,
+    this.hintText,
     this.onChanged,
     this.customButton,
     this.width,
     this.dropdownWidth,
     this.sendFirstItem,
+    this.isRequired = false,
     this.expanded,
+    this.isOverButton,
     this.decoration,
   }) : super(key: key);
 
   final List<SpinnerItem> items;
   final Widget? hint;
+  final String? hintText;
   final Widget? customButton;
   final Function(SpinnerItem spinnerItem)? onChanged;
   final double? width;
   final double? dropdownWidth;
   final bool? sendFirstItem;
+  final bool isRequired;
   final bool? expanded;
+  final bool? isOverButton;
   final BoxDecoration? decoration;
 
   @override
@@ -34,83 +42,83 @@ class SpinnerWidget<T> extends StatefulWidget {
 }
 
 class SpinnerWidgetState<T> extends State<SpinnerWidget<T>> {
-  var list = <DropdownMenuItem<SpinnerItem>>[];
-  SpinnerItem? selectedItem;
-
-  @override
-  void initState() {
-    list = widget.items.map(
-          (item) {
-        if (item.isSelected) selectedItem = item;
-
-        final padding = (item.icon == null)
-            ? const EdgeInsets.symmetric(horizontal: 15.0).w
-            : EdgeInsets.only(left: 15.0.w);
-
-        return DropdownMenuItem(
-          value: item,
-          child: DrawableText(
-            selectable: false,
-            text: item.name ?? '',
-            padding: padding,
-            color: (item.id != -1)
-                ? (item.enable)
-                ? Colors.black
-                : AppColorManager.gray.withOpacity(0.7)
-                : AppColorManager.gray.withOpacity(0.7),
-            fontFamily: FontManager.cairoBold,
-            drawableStart: item.icon,
-            drawablePadding: 15.0.w,
-          ),
-        );
-      },
-    ).toList();
-
-    if (widget.hint == null) selectedItem ??= widget.items.firstOrNull;
-
-    if ((widget.sendFirstItem ?? false) && selectedItem != null) {
-      if (widget.onChanged != null) widget.onChanged!(selectedItem!);
-    }
-
-    super.initState();
-  }
-
-  void clearSelect() {
-    if (widget.hint == null) {
-      selectedItem = list.first.value;
-    } else {
-      selectedItem = null;
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
-    return StatefulBuilder(
-      builder: (_, state) {
-        return DropdownButton2(
-          items: list,
-          value: selectedItem,
+    return Column(
+      children: [
+        Row(
+          children: [
+            Container(color: AppColorManager.mainColor, height: .8.h, width: .04.sw),
+            3.0.horizontalSpace,
+            DrawableText(
+              text: widget.hintText ?? '',
+              color: AppColorManager.gray,
+              size: 14.0.sp,
+              fontFamily: FontManager.cairo,
+              drawableStart: widget.isRequired
+                  ? DrawableText(
+                      text: ' * ',
+                      color: Colors.red,
+                      drawablePadding: 5.0.w,
+                    )
+                  : null,
+            ),
+            3.0.horizontalSpace,
+            Expanded(
+              child: Container(color: AppColorManager.mainColor, height: .8.h),
+            )
+          ],
+        ),
+        DropdownButton2(
+          items: widget.items.map(
+            (item) {
+              final padding = (item.icon == null)
+                  ? const EdgeInsets.symmetric(horizontal: 10.0).w
+                  : EdgeInsets.only(left: 10.0.w);
+
+              return DropdownMenuItem(
+                value: item,
+                child: DrawableText(
+                  selectable: false,
+                  text: item.name ?? '',
+                  padding: padding,
+                  color: (item.id != '-1')
+                      ? (item.enable)
+                          ? Colors.black
+                          : AppColorManager.gray.withOpacity(0.7)
+                      : AppColorManager.gray.withOpacity(0.7),
+                  fontFamily: FontManager.cairoBold,
+                  drawableStart: item.icon,
+                  drawablePadding: 15.0.w,
+                ),
+              );
+            },
+          ).toList(),
+          value: widget.items.firstWhereOrNull((e) => e.isSelected),
           hint: widget.hint,
           onChanged: (value) {
-            if (!(value!).enable) return;
-            if (widget.onChanged != null) widget.onChanged!(value);
-            state(() => selectedItem = value);
+            if (widget.onChanged != null) widget.onChanged!(value!);
+            setState(() {
+              if (!(value!).enable) return;
+              for (var e in widget.items) {
+                e.isSelected = false;
+                if (e.id == value.id) e.isSelected = true;
+              }
+            });
           },
           buttonStyleData: ButtonStyleData(
             width: widget.width,
-            height: 60.0.h,
-            decoration: widget.decoration ??
-                BoxDecoration(
-                  borderRadius: BorderRadius.circular(12.0.r),
-                  color: AppColorManager.f1.withOpacity(0.5),
-                ),
-            padding: const EdgeInsets.only(right: 10.0).w,
+            height: 40.0.h,
+            decoration: widget.decoration ?? const BoxDecoration(),
             elevation: 0,
           ),
           dropdownStyleData: DropdownStyleData(
             width: widget.dropdownWidth,
-            maxHeight: 300.0.h,
+            maxHeight: 0.6.sh,
+            padding: const EdgeInsets.only(bottom: 50.0).h,
+            useSafeArea: true,
             elevation: 2,
+            isOverButton: widget.isOverButton ?? false,
           ),
           iconStyleData: IconStyleData(
             icon: Row(
@@ -127,8 +135,10 @@ class SpinnerWidgetState<T> extends State<SpinnerWidget<T>> {
           isExpanded: widget.expanded ?? false,
           customButton: widget.customButton,
           underline: 0.0.verticalSpace,
-        );
-      },
+        ),
+        Container(color: AppColorManager.mainColor, height: 1.0.h, width: 1.0.sw),
+        20.0.verticalSpace,
+      ],
     );
   }
 }
@@ -194,7 +204,8 @@ class SpinnerOutlineTitle extends StatelessWidget {
 class SpinnerItem {
   SpinnerItem({
     this.name,
-    this.id = -2,
+    this.id,
+    this.fId,
     this.isSelected = false,
     this.item,
     this.icon,
@@ -202,50 +213,32 @@ class SpinnerItem {
   });
 
   String? name;
-  int id;
+  String? id;
+  String? fId;
   bool isSelected;
   bool enable;
   dynamic item;
   Widget? icon;
 
-//<editor-fold desc="Data Methods">
-
-  SpinnerItem copyWith({
-    String? name,
-    int? id,
-    bool? isSelected,
-    bool? enable,
-    dynamic item,
-  }) {
-    return SpinnerItem(
-      name: name ?? this.name,
-      id: id ?? this.id,
-      isSelected: isSelected ?? this.isSelected,
-      enable: enable ?? this.enable,
-      item: item ?? this.item,
-    );
-  }
-
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toJson() {
     return {
       'name': name,
       'id': id,
+      'fId': id,
       'isSelected': isSelected,
       'enable': enable,
       'item': item,
     };
   }
 
-  factory SpinnerItem.fromMap(Map<String, dynamic> map) {
+  factory SpinnerItem.fromJson(Map<String, dynamic> map) {
     return SpinnerItem(
-      name: map['name'] as String,
-      id: map['id'] as int,
+      name: map['name'] ?? '',
+      id: map['id'] ?? '',
+      fId: map['fId'] ?? 0,
       isSelected: map['isSelected'] as bool,
       enable: map['enable'] as bool,
       item: map['item'] as dynamic,
     );
   }
-
-//</editor-fold>
 }
-

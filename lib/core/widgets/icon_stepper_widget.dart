@@ -54,21 +54,21 @@
 //   bool active;
 //   bool complete;
 //
-//   Map<String, dynamic> toMap() {
+//   Map<String, dynamic> toJson() {
 //     return {
 //       'active': active,
 //       'complete': complete,
 //     };
 //   }
 //
-//   factory StepperItem.fromMap(Map<String, dynamic> map) {
+//   factory StepperItem. fromJson(Map<String, dynamic> map) {
 //     return StepperItem(
 //       active: map['active'] as bool,
 //       complete: map['complete'] as bool,
 //     );
 //   }
 //
-// //</editor-fold>
+//  
 // }
 //
 // /// Callback is fired when a step is reached.

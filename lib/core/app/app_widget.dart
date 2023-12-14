@@ -1,19 +1,21 @@
 import 'package:drawable_text/drawable_text.dart';
-
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:image_multi_type/image_multi_type.dart';
 
-import '../../main.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import '../../features/form/bloc/get_form_cubit/get_form_cubit.dart';
+import '../../features/form/bloc/update_r_list_cubit/update_r_list_cubit.dart';
+import '../../features/splash/bloc/load_data_cubit/load_data_cubit.dart';
+import '../../generated/l10n.dart';
 import '../../router/app_router.dart';
 import '../app_theme.dart';
-import '../injection/injection_container.dart' as di;
 import '../injection/injection_container.dart';
 import '../strings/app_color_manager.dart';
 import '../util/shared_preferences.dart';
 import 'bloc/loading_cubit.dart';
-import 'package:image_multi_type/image_multi_type.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
@@ -30,7 +32,6 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   void initState() {
-
     setImageMultiTypeErrorImage(
       const Opacity(
         opacity: 0.3,
@@ -51,29 +52,9 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    final loading = Builder(builder: (_) {
-      return Visibility(
-        visible: context.watch<LoadingCubit>().state.isLoading,
-        child: SafeArea(
-          child: Column(
-            children: [
-              const LinearProgressIndicator(),
-              Expanded(
-                child: Container(
-                  color: Colors.black.withOpacity(0.4),
-                ),
-              ),
-            ],
-          ),
-        ),
-      );
-    });
-
     return ScreenUtilInit(
       designSize: const Size(375, 812),
-      // designSize: const Size(14440, 972),
       minTextAdapt: true,
-      // splitScreenMode: true,
       builder: (context, child) {
         DrawableText.initial(
           headerSizeText: 28.0.sp,
@@ -88,6 +69,23 @@ class _MyAppState extends State<MyApp> {
         return MaterialApp(
           navigatorKey: sl<GlobalKey<NavigatorState>>(),
           locale: Locale(AppSharedPreference.getLocal),
+          localizationsDelegates: const [
+            S.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          supportedLocales: S.delegate.supportedLocales,
+          builder: (context, child) {
+            return MultiBlocProvider(
+              providers: [
+                BlocProvider(create: (_) => sl<LoadDataCubit>()),
+                BlocProvider(create: (_) => sl<UpdateRListCubit>()),
+                BlocProvider(create: (_) => sl<GetFormCubit>()),
+              ],
+              child: child!,
+            );
+          },
           scrollBehavior: MyCustomScrollBehavior(),
           debugShowCheckedModeBanner: false,
           theme: appTheme,

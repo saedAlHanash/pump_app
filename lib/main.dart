@@ -11,14 +11,38 @@ import 'core/app/app_widget.dart';
 import 'core/app/bloc/loading_cubit.dart';
 import 'core/injection/injection_container.dart' as di;
 import 'core/util/shared_preferences.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/adapters.dart';
 
 //adb shell setprop debug.firebase.analytics.app com.slf.pump_app
-final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+
+
+final  loggerObject = Logger(
+  printer: PrettyPrinter(
+    methodCount: 0,
+    // number of method calls to be displayed
+    errorMethodCount: 0,
+    // number of method calls if stacktrace is provided
+    lineLength: 300,
+    // width of the output
+    colors: true,
+    // Colorful log messages
+    printEmojis: false,
+    // Print an emoji for each log message
+    printTime: false,
+  ),
+);
+late Box<String> memberBox;
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await di.init();
+
+
+await Hive.initFlutter();
+
 
   await SharedPreferences.getInstance().then((value) {
     AppSharedPreference.init(value);

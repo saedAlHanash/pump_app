@@ -1,14 +1,14 @@
 import 'dart:convert';
 
+import 'package:excel/excel.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
+import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
-import 'package:pump_app/core/util/shared_preferences.dart';
-
-
+import 'package:pump_app/features/db/models/item_model.dart';
+import 'package:collection/collection.dart';
+import '../../features/db/models/app_specification.dart';
 import '../strings/enum_manager.dart';
-import '../util/pair_class.dart';
-import '../util/snack_bar_message.dart';
+import '../widgets/spinner_widget.dart';
 
 extension SplitByLength on String {
   List<String> splitByLength1(int length, {bool ignoreEmpty = false}) {
@@ -62,18 +62,60 @@ extension SplitByLength on String {
     return '0$this';
   }
 
-  String get formatPrice => '$this ${AppSharedPreference.currency}';
-
   bool get isZero => (num.tryParse(this) ?? 0) == 0;
 
-
   String get removeSpace => replaceAll(' ', '');
+
+  Questions get getQ => Questions.fromJson(jsonDecode(this));
+
+  Future<List<SpinnerItem>> getDataSureSpinnerItems({String? selectedId}) async {
+    final box = await Hive.openBox<String>(this);
+    return box.values
+        .map(
+          (e) => ItemModel.fromJson(jsonDecode(e)).getSpinnerItem(
+            selectedId: selectedId,
+          ),
+        )
+        .toList();
+  }
+
+//dataSource
+  Future<List<SpinnerItem>> getRListDataSureSpinnerItems(
+      {String? selectedId, Questions? related}) async {
+    if (related == null) return [];
+
+    final box = await Hive.openBox<String>(this);
+    final list = box.values
+        .map(
+          (e) => ItemModel.fromJson(jsonDecode(e)).getSpinnerItem(
+            selectedId: selectedId,
+          ),
+        )
+        .toList();
+
+    list.removeWhere((e) => e.fId != related.answer?.id);
+    return list;
+  }
 }
 
 extension StringHelper on String? {
   bool get isBlank {
     if (this == null) return true;
     return this!.replaceAll(' ', '').isEmpty;
+  }
+
+  QType get getQType {
+    if (this == 'List') return QType.list;
+    if (this == 'R_List') return QType.rList;
+    if (this == 'String') return QType.string;
+    if (this == 'L-String') return QType.lString;
+    if (this == 'Date') return QType.date;
+    if (this == 'Number') return QType.number;
+    if (this == 'M_checkbox') return QType.mCheckbox;
+    if (this == 'Table') return QType.table;
+    if (this == 'Yes/No') return QType.yesOrNo;
+    if (this == 'Header') return QType.header;
+    return QType.header;
   }
 }
 
@@ -83,6 +125,30 @@ extension MaxInt on num {
   int get max => 2147483647;
 
   String get formatPrice => oCcy.format(this);
+}
+
+extension ListHelper on List<Data?> {
+  String getValueOrNull(int i) {
+    if (isEmpty) return '';
+    if (i >= length) return '';
+    if (i < 0) return '';
+    return this[i]?.value.toString() ?? '';
+  }
+}
+
+extension SheetHelper on Sheet {
+  Future<void> saveInHive() async {
+    final Box<String> box = await Hive.openBox(sheetName);
+    box.clear();
+    for (List<Data?> e in rows) {
+      await box.add(
+        maxColumns > 3
+            ? jsonEncode(Questions.fromData(e))
+            : jsonEncode(ItemModel.fromData(e)),
+      );
+    }
+    box.close();
+  }
 }
 
 extension HelperJson on Map<String, dynamic> {
@@ -215,6 +281,12 @@ extension GetDateTimesBetween on DateTime {
       current = current.add(period);
     }
     return dateTimes;
+  }
+}
+
+extension ListRelated on List<Questions> {
+  void clearRelated(String qId) {
+
   }
 }
 

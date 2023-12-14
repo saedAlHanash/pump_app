@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 
 import '../strings/enum_manager.dart';
 
-abstract class AbstractCubit<T> extends Equatable {
+abstract class AbstractCubit<T>{
   final CubitStatuses statuses;
   final String error;
   final T result;
