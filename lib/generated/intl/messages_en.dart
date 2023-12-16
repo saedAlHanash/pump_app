@@ -108,6 +108,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "governor": MessageLookupByLibrary.simpleMessage("governor"),
         "haveBeenCreated": MessageLookupByLibrary.simpleMessage(
             "Your Account Had Been Created"),
+        "history": MessageLookupByLibrary.simpleMessage("السجل"),
         "home": MessageLookupByLibrary.simpleMessage("Home"),
         "homeAddress": MessageLookupByLibrary.simpleMessage("Home Address"),
         "hours": MessageLookupByLibrary.simpleMessage("Hours"),
@@ -115,6 +116,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "language": MessageLookupByLibrary.simpleMessage("Language"),
         "lastName": MessageLookupByLibrary.simpleMessage("Last name"),
         "loadData": MessageLookupByLibrary.simpleMessage("Load Data"),
+        "loadData1": MessageLookupByLibrary.simpleMessage("تحميل ملفات"),
         "location": MessageLookupByLibrary.simpleMessage("Location"),
         "login": MessageLookupByLibrary.simpleMessage("Login"),
         "logout": MessageLookupByLibrary.simpleMessage("Logout"),
@@ -199,12 +201,14 @@ class MessageLookup extends MessageLookupByLibrary {
             "Sign In With Social Networks:"),
         "signUp": MessageLookupByLibrary.simpleMessage("Sign Up"),
         "sizes": MessageLookupByLibrary.simpleMessage("Sizes"),
+        "startForm": MessageLookupByLibrary.simpleMessage("استبيان جديد"),
         "subtotal": MessageLookupByLibrary.simpleMessage("Subtotal"),
         "successfully": MessageLookupByLibrary.simpleMessage("Successfully."),
         "support": MessageLookupByLibrary.simpleMessage("Support"),
         "termsAndConditions":
             MessageLookupByLibrary.simpleMessage("Terms And Conditions"),
         "update": MessageLookupByLibrary.simpleMessage("update"),
+        "updateData": MessageLookupByLibrary.simpleMessage("تحديث الملفات"),
         "useCurrentLocation":
             MessageLookupByLibrary.simpleMessage("Use Current Location"),
         "userName": MessageLookupByLibrary.simpleMessage("Username"),

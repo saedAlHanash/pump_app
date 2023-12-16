@@ -23,38 +23,8 @@ import '../../../../generated/l10n.dart';
 import '../../../../router/app_router.dart';
 import '../../bloc/load_data_cubit/load_data_cubit.dart';
 
-class SplashScreenPage extends StatefulWidget {
-  const SplashScreenPage({Key? key}) : super(key: key);
-
-  @override
-  State<SplashScreenPage> createState() => _SplashScreenPageState();
-}
-
-class _SplashScreenPageState extends State<SplashScreenPage> {
-  @override
-  void initState() {
-    Future.delayed(
-      const Duration(seconds: 2),
-      () {
-        if (!AppSharedPreference.isLoadData) {
-          Navigator.pushReplacementNamed(context, RouteName.loadData);
-          return;
-        }
-        if (AppSharedPreference.getMyId == '0') {
-          Navigator.pushReplacementNamed(context, RouteName.login);
-        } else {
-          Navigator.pushNamedAndRemoveUntil(context, RouteName.home, (route) => false);
-        }
-      },
-    );
-
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
+class LoadData extends StatelessWidget {
+  const LoadData({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -64,11 +34,26 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
         Navigator.pushReplacementNamed(context, RouteName.splash);
       },
       child: Scaffold(
-        body: Center(
-          child: ImageMultiType(
-            url: Icons.water_drop,
-            height: 250.0.r,
-            width: 250.0.r,
+        body: Container(
+          width: 1.0.sw,
+          padding: MyStyle.authPagesPadding,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              BlocBuilder<LoadDataCubit, LoadDataInitial>(
+                builder: (context, state) {
+                  return MyButton(
+                    onTap: () {
+                      context.read<LoadDataCubit>().setDBData();
+                    },
+                    child: DrawableText(
+                      text: S.of(context).loadData,
+                      color: Colors.white,
+                    ),
+                  );
+                },
+              ),
+            ],
           ),
         ),
       ),

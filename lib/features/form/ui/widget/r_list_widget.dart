@@ -24,7 +24,6 @@ class RListWidget extends StatelessWidget {
         if (!snapShot.hasData) {
           return MyStyle.loadingWidget();
         }
-
         return SpinnerWidget(
           hintText: q.qstLabel,
           width: 0.9.sw,

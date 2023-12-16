@@ -1569,6 +1569,46 @@ class S {
       args: [],
     );
   }
+
+  /// `تحديث الملفات`
+  String get updateData {
+    return Intl.message(
+      'تحديث الملفات',
+      name: 'updateData',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `استبيان جديد`
+  String get startForm {
+    return Intl.message(
+      'استبيان جديد',
+      name: 'startForm',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `السجل`
+  String get history {
+    return Intl.message(
+      'السجل',
+      name: 'history',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `تحميل ملفات`
+  String get loadData1 {
+    return Intl.message(
+      'تحميل ملفات',
+      name: 'loadData1',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -4,10 +4,17 @@ import 'package:pump_app/core/strings/enum_manager.dart';
 import 'package:pump_app/features/auth/bloc/login_cubit/login_cubit.dart';
 import 'package:pump_app/features/auth/ui/pages/login_page.dart';
 import 'package:pump_app/features/form/ui/pages/chose_form_page.dart';
+import 'package:pump_app/features/history/ui/pages/answers_page.dart';
+import 'package:pump_app/features/home/ui/pages/home_screen.dart';
 
 import '../core/injection/injection_container.dart' as di;
+import '../core/injection/injection_container.dart';
+import '../features/db/models/app_specification.dart';
 import '../features/form/bloc/get_form_cubit/get_form_cubit.dart';
 import '../features/form/ui/pages/form_page.dart';
+import '../features/history/bloc/get_history_cubit/get_history_cubit.dart';
+import '../features/history/ui/pages/history_page.dart';
+import '../features/splash/ui/pages/load_data_page.dart';
 import '../features/splash/ui/pages/splash_screen_page.dart';
 
 class AppRoutes {
@@ -50,7 +57,43 @@ class AppRoutes {
       case RouteName.startForm:
         //region
         return MaterialPageRoute(
-            builder: (_) => const StartForm());
+          builder: (_) => StartForm(
+            pageNumber: settings.arguments == null ? 0 : settings.arguments as int,
+          ),
+        );
+      //endregion
+
+      //endregion
+
+      //region home
+
+      case RouteName.home:
+        //region
+        return MaterialPageRoute(builder: (_) => const HomeScreen());
+      //endregion
+
+      //endregion
+
+      //region history
+
+      case RouteName.history:
+        //region
+        return MaterialPageRoute(
+            builder: (_) => MultiBlocProvider(
+                  providers: [
+                    BlocProvider(
+                        create: (_) => di.sl<GetHistoryCubit>()..getAllHistory()),
+                  ],
+                  child: const HistoryPage(),
+                ));
+
+      //endregion
+      case RouteName.answers:
+        //region
+        return MaterialPageRoute(
+          builder: (_) =>
+              AnswersPage(list: (settings.arguments ?? <Questions>[]) as List<Questions>),
+        );
       //endregion
 
       //endregion
@@ -66,4 +109,7 @@ class RouteName {
   static const login = '/2';
   static const choseForm = '/3';
   static const startForm = '/4';
+  static const history = '/5';
+  static const home = '/6';
+  static const answers = '/7';
 }

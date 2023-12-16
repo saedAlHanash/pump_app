@@ -20,7 +20,13 @@ enum QType {
   mCheckbox,
   table,
   yesOrNo,
-  header
+  header,
 }
 
+enum HomeCards {
+  loadData,
+  updateData,
+  startForm,
+  history,
+}
 enum StartPage { login, home, otp, passwordOtp, resetPassword }

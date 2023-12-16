@@ -5,24 +5,44 @@ import 'package:pump_app/core/extensions/extensions.dart';
 
 import '../../../../core/util/my_style.dart';
 import '../../../../core/widgets/my_text_form_widget.dart';
+import '../../../../core/widgets/q_header_widget.dart';
 import '../../../../core/widgets/spinner_widget.dart';
 import '../../../db/models/app_specification.dart';
+import '../../../db/models/item_model.dart';
 import '../../bloc/get_form_cubit/get_form_cubit.dart';
 
-class StringWidget extends StatelessWidget {
+class StringWidget extends StatefulWidget {
   const StringWidget({super.key, required this.q});
 
   final Questions q;
 
   @override
+  State<StringWidget> createState() => _StringWidgetState();
+}
+
+class _StringWidgetState extends State<StringWidget> {
+  late final TextEditingController controller;
+
+  @override
+  void initState() {
+    controller = TextEditingController(text: widget.q.answer?.name);
+    widget.q.answer ??= ItemModel.fromJson({});
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return MyTextFormOutLineWidget(
-      label: q.qstLabel,
-      isRequired: q.isRequired,
-      controller: TextEditingController(text: q.answer?.id),
-      onChanged: (val) {
-        q.answer?.id = val;
-      },
+    return Column(
+      children: [
+        QHeaderWidget(q: widget.q),
+        MyTextFormOutLineWidget(
+          isRequired: widget.q.isRequired,
+          controller: controller,
+          onChanged: (val) {
+            widget.q.answer?.name = val;
+          },
+        ),
+      ],
     );
   }
 }

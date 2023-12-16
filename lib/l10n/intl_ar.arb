@@ -149,7 +149,10 @@
   "myLocation": "موقعي الحالي",
   "yourLocation": "موقعك",
   "badCredential": "اسم المستخدم أو كلمة المرور غير صحيحة",
-  "loadData": "تحميل الملفات المطلوبة"
+  "updateData": "تحديث الملفات",
+  "startForm": "استبيان جديد",
+  "history": "السجل",
+  "loadData": "تحميل ملفات"
 
 
 

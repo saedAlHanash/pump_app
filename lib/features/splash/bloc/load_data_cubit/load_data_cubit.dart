@@ -19,8 +19,8 @@ class LoadDataCubit extends Cubit<LoadDataInitial> {
 
   void setDBData() async {
     final exlFile = await FilePicker.platform.pickFiles(
-      // allowedExtensions: ['xlsx'],
-      // type: FileType.custom,
+      allowedExtensions: ['xlsx'],
+      type: FileType.custom,
     );
 
     if (exlFile != null) {
@@ -32,6 +32,29 @@ class LoadDataCubit extends Cubit<LoadDataInitial> {
       emit(state.copyWith(statuses: CubitStatuses.loading));
       for (var e in excel.sheets.values) {
         e.saveInHive();
+      }
+      AppSharedPreference.loadData();
+      emit(state.copyWith(statuses: CubitStatuses.done));
+    } else {
+      emit(state.copyWith(statuses: CubitStatuses.error, error: 'File Error'));
+      // User canceled the picker
+    }
+  }
+  void updateDBData() async {
+    final exlFile = await FilePicker.platform.pickFiles(
+      allowedExtensions: ['xlsx'],
+      type: FileType.custom,
+    );
+
+    if (exlFile != null) {
+      File file = File(exlFile.files.single.path!);
+
+      var bytes = file.readAsBytesSync();
+      var excel = Excel.decodeBytes(bytes);
+
+      emit(state.copyWith(statuses: CubitStatuses.loading));
+      for (var e in excel.sheets.values) {
+        e.updateInHive();
       }
       AppSharedPreference.loadData();
       emit(state.copyWith(statuses: CubitStatuses.done));

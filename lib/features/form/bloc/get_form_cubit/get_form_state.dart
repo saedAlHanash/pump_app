@@ -1,12 +1,12 @@
 part of 'get_form_cubit.dart';
 
-class GetFormInitial extends AbstractCubit<List<Questions>> {
-  final int request;
+class GetFormInitial extends AbstractCubit<List<List<Questions>>> {
+  final Map<String, List<Questions>> allFormes;
 
   const GetFormInitial({
     required super.result,
     super.error,
-    required this.request,
+    required this.allFormes,
     super.statuses,
   });
 
@@ -14,25 +14,25 @@ class GetFormInitial extends AbstractCubit<List<Questions>> {
     return const GetFormInitial(
       result: [],
       error: '',
-      request:0,
+      allFormes: {},
       statuses: CubitStatuses.init,
     );
   }
 
   // @override
-  // List<Object> get props => [statuses, result, error,request];
+  // List<Object> get props => [statuses, result, error,allFormes];
 
   GetFormInitial copyWith({
     CubitStatuses? statuses,
-    List<Questions>? result,
+    List<List<Questions>>? result,
     String? error,
-    int? request,
+    Map<String, List<Questions>>? allFormes,
   }) {
     return GetFormInitial(
       statuses: statuses ?? this.statuses,
       result: result ?? this.result,
       error: error ?? this.error,
-      request: request ?? this.request,
+      allFormes: allFormes ?? this.allFormes,
     );
   }
 }

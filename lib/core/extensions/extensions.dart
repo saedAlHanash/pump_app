@@ -4,9 +4,11 @@ import 'package:excel/excel.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
+import 'package:pump_app/core/strings/app_string_manager.dart';
 import 'package:pump_app/features/db/models/item_model.dart';
 import 'package:collection/collection.dart';
 import '../../features/db/models/app_specification.dart';
+import '../../generated/l10n.dart';
 import '../strings/enum_manager.dart';
 import '../widgets/spinner_widget.dart';
 
@@ -128,7 +130,7 @@ extension MaxInt on num {
 }
 
 extension ListHelper on List<Data?> {
-  String getValueOrNull(int i) {
+  String getValueOrEmpty(int i) {
     if (isEmpty) return '';
     if (i >= length) return '';
     if (i < 0) return '';
@@ -142,11 +144,33 @@ extension SheetHelper on Sheet {
     box.clear();
     for (List<Data?> e in rows) {
       await box.add(
-        maxColumns > 3
+        sheetName == AppStringManager.formTable
             ? jsonEncode(Questions.fromData(e))
             : jsonEncode(ItemModel.fromData(e)),
       );
     }
+    box.close();
+  }
+
+  Future<void> updateInHive() async {
+    final Box<String> box = await Hive.openBox(sheetName);
+    final String key = sheetName == AppStringManager.formTable
+        ? rows.firstOrNull?.getValueOrEmpty(5) ?? ''
+        : rows.firstOrNull?.getValueOrEmpty(1) ?? '';
+
+    if (key.isEmpty) box.clear();
+
+    for (List<Data?> e in rows) {
+      final key = sheetName == AppStringManager.formTable
+          ? e.getValueOrEmpty(5)
+          : e.getValueOrEmpty(1);
+      if (key.isEmpty) {
+        await box.add(jsonEncode(Questions.fromData(e)));
+      } else {
+        await box.put(key, jsonEncode(Questions.fromData(e)));
+      }
+    }
+
     box.close();
   }
 }
@@ -285,8 +309,40 @@ extension GetDateTimesBetween on DateTime {
 }
 
 extension ListRelated on List<Questions> {
-  void clearRelated(String qId) {
+  void clearRelated(String qId) {}
+}
 
+extension EnumHelper on Enum {
+  String get arabicName {
+    if (this is HomeCards) {
+      switch (this as HomeCards) {
+        case HomeCards.loadData:
+          return S().loadData;
+        case HomeCards.updateData:
+          return S().updateData;
+        case HomeCards.startForm:
+          return S().startForm;
+        case HomeCards.history:
+          return S().history;
+      }
+    }
+    return '';
+  }
+
+  dynamic get icon {
+    if (this is HomeCards) {
+      switch (this as HomeCards) {
+        case HomeCards.loadData:
+          return Icons.file_copy_sharp;
+        case HomeCards.updateData:
+          return Icons.refresh;
+        case HomeCards.startForm:
+          return Icons.format_align_center;
+        case HomeCards.history:
+          return Icons.history;
+      }
+    }
+    return '';
   }
 }
 

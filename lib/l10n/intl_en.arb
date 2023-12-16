@@ -150,5 +150,10 @@
   "myLocation": "My Location",
   "yourLocation": "Your Location",
   "badCredential": "Bad Credential",
-  "loadData": "Load Data"
+  "loadData": "Load Data",
+  "updateData": "تحديث الملفات",
+  "startForm": "استبيان جديد",
+  "history": "السجل",
+  "loadData1": "تحميل ملفات"
+
 }

@@ -58,7 +58,7 @@ class NoteMessage {
     );
   }
 
-  static Future<bool> showBottomSheet1(BuildContext context, Widget child) async {
+  static Future<dynamic> showBottomSheet1(BuildContext context, Widget child) async {
     final result = await showModalBottomSheet(
       isScrollControlled: true,
       context: context,
@@ -72,10 +72,8 @@ class NoteMessage {
       builder: (context) => child,
     );
 
-    return result ?? false;
+    return result;
   }
-
-
 
   static Future<bool> showErrorDialog(BuildContext context,
       {required String text, bool tryAgne = true}) async {
@@ -203,7 +201,6 @@ class NoteMessage {
       desc: message,
     ).show();
   }
-
 
   static Future<bool> showImageDialog(
     BuildContext context, {

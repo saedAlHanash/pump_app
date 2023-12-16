@@ -46,28 +46,19 @@ class SpinnerWidgetState<T> extends State<SpinnerWidget<T>> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Row(
-          children: [
-            Container(color: AppColorManager.mainColor, height: .8.h, width: .04.sw),
-            3.0.horizontalSpace,
-            DrawableText(
-              text: widget.hintText ?? '',
-              color: AppColorManager.gray,
-              size: 14.0.sp,
-              fontFamily: FontManager.cairo,
-              drawableStart: widget.isRequired
-                  ? DrawableText(
-                      text: ' * ',
-                      color: Colors.red,
-                      drawablePadding: 5.0.w,
-                    )
-                  : null,
-            ),
-            3.0.horizontalSpace,
-            Expanded(
-              child: Container(color: AppColorManager.mainColor, height: .8.h),
-            )
-          ],
+        DrawableText(
+          text: widget.hintText ?? '',
+          color: AppColorManager.gray,
+          size: 14.0.sp,
+          matchParent: true,
+          fontFamily: FontManager.cairo,
+          drawableStart: widget.isRequired
+              ? DrawableText(
+                  text: ' * ',
+                  color: Colors.red,
+                  drawablePadding: 5.0.w,
+                )
+              : null,
         ),
         DropdownButton2(
           items: widget.items.map(
@@ -87,9 +78,8 @@ class SpinnerWidgetState<T> extends State<SpinnerWidget<T>> {
                           ? Colors.black
                           : AppColorManager.gray.withOpacity(0.7)
                       : AppColorManager.gray.withOpacity(0.7),
-                  fontFamily: FontManager.cairoBold,
                   drawableStart: item.icon,
-                  drawablePadding: 15.0.w,
+                  drawablePadding: item.icon != null ? 15.0.w : null,
                 ),
               );
             },
@@ -108,14 +98,19 @@ class SpinnerWidgetState<T> extends State<SpinnerWidget<T>> {
           },
           buttonStyleData: ButtonStyleData(
             width: widget.width,
-            height: 40.0.h,
-            decoration: widget.decoration ?? const BoxDecoration(),
+            height: 60.0.h,
+            decoration: widget.decoration ??
+                BoxDecoration(
+                  borderRadius: BorderRadius.circular(12.0.r),
+                  color: AppColorManager.f1.withOpacity(0.5),
+                ),
+            padding: const EdgeInsets.only(right: 10.0).w,
             elevation: 0,
           ),
           dropdownStyleData: DropdownStyleData(
             width: widget.dropdownWidth,
             maxHeight: 0.6.sh,
-            padding: const EdgeInsets.only(bottom: 50.0).h,
+            padding: const EdgeInsets.only(bottom: 10.0).h,
             useSafeArea: true,
             elevation: 2,
             isOverButton: widget.isOverButton ?? false,
@@ -130,13 +125,12 @@ class SpinnerWidgetState<T> extends State<SpinnerWidget<T>> {
                 18.0.horizontalSpace,
               ],
             ),
-            iconSize: 35.0.spMin,
+            iconSize: 25.0.spMin,
           ),
           isExpanded: widget.expanded ?? false,
           customButton: widget.customButton,
           underline: 0.0.verticalSpace,
         ),
-        Container(color: AppColorManager.mainColor, height: 1.0.h, width: 1.0.sw),
         20.0.verticalSpace,
       ],
     );

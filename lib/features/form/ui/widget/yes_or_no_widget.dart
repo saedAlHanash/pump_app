@@ -21,12 +21,18 @@ class YesNoWidget extends StatelessWidget {
       isRequired: q.isRequired,
       items: [
         SpinnerItem(
-          item: ItemModel.fromJson({'1': 'true'}),
+          item: ItemModel.fromJson({
+            '1': 'true',
+            '2': 'true',
+          }),
           isSelected: q.answer?.id == 'true',
           name: 'نعم',
         ),
         SpinnerItem(
-          item: ItemModel.fromJson({'1': 'false'}),
+          item: ItemModel.fromJson({
+            '1': 'false',
+            '2': 'false',
+          }),
           isSelected: q.answer?.id == 'false',
           name: 'لا',
         ),

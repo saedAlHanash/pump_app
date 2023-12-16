@@ -108,14 +108,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "governor": MessageLookupByLibrary.simpleMessage("المحافظة"),
         "haveBeenCreated":
             MessageLookupByLibrary.simpleMessage("تم إنشاء حسابك"),
+        "history": MessageLookupByLibrary.simpleMessage("السجل"),
         "home": MessageLookupByLibrary.simpleMessage("الرئيسية"),
         "homeAddress": MessageLookupByLibrary.simpleMessage("عنوان المنزل"),
         "hours": MessageLookupByLibrary.simpleMessage("ساعات"),
         "is_required": MessageLookupByLibrary.simpleMessage("مطلوب"),
         "language": MessageLookupByLibrary.simpleMessage("اللغة"),
         "lastName": MessageLookupByLibrary.simpleMessage("الاسم الأخير"),
-        "loadData":
-            MessageLookupByLibrary.simpleMessage("تحميل الملفات المطلوبة"),
+        "loadData": MessageLookupByLibrary.simpleMessage("تحميل ملفات"),
         "location": MessageLookupByLibrary.simpleMessage("الموقع"),
         "login": MessageLookupByLibrary.simpleMessage("تسجيل الدخول"),
         "logout": MessageLookupByLibrary.simpleMessage("تسجيل الخروج"),
@@ -197,12 +197,14 @@ class MessageLookup extends MessageLookupByLibrary {
             "تسجيل الدخول باستخدام الشبكات الاجتماعية:"),
         "signUp": MessageLookupByLibrary.simpleMessage("الاشتراك"),
         "sizes": MessageLookupByLibrary.simpleMessage("الأحجام"),
+        "startForm": MessageLookupByLibrary.simpleMessage("استبيان جديد"),
         "subtotal": MessageLookupByLibrary.simpleMessage("المجموع الفرعي"),
         "successfully": MessageLookupByLibrary.simpleMessage("بنجاح."),
         "support": MessageLookupByLibrary.simpleMessage("الدعم"),
         "termsAndConditions":
             MessageLookupByLibrary.simpleMessage("الشروط والأحكام"),
         "update": MessageLookupByLibrary.simpleMessage("تعديل"),
+        "updateData": MessageLookupByLibrary.simpleMessage("تحديث الملفات"),
         "useCurrentLocation":
             MessageLookupByLibrary.simpleMessage("استخدم الموقع الحالي"),
         "userName": MessageLookupByLibrary.simpleMessage("اسم المستخدم"),
