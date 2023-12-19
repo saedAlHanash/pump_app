@@ -76,7 +76,7 @@ class _ItemCardWidgetState extends State<ItemCardWidget> {
         }
       },
       child: MyCardWidget(
-          cardColor: AppColorManager.cardColor,
+          cardColor: AppColorManager.mainColor,
           elevation: 0.0,
           padding: EdgeInsets.zero,
           margin: const EdgeInsets.all(10.0).r,
@@ -89,12 +89,13 @@ class _ItemCardWidgetState extends State<ItemCardWidget> {
                 ImageMultiType(
                   url: widget.item.icon,
                   height: 70.0.r,
+                  color: Colors.white,
                   width: 70.0.r,
                 ),
                 10.0.verticalSpace,
                 DrawableText(
                   text: widget.item.arabicName,
-                  color: AppColorManager.mainColorDark,
+                  color: AppColorManager.whit,
                   fontFamily: FontManager.cairoBold,
                 ),
               ],

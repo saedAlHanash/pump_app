@@ -16,9 +16,11 @@ import 'package:excel/excel.dart';
 import 'package:pump_app/core/widgets/my_button.dart';
 import 'package:pump_app/features/db/models/abstract_model.dart';
 import 'package:pump_app/main.dart';
+import '../../../../core/strings/app_color_manager.dart';
 import '../../../../core/strings/enum_manager.dart';
 import '../../../../core/util/my_style.dart';
 import 'package:file_picker/file_picker.dart';
+import '../../../../generated/assets.dart';
 import '../../../../generated/l10n.dart';
 import '../../../../router/app_router.dart';
 import '../../bloc/load_data_cubit/load_data_cubit.dart';
@@ -64,11 +66,13 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
         Navigator.pushReplacementNamed(context, RouteName.splash);
       },
       child: Scaffold(
+        backgroundColor: AppColorManager.mainColor,
         body: Center(
           child: ImageMultiType(
-            url: Icons.water_drop,
+            url: Assets.iconsNoTextLogo,
             height: 250.0.r,
             width: 250.0.r,
+            color: Colors.white,
           ),
         ),
       ),

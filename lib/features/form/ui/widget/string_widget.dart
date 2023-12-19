@@ -25,8 +25,7 @@ class _StringWidgetState extends State<StringWidget> {
 
   @override
   void initState() {
-    controller = TextEditingController(text: widget.q.answer?.name);
-    widget.q.answer ??= ItemModel.fromJson({});
+    controller = TextEditingController(text: widget.q.answer?.id);
     super.initState();
   }
 
@@ -39,7 +38,7 @@ class _StringWidgetState extends State<StringWidget> {
           isRequired: widget.q.isRequired,
           controller: controller,
           onChanged: (val) {
-            widget.q.answer?.name = val;
+            context.read<GetFormCubit>().setAnswer(widget.q, sAnswer: val);
           },
         ),
       ],

@@ -12,11 +12,13 @@ import 'package:pump_app/features/form/ui/widget/list_string_widget.dart';
 import 'package:pump_app/features/form/ui/widget/list_widget.dart';
 import 'package:pump_app/features/form/ui/widget/number_widget.dart';
 import 'package:pump_app/features/form/ui/widget/r_list_widget.dart';
+import 'package:pump_app/features/history/ui/widget/table_answer_widget.dart';
 
 import '../../form/ui/widget/string_widget.dart';
-import '../../form/ui/widget/table_answer_widget.dart';
+import '../../history/ui/widget/list_answer_widget.dart';
+import '../../history/ui/widget/string_answer_widget.dart';
+
 import '../../form/ui/widget/table_widget.dart';
-import '../../form/ui/widget/yes_or_no_widget.dart';
 
 class Questions {
   Questions({
@@ -32,6 +34,9 @@ class Questions {
     required this.rListQstId,
     required this.tableNumber,
     required this.isRequired,
+    required this.relatedAnswer,
+    required this.valueAnswer,
+    required this.isVisible,
     this.answer,
   });
 
@@ -47,13 +52,25 @@ class Questions {
   final String rListQstId;
   final String tableNumber;
   final bool isRequired;
-
-  //-------
+  final String relatedAnswer;
+  final String valueAnswer;
 
   ItemModel? answer;
 
+  bool isVisible = true;
+
+  bool get needUpdateRelatedQst => relatedAnswer.isNotEmpty;
+
   Widget get getWidget {
     if (tableNumber.isNotEmpty && qstType != QType.table) {
+      return 0.0.verticalSpace;
+    }
+
+    if (qstType == QType.helperLink) {
+      return 0.0.verticalSpace;
+    }
+
+    if (!isVisible) {
       return 0.0.verticalSpace;
     }
 
@@ -74,10 +91,10 @@ class Questions {
         return 0.0.verticalSpace;
       case QType.table:
         return TableWidget(q: this);
-      case QType.yesOrNo:
-        return YesNoWidget(q: this);
       case QType.header:
         return HeaderWidget(q: this);
+      case QType.helperLink:
+        return 0.0.verticalSpace;
     }
   }
 
@@ -99,63 +116,36 @@ class Questions {
         return 0.0.verticalSpace;
       case QType.table:
         return TableWidget(q: this);
-      case QType.yesOrNo:
-        return YesNoWidget(q: this);
       case QType.header:
         return HeaderWidget(q: this);
+      case QType.helperLink:
+        return 0.0.verticalSpace;
     }
   }
 
   Widget get getTableAnswerWidget {
     switch (qstType) {
       case QType.list:
-        return TableAnswerWidget(q: this);
+        return ListAnswerWidget(q: this);
       case QType.rList:
-        return TableAnswerWidget(q: this);
+        return ListAnswerWidget(q: this);
       case QType.string:
-        return TableAnswerWidget(q: this);
+        return StringAnswerWidget(q: this);
       case QType.lString:
-        return TableAnswerWidget(q: this);
+        return StringAnswerWidget(q: this);
       case QType.date:
-        return TableAnswerWidget(q: this);
+        return StringAnswerWidget(q: this);
       case QType.number:
-        return TableAnswerWidget(q: this);
+        return StringAnswerWidget(q: this);
       case QType.mCheckbox:
         return 0.0.verticalSpace;
       case QType.table:
-        return Column(
-          children: [
-            QHeaderWidget(q: this),
-            Container(
-              padding: const EdgeInsets.all(10.0).r,
-              decoration: BoxDecoration(
-                border: Border.all(color: AppColorManager.black),
-                borderRadius: BorderRadius.all(Radius.circular(12.0.r)),
-              ),
-              child: Column(
-                children: answer?.answers.map((e) {
-                      return Column(
-                        children: e.map((e1) => e1.getTableAnswerWidget).toList()
-                          ..add(const Divider()),
-                      );
-                    }).toList() ??
-                    <Widget>[
-                      Container(
-                        height: 20,
-                        width: 50,
-                        color: Colors.red,
-                      )
-                    ],
-              ),
-            ),
-          ],
-        );
-      case QType.yesOrNo:
         return TableAnswerWidget(q: this);
       case QType.header:
         return HeaderWidget(q: this);
+      case QType.helperLink:
+        return 0.0.verticalSpace;
     }
-    return 0.0.verticalSpace;
   }
 
   factory Questions.fromJson(Map<String, dynamic> map) {
@@ -164,7 +154,7 @@ class Questions {
       assessmentDate: DateTime.tryParse(map['1'] ?? ''),
       assessmentName: map['2'] ?? '',
       pageNu: map['3'] ?? '',
-      sequenceNo: int.tryParse(map['4'].toString() ?? '') ?? 0,
+      sequenceNo: int.tryParse(map['4']?.toString() ?? '0') ?? 0,
       qstId: map['5'] ?? '',
       qstLabel: map['6'] ?? '',
       qstType: QType.values[map['7'] ?? QType.header.index],
@@ -172,6 +162,9 @@ class Questions {
       rListQstId: map['9'] ?? '',
       tableNumber: map['10'] ?? '',
       isRequired: map['11'] ?? false,
+      relatedAnswer: map['12'] ?? '',
+      valueAnswer: map['13'] ?? '',
+      isVisible: map['isVisible'] ?? true,
       answer: map['answer'] == null ? null : ItemModel.fromJson(map['answer']),
     );
   }
@@ -191,6 +184,8 @@ class Questions {
         '9': e.getValueOrEmpty(9),
         '10': e.getValueOrEmpty(10),
         '11': e.getValueOrEmpty(11).isNotEmpty,
+        '12': e.getValueOrEmpty(12),
+        '13': e.getValueOrEmpty(13),
       },
     );
   }
@@ -209,6 +204,9 @@ class Questions {
       '9': rListQstId,
       '10': tableNumber,
       '11': isRequired,
+      '12': relatedAnswer,
+      '13': valueAnswer,
+      'isVisible': isVisible,
       'answer': answer?.toJson(),
     };
   }
@@ -225,7 +223,10 @@ class Questions {
     String? qstDatasource,
     String? rListQstId,
     String? tableNumber,
+    String? relatedAnswer,
+    String? valueAnswer,
     bool? isRequired,
+    bool? isVisible,
   }) {
     return Questions(
       assessmentNu: assessmentNu ?? this.assessmentNu,
@@ -240,21 +241,9 @@ class Questions {
       rListQstId: rListQstId ?? this.rListQstId,
       tableNumber: tableNumber ?? this.tableNumber,
       isRequired: isRequired ?? this.isRequired,
+      relatedAnswer: relatedAnswer ?? this.relatedAnswer,
+      valueAnswer: valueAnswer ?? this.valueAnswer,
+      isVisible: isVisible ?? this.isVisible,
     );
   }
 }
-// Column(
-// children: answer?.answers.map((e) {
-// return Column(
-// children: e.map((e1) => e1.getTableAnswerWidget).toList()
-// ..add(const Divider()),
-// );
-// }).toList() ??
-// <Widget>[
-// Container(
-// height: 20,
-// width: 50,
-// color: Colors.red,
-// )
-// ],
-// )

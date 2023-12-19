@@ -19,8 +19,8 @@ enum QType {
   number,
   mCheckbox,
   table,
-  yesOrNo,
   header,
+  helperLink,
 }
 
 enum HomeCards {

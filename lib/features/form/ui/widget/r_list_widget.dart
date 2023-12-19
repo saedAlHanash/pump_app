@@ -30,8 +30,7 @@ class RListWidget extends StatelessWidget {
           isRequired: q.isRequired,
           items: snapShot.data!,
           onChanged: (item) {
-            q.answer = item.item;
-            context.read<GetFormCubit>().clearRelated(qId: q.qstId);
+            context.read<GetFormCubit>().setAnswer(q, answer: item.item);
           },
         );
       },

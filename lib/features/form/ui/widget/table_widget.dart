@@ -1,5 +1,6 @@
 import 'package:drawable_text/drawable_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pump_app/core/util/snack_bar_message.dart';
 import 'package:pump_app/features/db/models/app_specification.dart';
@@ -7,6 +8,7 @@ import 'package:pump_app/features/form/ui/pages/form_table_page.dart';
 
 import '../../../../core/widgets/my_button.dart';
 import '../../../db/models/item_model.dart';
+import '../../bloc/get_form_cubit/get_form_cubit.dart';
 
 class TableWidget extends StatefulWidget {
   const TableWidget({super.key, required this.q});
@@ -18,11 +20,6 @@ class TableWidget extends StatefulWidget {
 }
 
 class _TableWidgetState extends State<TableWidget> {
-  @override
-  void initState() {
-    widget.q.answer ??= ItemModel.fromJson({});
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +46,8 @@ class _TableWidgetState extends State<TableWidget> {
             );
             if (list != null) {
               setState(() {
-                widget.q.answer!.answers.add(list);
+                context.read<GetFormCubit>().setAnswer(widget.q, answers: list);
+
               });
             }
           },

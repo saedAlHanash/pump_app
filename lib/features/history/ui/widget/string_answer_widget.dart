@@ -9,8 +9,8 @@ import '../../../../core/strings/app_color_manager.dart';
 
 import '../../../db/models/app_specification.dart';
 
-class TableAnswerWidget extends StatelessWidget {
-  const TableAnswerWidget({super.key, required this.q});
+class StringAnswerWidget extends StatelessWidget {
+  const StringAnswerWidget({super.key, required this.q});
 
   final Questions q;
 
@@ -28,7 +28,7 @@ class TableAnswerWidget extends StatelessWidget {
           padding: const EdgeInsets.all(7.0).r,
           margin: const EdgeInsets.only(top: 5.0, bottom: 10.0).h,
           child: DrawableText(
-            text: q.answer?.name ?? '',
+            text: q.answer?.id ?? '',
           ),
         ),
       ],

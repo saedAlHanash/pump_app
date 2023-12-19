@@ -1,3 +1,5 @@
+import 'package:collection/collection.dart';
+import 'package:drawable_text/drawable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pump_app/core/strings/app_color_manager.dart';
@@ -21,17 +23,26 @@ class IconStepperDemo extends StatelessWidget {
       }
     }
     return ImageStepper(
-      images: items.map(
-        (e) {
-
+      images: items.mapIndexed(
+        (i, e) {
+          if (!e.complete) {
+            return Container(
+              padding: const EdgeInsets.all(10.0).r,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(
+                  color: AppColorManager.mainColor,
+                  width: e.active ? 3.0 : 1.0,
+                ),
+              ),
+              child: DrawableText(text: '${i + 1}'),
+            );
+          }
           return ImageMultiType(
-            url: e.complete
-                ? Icons.check_circle_outline
-                : e.active
-                    ? Icons.radio_button_on_sharp
-                    : Icons.radio_button_off,
-            height: 20.0.sp,
-            width: 20.0.sp,
+            url: Icons.check_circle_outline,
+            color: e.complete ? Colors.green : null,
+            height: 25.0.sp,
+            width: 25.0.sp,
           );
         },
       ).toList(),
@@ -461,7 +472,7 @@ class BaseStepperState extends State<BaseStepper> {
   Widget _customizedDottedLine(int index, Axis axis) {
     return index < widget.children!.length - 1
         ? DottedLine(
-            length: widget.lineLength/1.5,
+            length: widget.lineLength / 1.5,
             color: widget.lineColor ?? Colors.blue,
             dotRadius: widget.lineDotRadius,
             spacing: 5.0,

@@ -61,7 +61,7 @@ class _StartFormState extends State<StartForm> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  if (widget.pageNumber < state.result.length - 1)
+                  if (widget.pageNumber < state.result.length )
                     Column(
                       children: state.result[widget.pageNumber]
                           .mapIndexed(

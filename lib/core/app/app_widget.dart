@@ -83,7 +83,6 @@ class _MyAppState extends State<MyApp> {
                 BlocProvider(create: (_) => sl<LoadDataCubit>()),
                 BlocProvider(create: (_) => sl<UpdateRListCubit>()),
                 BlocProvider(create: (_) => sl<GetFormCubit>()..getAllForm()),
-
               ],
               child: child!,
             );

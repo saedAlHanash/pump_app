@@ -115,7 +115,7 @@ extension StringHelper on String? {
     if (this == 'Number') return QType.number;
     if (this == 'M_checkbox') return QType.mCheckbox;
     if (this == 'Table') return QType.table;
-    if (this == 'Yes/No') return QType.yesOrNo;
+    if (this == 'HLP_LINK') return QType.helperLink;
     if (this == 'Header') return QType.header;
     return QType.header;
   }

@@ -27,8 +27,7 @@ class ListWidget extends StatelessWidget {
           isRequired: q.isRequired,
           items: snapShot.data!,
           onChanged: (item) {
-            q.answer = item.item;
-            context.read<GetFormCubit>().clearRelated(qId: q.qstId);
+            context.read<GetFormCubit>().setAnswer(q, answer: item.item);
           },
         );
       },
@@ -53,7 +52,7 @@ class ListTableAnswerWidget extends StatelessWidget {
               color: AppColorManager.f1.withOpacity(0.5),
             ),
             padding: const EdgeInsets.only(right: 10.0).w,
-            child: DrawableText(text: q.answer?.name ?? '')),
+            child: DrawableText(text: q.answer?.id ?? '')),
       ],
     );
   }

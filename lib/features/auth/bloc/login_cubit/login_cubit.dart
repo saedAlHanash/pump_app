@@ -5,7 +5,6 @@ import 'package:hive/hive.dart';
 import 'package:pump_app/core/extensions/extensions.dart';
 import 'package:pump_app/core/util/shared_preferences.dart';
 import 'package:pump_app/features/auth/data/request/login_request.dart';
-import 'package:pump_app/main.dart';
 
 import '../../../../core/error/error_manager.dart';
 import '../../../../core/strings/app_string_manager.dart';

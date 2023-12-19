@@ -38,12 +38,12 @@ class _LoginPageState extends State<LoginPage> {
     return BlocListener<LoginCubit, LoginInitial>(
       listenWhen: (p, c) => c.statuses == CubitStatuses.done,
       listener: (context, state) {
-        Navigator.pushNamedAndRemoveUntil(context, RouteName.choseForm, (route) => false);
+        Navigator.pushNamedAndRemoveUntil(context, RouteName.home, (route) => false);
       },
       child: Scaffold(
         appBar: const AppBarWidget(),
         body: SingleChildScrollView(
-        padding: MyStyle.authPagesPadding,
+          padding: MyStyle.authPagesPadding,
           child: Form(
             key: _formKey,
             child: Column(
@@ -98,4 +98,3 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 }
-
