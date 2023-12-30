@@ -22,12 +22,13 @@ class NotFoundWidget extends StatelessWidget {
           children: [
             ImageMultiType(
               url: icon,
-              height: 250.0.spMin,
-              width: 250.0.spMin,
+              height: 150.0.spMin,
+              width: 150.0.spMin,
             ),
+            23.0.verticalSpace,
             DrawableText(
               text: 'آسف !',
-              fontFamily: FontManager.cairoBold,
+              fontFamily: FontManager.cairoBold.name,
               color: Colors.black,
               size: 20.0.spMin,
             ),

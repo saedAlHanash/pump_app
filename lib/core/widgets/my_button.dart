@@ -36,13 +36,20 @@ class MyButton extends StatelessWidget {
         DrawableText(
           text: toUpper ? text.toUpperCase() : text,
           color: textColor ?? AppColorManager.whit,
-          fontFamily: FontManager.cairoBold,
+          fontFamily: FontManager.cairoBold.name,
         );
 
     return SizedBox(
       width: width ?? .9.sw,
       child: ElevatedButton(
         style: ButtonStyle(
+          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12.0.r),
+            ),
+          ),
+          elevation: MaterialStatePropertyAll(6.0.h),
+          shadowColor: MaterialStatePropertyAll(Colors.grey.withOpacity(0.66)),
           backgroundColor: MaterialStatePropertyAll(color ?? AppColorManager.mainColor),
           // padding: MaterialStatePropertyAll(padding),
           padding: MaterialStatePropertyAll(const EdgeInsets.symmetric(vertical: 13.0).r),

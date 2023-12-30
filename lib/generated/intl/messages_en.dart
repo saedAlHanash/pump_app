@@ -99,6 +99,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "expiration": MessageLookupByLibrary.simpleMessage("Expiration"),
         "faq": MessageLookupByLibrary.simpleMessage("F.A.q"),
         "fav": MessageLookupByLibrary.simpleMessage("Favorites"),
+        "fileHistory": MessageLookupByLibrary.simpleMessage("سجل الملفات"),
         "filters": MessageLookupByLibrary.simpleMessage("Filters"),
         "firstName": MessageLookupByLibrary.simpleMessage("first name"),
         "flash_deal": MessageLookupByLibrary.simpleMessage("Flash Deal"),

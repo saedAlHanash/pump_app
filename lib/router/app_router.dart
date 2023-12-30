@@ -14,6 +14,7 @@ import '../features/form/bloc/get_form_cubit/get_form_cubit.dart';
 import '../features/form/ui/pages/form_page.dart';
 import '../features/history/bloc/get_history_cubit/get_history_cubit.dart';
 import '../features/history/ui/pages/history_page.dart';
+import '../features/splash/ui/pages/files_page.dart';
 import '../features/splash/ui/pages/load_data_page.dart';
 import '../features/splash/ui/pages/splash_screen_page.dart';
 
@@ -74,6 +75,15 @@ class AppRoutes {
 
       //endregion
 
+      //region Files
+
+      case RouteName.files:
+        //region
+        return MaterialPageRoute(builder: (_) => const FilesPage());
+      //endregion
+
+      //endregion
+
       //region history
 
       case RouteName.history:
@@ -112,4 +122,5 @@ class RouteName {
   static const history = '/5';
   static const home = '/6';
   static const answers = '/7';
+  static const files = '/8';
 }

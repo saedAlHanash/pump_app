@@ -30,7 +30,20 @@ class GetHistoryCubit extends Cubit<GetHistoryInitial> {
     box.close();
   }
 
-  void deleteItem( int i) async {
+  Map<String, int> getQIds() {
+    final m = <String, int>{};
+    state.result.forEachIndexed(
+      (index, assessment) {
+        assessment.list.singleList.forEachIndexed((index, answer) {
+          if (m[answer.qstId] == null) m[answer.qstId] = m.length;
+        });
+      },
+    );
+
+    return m;
+  }
+
+  void deleteItem(int i) async {
     final box = await Hive.openBox<String>(AppStringManager.answerBox);
     box.deleteAt(i);
     state.result.removeAt(i);

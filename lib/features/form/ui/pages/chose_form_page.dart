@@ -10,6 +10,7 @@ import 'package:pump_app/core/widgets/my_button.dart';
 import '../../../../core/strings/app_color_manager.dart';
 import '../../../../core/util/my_style.dart';
 import '../../../../core/widgets/my_card_widget.dart';
+import '../../../../generated/assets.dart';
 import '../../../../router/app_router.dart';
 import '../../bloc/get_form_cubit/get_form_cubit.dart';
 
@@ -19,14 +20,16 @@ class ChoseFormePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppBarWidget(),
+      appBar: AppBarWidget(
+        titleText: 'الاستبيانات',
+      ),
       body: BlocBuilder<GetFormCubit, GetFormInitial>(
         builder: (context, state) {
           if (state.statuses.loading) {
             return MyStyle.loadingWidget();
           }
           return ListView(
-            padding: const EdgeInsets.symmetric(horizontal: 10.0).w,
+            padding: const EdgeInsets.all( 15.0).r,
             children: state.allFormes.values
                 .map(
                   (e) => GestureDetector(
@@ -36,21 +39,18 @@ class ChoseFormePage extends StatelessWidget {
                       Navigator.pushNamed(context, RouteName.startForm);
                     },
                     child: MyCardWidget(
-                      cardColor: AppColorManager.cardColor,
-                      elevation: 0.0,
-                      padding: EdgeInsets.zero,
-                      margin: const EdgeInsets.all(10.0).r,
-                      child: SizedBox(
-                        height: 152.0.h,
-                        width: 170.0.w,
-                        child: Center(
-                          child: DrawableText(
-                            textAlign: TextAlign.center,
-                            text: e.firstOrNull?.assessmentName ?? '',
-                            color: AppColorManager.mainColorDark,
-                            fontFamily: FontManager.cairoBold,
-                            matchParent: true,
-                            size: 12.0.sp,
+                      cardColor: AppColorManager.ee,
+                      elevation: 4.0,
+                      margin: const EdgeInsets.symmetric(vertical: 10.0).r,
+                      padding: const EdgeInsets.all(10.0).r,
+                      child: Center(
+                        child: DrawableText(
+                          matchParent: true,
+                          text: e.firstOrNull?.assessmentName ?? '',
+                          color: AppColorManager.black.withOpacity(0.7),
+                          drawableEnd: const ImageMultiType(
+                            url: Icons.keyboard_arrow_left_outlined,
+                            color: AppColorManager.mainColor,
                           ),
                         ),
                       ),

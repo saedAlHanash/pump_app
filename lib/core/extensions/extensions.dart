@@ -7,7 +7,9 @@ import 'package:intl/intl.dart';
 import 'package:pump_app/core/strings/app_string_manager.dart';
 import 'package:pump_app/features/db/models/item_model.dart';
 import 'package:collection/collection.dart';
+import 'package:pump_app/main.dart';
 import '../../features/db/models/app_specification.dart';
+import '../../generated/assets.dart';
 import '../../generated/l10n.dart';
 import '../strings/enum_manager.dart';
 import '../widgets/spinner_widget.dart';
@@ -95,7 +97,7 @@ extension SplitByLength on String {
         )
         .toList();
 
-    list.removeWhere((e) => e.fId != related.answer?.id);
+    list.removeWhere((e) => e.fId != related.answer?.answer);
     return list;
   }
 }
@@ -129,6 +131,10 @@ extension MaxInt on num {
   String get formatPrice => oCcy.format(this);
 }
 
+extension QTypeH on QType {
+  bool get isQ => this != QType.table && this != QType.header && this != QType.helperLink;
+}
+
 extension ListHelper on List<Data?> {
   String getValueOrEmpty(int i) {
     if (isEmpty) return '';
@@ -141,7 +147,9 @@ extension ListHelper on List<Data?> {
 extension SheetHelper on Sheet {
   Future<void> saveInHive() async {
     final Box<String> box = await Hive.openBox(sheetName);
-    box.clear();
+    await box.clear();
+    await box.flush();
+
     for (List<Data?> e in rows) {
       await box.add(
         sheetName == AppStringManager.formTable
@@ -216,11 +224,11 @@ extension DateUtcHelper on DateTime {
 
   DateTime get getUtc => DateTime.utc(year, month, day);
 
-  String get formatDate => DateFormat('yyyy/MM/dd').format(this);
+  String get formatDate => DateFormat('yyyy/MM/dd', 'en').format(this);
 
-  String get formatDateAther => DateFormat('yyyy/MM/dd HH:MM').format(this);
+  String get formatDateAther => DateFormat('yyyy/MM/dd HH:MM', 'en').format(this);
 
-  String get formatTime => DateFormat('h:mm a').format(this);
+  String get formatTime => DateFormat('h:mm a', 'en').format(this);
 
   String get formatDateTime => '$formatTime $formatDate';
 
@@ -312,14 +320,18 @@ extension ListRelated on List<Questions> {
   void clearRelated(String qId) {}
 }
 
+extension ListH<T> on List<List<T>> {
+  List<T> get singleList => expand((list) => list).toList();
+}
+
 extension EnumHelper on Enum {
   String get arabicName {
     if (this is HomeCards) {
       switch (this as HomeCards) {
         case HomeCards.loadData:
           return S().loadData;
-        case HomeCards.updateData:
-          return S().updateData;
+        case HomeCards.fileHistory:
+          return S().fileHistory;
         case HomeCards.startForm:
           return S().startForm;
         case HomeCards.history:
@@ -333,13 +345,13 @@ extension EnumHelper on Enum {
     if (this is HomeCards) {
       switch (this as HomeCards) {
         case HomeCards.loadData:
-          return Icons.file_copy_sharp;
-        case HomeCards.updateData:
-          return Icons.refresh;
+          return Assets.iconsFiles;
+        case HomeCards.fileHistory:
+          return Assets.iconsFileHistory;
         case HomeCards.startForm:
-          return Icons.format_align_center;
+          return Assets.iconsForm;
         case HomeCards.history:
-          return Icons.history;
+          return Assets.iconsHistory;
       }
     }
     return '';

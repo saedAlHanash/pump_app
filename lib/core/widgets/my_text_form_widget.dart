@@ -109,7 +109,7 @@ class _MyTextFormOutLineWidgetState extends State<MyTextFormOutLineWidget> {
 
     final focusedBorder = OutlineInputBorder(
         borderSide: BorderSide(
-          color: widget.color,
+          color: AppColorManager.mainColor,
           width: 1.0.spMin,
         ),
         borderRadius: BorderRadius.circular(12.0.r));
@@ -136,7 +136,7 @@ class _MyTextFormOutLineWidgetState extends State<MyTextFormOutLineWidget> {
             : widget.label.length > 30
                 ? 12.0.sp
                 : 14.0.sp,
-        fontFamily: FontManager.cairo,
+        fontFamily: FontManager.cairo.name,
       ),
       counter: const SizedBox(),
       alignLabelWithHint: true,

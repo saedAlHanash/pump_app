@@ -25,7 +25,7 @@ class _ListStringWidgetState extends State<ListStringWidget> {
 
   @override
   void initState() {
-    controller = TextEditingController(text: widget.q.answer?.id);
+    controller = TextEditingController(text: widget.q.answer?.answer);
     super.initState();
   }
 

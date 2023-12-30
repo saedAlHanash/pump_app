@@ -8,7 +8,9 @@ import 'package:image_multi_type/image_multi_type.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import '../../features/form/bloc/get_form_cubit/get_form_cubit.dart';
 import '../../features/form/bloc/update_r_list_cubit/update_r_list_cubit.dart';
+import '../../features/history/bloc/export_report_cubit/export_file_cubit.dart';
 import '../../features/history/bloc/get_history_cubit/get_history_cubit.dart';
+import '../../features/splash/bloc/files_cubit/files_cubit.dart';
 import '../../features/splash/bloc/load_data_cubit/load_data_cubit.dart';
 import '../../generated/l10n.dart';
 import '../../router/app_router.dart';
@@ -81,7 +83,9 @@ class _MyAppState extends State<MyApp> {
             return MultiBlocProvider(
               providers: [
                 BlocProvider(create: (_) => sl<LoadDataCubit>()),
+                BlocProvider(create: (_) => sl<ExportReportCubit>()),
                 BlocProvider(create: (_) => sl<UpdateRListCubit>()),
+                BlocProvider(create: (_) => sl<FilesCubit>()..getFiles()),
                 BlocProvider(create: (_) => sl<GetFormCubit>()..getAllForm()),
               ],
               child: child!,

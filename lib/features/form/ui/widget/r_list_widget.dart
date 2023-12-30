@@ -17,7 +17,7 @@ class RListWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return FutureBuilder(
       future: q.qstDatasource.getRListDataSureSpinnerItems(
-        selectedId: q.answer?.id,
+        selectedId: q.answer?.answer,
         related: context.read<GetFormCubit>().getRelated(rListQstId: q.rListQstId),
       ),
       builder: (context, snapShot) {

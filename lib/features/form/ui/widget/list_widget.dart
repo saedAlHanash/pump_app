@@ -18,7 +18,7 @@ class ListWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: q.qstDatasource.getDataSureSpinnerItems(selectedId: q.answer?.id),
+      future: q.qstDatasource.getDataSureSpinnerItems(selectedId: q.answer?.answer),
       builder: (context, snapShot) {
         if (!snapShot.hasData) return 0.0.verticalSpace;
         return SpinnerWidget(
@@ -52,7 +52,7 @@ class ListTableAnswerWidget extends StatelessWidget {
               color: AppColorManager.f1.withOpacity(0.5),
             ),
             padding: const EdgeInsets.only(right: 10.0).w,
-            child: DrawableText(text: q.answer?.id ?? '')),
+            child: DrawableText(text: q.answer?.answer ?? '')),
       ],
     );
   }

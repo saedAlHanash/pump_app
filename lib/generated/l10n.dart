@@ -1600,6 +1600,16 @@ class S {
     );
   }
 
+  /// `سجل الملفات`
+  String get fileHistory {
+    return Intl.message(
+      'سجل الملفات',
+      name: 'fileHistory',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `تحميل ملفات`
   String get loadData1 {
     return Intl.message(

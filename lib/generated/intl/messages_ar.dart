@@ -89,7 +89,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("تم إعادة الإرسال"),
         "editProfile":
             MessageLookupByLibrary.simpleMessage("تعديل الصفحة الشخصية"),
-        "email": MessageLookupByLibrary.simpleMessage("البريد الإلكتروني"),
+        "email": MessageLookupByLibrary.simpleMessage("اسم المستخدم"),
         "emailEmpty":
             MessageLookupByLibrary.simpleMessage("حقل البريد الإلكتروني مطلوب"),
         "enterOTP": MessageLookupByLibrary.simpleMessage(
@@ -99,6 +99,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "expiration": MessageLookupByLibrary.simpleMessage("انتهاء الصلاحية"),
         "faq": MessageLookupByLibrary.simpleMessage("الأسئلة الشائعة"),
         "fav": MessageLookupByLibrary.simpleMessage("المفضلة"),
+        "fileHistory": MessageLookupByLibrary.simpleMessage("سجل الملفات"),
         "filters": MessageLookupByLibrary.simpleMessage("الفلاتر"),
         "firstName": MessageLookupByLibrary.simpleMessage("الاسم الأول"),
         "flash_deal": MessageLookupByLibrary.simpleMessage("العروض السريعة"),

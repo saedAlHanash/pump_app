@@ -51,7 +51,7 @@ class SpinnerWidgetState<T> extends State<SpinnerWidget<T>> {
           color: AppColorManager.gray,
           size: 14.0.sp,
           matchParent: true,
-          fontFamily: FontManager.cairo,
+          fontFamily: FontManager.cairo.name,
           drawableStart: widget.isRequired
               ? DrawableText(
                   text: ' * ',

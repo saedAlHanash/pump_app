@@ -7,13 +7,13 @@ import 'app_specification.dart';
 class ItemModel {
   ItemModel({
     required this.fKey,
-    required this.id,
+    required this.answer,
     required this.name,
     required this.answers,
   });
 
   String fKey;
-  String id;
+  String answer;
   String name;
 
   List<List<Questions>> answers;
@@ -21,7 +21,7 @@ class ItemModel {
   factory ItemModel.fromJson(Map<String, dynamic> json) {
     return ItemModel(
       fKey: json['0'] ?? '',
-      id: json['1'] ?? '',
+      answer: json['1'] ?? '',
       name: json['2'] ?? '',
       answers: json["list"] == null
           ? []
@@ -43,16 +43,16 @@ class ItemModel {
 
   SpinnerItem getSpinnerItem({String? selectedId}) => SpinnerItem(
         name: name,
-        id: id,
+        id: answer,
         fId: fKey,
-        isSelected: selectedId == id,
+        isSelected: selectedId == answer,
         item: this,
       );
 
   Map<String, dynamic> toJson() {
     return {
       '0': fKey,
-      '1': id,
+      '1': answer,
       '2': name,
       "list": answers.map((x) => x.map((x) => x.toJson()).toList()).toList(),
     };

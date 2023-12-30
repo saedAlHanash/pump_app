@@ -41,7 +41,7 @@ class LoginCubit extends Cubit<LoginInitial> {
 
     for (var e in box.values) {
       final user = ItemModel.fromJson(jsonDecode(e));
-      if (user.id != state.request.phoneOrEmail) continue;
+      if (user.answer != state.request.phoneOrEmail) continue;
 
       if (user.name == state.request.password) {
         AppSharedPreference.cashMyId(user.fKey);

@@ -112,7 +112,7 @@ class GetFormCubit extends Cubit<GetFormInitial> {
     for (var e in singleList) {
       if (e.qstId != q.relatedAnswer) continue;
 
-      e.isVisible = q.valueAnswer == q.answer?.id;
+      e.isVisible = q.valueAnswer == q.answer?.answer;
       if (!e.isVisible) e.answer = null;
 
       updateShowRelatedAnswer(e);
@@ -133,7 +133,7 @@ class GetFormCubit extends Cubit<GetFormInitial> {
       q.answer ??= answer ?? ItemModel.fromJson({'1': sAnswer});
     } else {
       if (answer != null) q.answer = answer;
-      if (sAnswer != null) q.answer!.id = sAnswer;
+      if (sAnswer != null) q.answer!.answer = sAnswer;
       if (answers != null) q.answer!.answers.add(answers);
     }
 
@@ -147,7 +147,9 @@ class GetFormCubit extends Cubit<GetFormInitial> {
   String isComplete(int i) {
     for (var e in state.result[i]) {
       if (!e.isRequired) continue;
-      if ((e.answer == null || e.answer!.id.isEmpty) && e.isVisible) {
+      if ((e.answer == null || e.answer!.answer.isEmpty) &&
+          e.isVisible &&
+          e.tableNumber.isEmpty) {
         return 'يرجى إكمال ${e.qstLabel}';
       }
     }

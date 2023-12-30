@@ -25,7 +25,7 @@ class _NumberWidgetState extends State<NumberWidget> {
 
   @override
   void initState() {
-    controller = TextEditingController(text: widget.q.answer?.id??'');
+    controller = TextEditingController(text: widget.q.answer?.answer??'');
     super.initState();
   }
 

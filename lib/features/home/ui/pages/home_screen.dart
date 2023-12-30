@@ -17,22 +17,35 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppBarWidget(zeroHeight: true),
-      body: Column(
-        children: [
-          50.0.verticalSpace,
-          ListView(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            padding: const EdgeInsets.symmetric(horizontal: 10.0).w,
-            children: const [
-              ItemCardWidget(item: HomeCards.loadData),
-              ItemCardWidget(item: HomeCards.updateData),
-              ItemCardWidget(item: HomeCards.startForm),
-              ItemCardWidget(item: HomeCards.history),
-            ],
-          ),
-        ],
+      appBar: const AppBarWidget(
+        titleText: 'القائمة الرئيسية',
+        title: ImageMultiType(url: Assets.iconsLogo),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(20.0).r,
+        child: Column(
+          children: [
+             Row(
+              children: [
+                Expanded(child: ItemCardWidget(item: HomeCards.loadData)),
+                30.0.verticalSpace,
+                Expanded(child: ItemCardWidget(item: HomeCards.fileHistory)),
+              ],
+            ),
+            Row(
+              children: [
+                const Expanded(child: ItemCardWidget(item: HomeCards.startForm)),
+                30.0.verticalSpace,
+                const Expanded(child: ItemCardWidget(item: HomeCards.history)),
+              ],
+            ),
+            ImageMultiType(
+              url: Assets.iconsWater,
+              fit: BoxFit.cover,
+              width: 300.0.r,
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -58,9 +71,9 @@ class _ItemCardWidgetState extends State<ItemCardWidget> {
               Navigator.pushNamed(context, RouteName.loadData);
               break;
             }
-          case HomeCards.updateData:
+          case HomeCards.fileHistory:
             {
-              Navigator.pushNamed(context, RouteName.loadData);
+              Navigator.pushNamed(context, RouteName.files);
               break;
             }
           case HomeCards.startForm:
@@ -76,8 +89,8 @@ class _ItemCardWidgetState extends State<ItemCardWidget> {
         }
       },
       child: MyCardWidget(
-          cardColor: AppColorManager.mainColor,
-          elevation: 0.0,
+          cardColor: AppColorManager.cardColor,
+          elevation: 5.0.r,
           padding: EdgeInsets.zero,
           margin: const EdgeInsets.all(10.0).r,
           child: SizedBox(
@@ -89,14 +102,13 @@ class _ItemCardWidgetState extends State<ItemCardWidget> {
                 ImageMultiType(
                   url: widget.item.icon,
                   height: 70.0.r,
-                  color: Colors.white,
                   width: 70.0.r,
                 ),
                 10.0.verticalSpace,
                 DrawableText(
                   text: widget.item.arabicName,
-                  color: AppColorManager.whit,
-                  fontFamily: FontManager.cairoBold,
+                  color: AppColorManager.black,
+                  fontFamily: FontManager.cairoBold.name,
                 ),
               ],
             ),

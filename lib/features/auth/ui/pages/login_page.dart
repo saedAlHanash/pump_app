@@ -52,7 +52,7 @@ class _LoginPageState extends State<LoginPage> {
                 DrawableText(
                   text: S.of(context).welcomeBack,
                   size: 28.0.spMin,
-                  fontFamily: FontManager.cairoBold,
+                  fontFamily: FontManager.cairoBold.name,
                   matchParent: true,
                 ),
                 10.0.verticalSpace,

@@ -26,7 +26,7 @@ class _DateWidgetState extends State<DateWidget> {
 
   @override
   void initState() {
-    controller = TextEditingController(text: widget.q.answer?.id);
+    controller = TextEditingController(text: widget.q.answer?.answer);
     super.initState();
   }
 
@@ -41,7 +41,7 @@ class _DateWidgetState extends State<DateWidget> {
           enable: false,
           isRequired: widget.q.isRequired,
           iconWidget: SelectSingeDateWidget(
-            initial: DateTime.tryParse(widget.q.answer?.id ?? ''),
+            initial: DateTime.tryParse(widget.q.answer?.answer ?? ''),
             maxDate: DateTime.now(),
             minDate: DateTime(1900),
             onSelect: (selected) {

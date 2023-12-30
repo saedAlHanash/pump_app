@@ -3,4 +3,5 @@ class AppStringManager {
   static const formTable = 'App Specification';
 
   static const answerBox = 'answerBox';
+  static const filePathsBox = 'filePathsBox';
 }

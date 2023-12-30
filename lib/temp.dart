@@ -58,7 +58,7 @@
 //                 ? Colors.black
 //                 : AppColorManager.gray.withOpacity(0.7)
 //                 : AppColorManager.gray.withOpacity(0.7),
-//             fontFamily: FontManager.cairoBold,
+//             fontFamily: FontManager.cairoBold.name,
 //             drawableStart: item.icon,
 //             drawablePadding: 15.0.w,
 //           ),

@@ -56,3 +56,8 @@ await Hive.initFlutter();
     ),
   );
 }
+
+Future<String?> getFilePath(String name) async {
+  final Box<String> box = await Hive.openBox('pdf_files');
+  return box.get(name);
+}

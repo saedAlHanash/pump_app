@@ -17,7 +17,7 @@ class QHeaderWidget extends StatelessWidget {
       matchParent: true,
       color: AppColorManager.gray,
       size: 14.0.sp,
-      fontFamily: FontManager.cairo,
+      fontFamily: FontManager.cairo.name,
       drawableStart: q.isRequired
           ? DrawableText(
               text: ' * ',
