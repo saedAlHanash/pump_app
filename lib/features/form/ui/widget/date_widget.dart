@@ -42,8 +42,8 @@ class _DateWidgetState extends State<DateWidget> {
           isRequired: widget.q.isRequired,
           iconWidget: SelectSingeDateWidget(
             initial: DateTime.tryParse(widget.q.answer?.answer ?? ''),
-            maxDate: DateTime.now(),
-            minDate: DateTime(1900),
+            maxDate: (widget.q.max is! DateTime) ? DateTime.now() : widget.q.max,
+            minDate: (widget.q.min is! DateTime) ? DateTime(1900) : widget.q.min,
             onSelect: (selected) {
               setState(() {
                 controller.text = selected?.formatDate ?? '';

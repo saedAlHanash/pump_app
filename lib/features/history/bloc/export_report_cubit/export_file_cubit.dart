@@ -24,15 +24,55 @@ part 'export_file_state.dart';
 class ExportReportCubit extends Cubit<ExportReportInitial> {
   ExportReportCubit() : super(ExportReportInitial.initial());
 
-  void saveExcelFile({
-    required List<HistoryModel> list,
-    required Map<String, int> m,
-  }) async {
+  void saveExcelFile(
+      {required List<HistoryModel> list,
+      required Map<String, int> m,
+      String? name}) async {
     emit(state.copyWith(statuses: CubitStatuses.loading));
 
     await Permission.manageExternalStorage.request();
     await Permission.storage.request();
 
+    _saveDataIds(m, list);
+
+    var directory = await getDownloadsDirectory();
+
+    final filePathsBox = await Hive.openBox<String>(AppStringManager.filePathsBox);
+
+    var fName = name ?? 'report${filePathsBox.length}';
+
+    if (await File(join('${directory!.path}/$fName.xlsx')).exists()) {
+      loggerObject.w('true');
+      fName = '$fName${filePathsBox.length}';
+    }
+
+    final file = File(join('${directory.path}/$fName.xlsx'))
+      ..createSync(recursive: true)
+      ..writeAsBytesSync(state.excel.save() ?? []);
+
+    await filePathsBox.put(file.path, DateTime.now().toIso8601String());
+    await filePathsBox.close();
+
+    // Copy the file to the Downloads directory
+    final downloadsFilePath = '/storage/emulated/0/Download/'
+        '$fName.xlsx';
+
+    try {
+      await file.copy(downloadsFilePath);
+    } on Exception catch (e) {
+      loggerObject.e(e);
+      emit(state.copyWith(statuses: CubitStatuses.error));
+    }
+
+    Future.delayed(
+      const Duration(seconds: 1),
+      () {
+        emit(state.copyWith(statuses: CubitStatuses.done));
+      },
+    );
+  }
+
+  void _saveDataIds(Map<String, int> m, List<HistoryModel> list) {
     final headerList = List<CellValue?>.from(m.keys.map((e) => TextCellValue(e)))
       ..insert(0, const TextCellValue('UUID'));
 
@@ -51,36 +91,6 @@ class ExportReportCubit extends Cubit<ExportReportInitial> {
         uuID: uuID,
       );
     }
-
-    var directory = await getDownloadsDirectory();
-
-    final filePathsBox = await Hive.openBox<String>(AppStringManager.filePathsBox);
-
-    final fName = 'report${filePathsBox.length}';
-    final file = File(join('${directory!.path}/report$fName.xlsx'))
-      ..createSync(recursive: true)
-      ..writeAsBytesSync(state.excel.save() ?? []);
-
-    await filePathsBox.put(file.path, DateTime.now().toIso8601String());
-    await filePathsBox.close();
-
-    // Copy the file to the Downloads directory
-    final downloadsFilePath = '/storage/emulated/0/Download/'
-        'report$fName.xlsx';
-
-    try {
-      await file.copy(downloadsFilePath);
-    } on Exception catch (e) {
-      loggerObject.e(e);
-      emit(state.copyWith(statuses: CubitStatuses.error));
-    }
-
-    Future.delayed(
-      const Duration(seconds: 1),
-      () {
-        emit(state.copyWith(statuses: CubitStatuses.done));
-      },
-    );
   }
 
   void _saveShite({

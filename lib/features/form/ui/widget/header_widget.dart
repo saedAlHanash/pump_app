@@ -24,9 +24,7 @@ class HeaderWidget extends StatelessWidget {
       fontFamily: FontManager.cairoBold.name,
       drawableEnd: IconButton(
           onPressed: () async {
-            loggerObject.w(q.valueAnswer);
-
-            final filePath = await getFilePath(q.valueAnswer);
+            final filePath = await getFilePath(q.helpLink);
             loggerObject.w(filePath);
 
             if (context.mounted) {

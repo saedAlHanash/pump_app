@@ -16,8 +16,11 @@ import 'package:pump_app/core/widgets/my_button.dart';
 import 'package:pump_app/features/history/ui/widget/item_history.dart';
 
 import '../../../../core/util/my_style.dart';
+import '../../../../core/widgets/my_text_form_widget.dart';
 import '../../../../core/widgets/not_found_widget.dart';
+import '../../../../core/widgets/q_header_widget.dart';
 import '../../../../generated/assets.dart';
+import '../../../db/models/app_specification.dart';
 import '../../../splash/bloc/files_cubit/files_cubit.dart';
 import '../../bloc/export_report_cubit/export_file_cubit.dart';
 import '../../bloc/get_history_cubit/get_history_cubit.dart';
@@ -55,10 +58,48 @@ class HistoryPage extends StatelessWidget {
                           onTap: () async {
                             final list = context.read<GetHistoryCubit>().state.result;
                             final m = context.read<GetHistoryCubit>().getQIds();
-                            context.read<ExportReportCubit>().saveExcelFile(
-                                  list: list,
-                                  m: m,
+
+                            var name = '';
+                            name = await NoteMessage.showMyDialog(
+                              context,
+                              child: Builder(builder: (context) {
+                                final c = TextEditingController();
+                                return Padding(
+                                  padding: const EdgeInsets.all(20.0).r,
+                                  child: Column(
+                                    children: [
+                                      QHeaderWidget(
+                                        q: Questions.fromJson(
+                                          {
+                                            '6': 'هل ترغب في تعيين اسم للملف؟',
+                                            '11': true
+                                          },
+                                        ),
+                                      ),
+                                      5.0.verticalSpace,
+                                      MyTextFormOutLineWidget(
+                                        controller: c,
+                                        label: 'اسم الملف',
+                                      ),
+                                      MyButton(
+                                        text: 'تم',
+                                        onTap: () {
+                                          Navigator.pop(context, c.text);
+                                        },
+                                      ),
+                                    ],
+                                  ),
                                 );
+                              }),
+                            );
+
+                            if (context.mounted) {
+                              context.read<ExportReportCubit>().saveExcelFile(
+                                    list: list,
+                                    m: m,
+                                    name: name,
+                                  );
+                            }
                           },
                           color: const Color(0xFF107C41),
                           text: 'تصدير الإكسل',

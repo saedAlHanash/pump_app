@@ -27,14 +27,14 @@ class GetHistoryCubit extends Cubit<GetHistoryInitial> {
 
     emit(state.copyWith(statuses: CubitStatuses.done, result: list));
 
-    box.close();
+    await   box.close();
   }
 
   Map<String, int> getQIds() {
     final m = <String, int>{};
     state.result.forEachIndexed(
       (index, assessment) {
-        assessment.list.singleList.forEachIndexed((index, answer) {
+        assessment.list.singleList.forEachIndexed((i, answer) {
           if (m[answer.qstId] == null) m[answer.qstId] = m.length;
         });
       },

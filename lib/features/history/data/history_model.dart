@@ -15,7 +15,7 @@ class HistoryModel {
     return {
       "list": list.map((x) => x.map((x) => x.toJson()).toList()).toList(),
       'date': DateTime.now().toIso8601String(),
-      'name': list.firstOrNull?.firstOrNull?.assessmentName,
+      'name': name,
     };
   }
 

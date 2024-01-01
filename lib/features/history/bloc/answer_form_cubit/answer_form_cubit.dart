@@ -26,6 +26,6 @@ class AnswerFormCubit extends Cubit<AnswerFormInitial> {
         .toList();
 
     emit(state.copyWith(statuses: CubitStatuses.done, result: list));
-    box.close();
+   await box.close();
   }
 }

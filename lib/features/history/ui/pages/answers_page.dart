@@ -26,7 +26,7 @@ class _AnswersPageState extends State<AnswersPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:  AppBarWidget(titleText: S.of(context).history),
+      appBar: AppBarWidget(titleText: S.of(context).history),
       body: SizedBox(
         width: 1.0.sw,
         child: ListView.separated(
@@ -34,8 +34,8 @@ class _AnswersPageState extends State<AnswersPage> {
           itemCount: widget.list.length,
           separatorBuilder: (_, i) => 10.0.verticalSpace,
           itemBuilder: (_, i) {
-            final item = widget.list[i];
-            return item.getTableAnswerWidget;
+
+            return widget.list[i].getTableAnswerWidget;
           },
         ),
       ),

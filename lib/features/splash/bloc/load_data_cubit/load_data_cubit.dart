@@ -61,7 +61,7 @@ class LoadDataCubit extends Cubit<LoadDataInitial> {
         box.put(e.name, e.path ?? '');
       }
 
-      box.close();
+      await  box.close();
     } else {
       emit(state.copyWith(statuses: CubitStatuses.error, error: 'File Error'));
       // User canceled the picker

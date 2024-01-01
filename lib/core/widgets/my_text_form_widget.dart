@@ -10,6 +10,7 @@ class MyTextFormOutLineWidget extends StatefulWidget {
   const MyTextFormOutLineWidget({
     Key? key,
     this.label = '',
+    this.helperText,
     this.hint = '',
     this.maxLines = 1,
     this.obscureText = false,
@@ -32,6 +33,7 @@ class MyTextFormOutLineWidget extends StatefulWidget {
   }) : super(key: key);
   final bool? enable;
   final String label;
+  final Widget? helperText;
   final String hint;
   final dynamic icon;
   final Widget? iconWidget;
@@ -138,7 +140,7 @@ class _MyTextFormOutLineWidgetState extends State<MyTextFormOutLineWidget> {
                 : 14.0.sp,
         fontFamily: FontManager.cairo.name,
       ),
-      counter: const SizedBox(),
+      counter: widget.helperText??const SizedBox(),
       alignLabelWithHint: true,
       labelStyle: TextStyle(color: widget.color),
       suffixIcon: widget.obscureText ? suffixIcon : widget.iconWidgetLift,

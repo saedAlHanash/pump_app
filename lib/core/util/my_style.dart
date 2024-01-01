@@ -21,7 +21,7 @@ class MyStyle {
 //endregion
 
   static const underLineStyle =
-  TextStyle(fontStyle: FontStyle.italic, decoration: TextDecoration.underline);
+      TextStyle(fontStyle: FontStyle.italic, decoration: TextDecoration.underline);
 
   static var drawerShape = ShapeDecoration(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.r)),
@@ -90,7 +90,7 @@ class MyStyle {
   static Widget loadingWidget({Color? color}) {
     return Padding(
       padding: const EdgeInsets.all(8.0).r,
-      child:  Center(
+      child: Center(
         child: CircularProgressIndicator.adaptive(backgroundColor: color),
       ),
     );
@@ -128,7 +128,10 @@ class BackBtnWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      onPressed: () => Navigator.pop(context),
+      onPressed: () {
+        if (!Navigator.canPop(context)) return;
+        Navigator.pop(context);
+      },
       icon: Icon(
         Platform.isAndroid ? Icons.arrow_back : Icons.arrow_back_ios,
         color: AppColorManager.black,

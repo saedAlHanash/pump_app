@@ -39,11 +39,10 @@ class LoadData extends StatelessWidget {
       listenWhen: (p, c) => c.statuses.done,
       listener: (context, state) {
         context.read<GetFormCubit>().getAllForm();
-        if (AppSharedPreference.isLoadData) {
-          NoteMessage.showSuccessSnackBar(message: 'تم بنجاح', context: context);
-          return;
-        }
-        Navigator.pushReplacementNamed(context, RouteName.splash);
+
+        NoteMessage.showSuccessSnackBar(message: 'تم بنجاح', context: context);
+        Navigator.pushReplacementNamed(context, RouteName.home);
+        
       },
       child: Scaffold(
         appBar: const AppBarWidget(titleText: 'تحميل الملفات'),
@@ -78,7 +77,7 @@ class LoadData extends StatelessWidget {
                               ),
                               10.0.verticalSpace,
                               DrawableText(
-                                text: 'تحميل ملفات الإكسل',
+                                text: 'تحميل الملفات الأساسية',
                                 color: AppColorManager.black,
                                 fontFamily: FontManager.cairoBold.name,
                               ),

@@ -14,6 +14,7 @@ import 'package:pump_app/features/form/ui/widget/number_widget.dart';
 import 'package:pump_app/features/form/ui/widget/r_list_widget.dart';
 import 'package:pump_app/features/history/ui/widget/table_answer_widget.dart';
 
+import '../../../main.dart';
 import '../../form/ui/widget/string_widget.dart';
 import '../../history/ui/widget/list_answer_widget.dart';
 import '../../history/ui/widget/string_answer_widget.dart';
@@ -37,6 +38,9 @@ class Questions {
     required this.relatedAnswer,
     required this.valueAnswer,
     required this.isVisible,
+    required this.min,
+    required this.max,
+    required this.helpLink,
     this.answer,
   });
 
@@ -52,14 +56,20 @@ class Questions {
   final String rListQstId;
   final String tableNumber;
   final bool isRequired;
-  final String relatedAnswer;
+  final List<String> relatedAnswer;
   final String valueAnswer;
-
+  final dynamic min;
+  final dynamic max;
+  final String helpLink;
   ItemModel? answer;
 
   bool isVisible = true;
 
   bool get needUpdateRelatedQst => relatedAnswer.isNotEmpty;
+
+  String get sMin => min is DateTime ? (min as DateTime).formatDate : min.toString();
+
+  String get sMax => max is DateTime ? (max as DateTime).formatDate : max.toString();
 
   Widget get getWidget {
     if (tableNumber.isNotEmpty && qstType != QType.table) {
@@ -149,7 +159,7 @@ class Questions {
   }
 
   factory Questions.fromJson(Map<String, dynamic> map) {
-    return Questions(
+    var q = Questions(
       assessmentNu: map['0'] ?? '',
       assessmentDate: DateTime.tryParse(map['1'] ?? ''),
       assessmentName: map['2'] ?? '',
@@ -162,11 +172,15 @@ class Questions {
       rListQstId: map['9'] ?? '',
       tableNumber: map['10'] ?? '',
       isRequired: map['11'] ?? false,
-      relatedAnswer: map['12'] ?? '',
+      relatedAnswer: ((map['12'] ?? '') as String).split(';'),
       valueAnswer: map['13'] ?? '',
+      min: num.tryParse(map['14'] ?? '-') ?? DateTime.tryParse(map['14'] ?? '-'),
+      max: num.tryParse(map['15'] ?? '-') ?? DateTime.tryParse(map['15'] ?? '-'),
+      helpLink: map['16'] ?? '',
       isVisible: map['isVisible'] ?? true,
       answer: map['answer'] == null ? null : ItemModel.fromJson(map['answer']),
     );
+    return q;
   }
 
   factory Questions.fromData(List<excel.Data?> e) {
@@ -186,6 +200,9 @@ class Questions {
         '11': e.getValueOrEmpty(11).isNotEmpty,
         '12': e.getValueOrEmpty(12),
         '13': e.getValueOrEmpty(13),
+        '14': e.getValueOrEmpty(14),
+        '15': e.getValueOrEmpty(15),
+        '16': e.getValueOrEmpty(16),
       },
     );
   }
@@ -204,8 +221,15 @@ class Questions {
       '9': rListQstId,
       '10': tableNumber,
       '11': isRequired,
-      '12': relatedAnswer,
+      '12': relatedAnswer.join(';'),
       '13': valueAnswer,
+      '14': min != null
+          ? ((min is DateTime) ? (min as DateTime).toIso8601String() : min.toString())
+          : null,
+      '15': max != null
+          ? ((max is DateTime) ? (max as DateTime).toIso8601String() : max.toString())
+          : null,
+      '16': helpLink,
       'isVisible': isVisible,
       'answer': answer?.toJson(),
     };
@@ -223,8 +247,11 @@ class Questions {
     String? qstDatasource,
     String? rListQstId,
     String? tableNumber,
-    String? relatedAnswer,
+    List<String>? relatedAnswer,
     String? valueAnswer,
+    dynamic min,
+    dynamic max,
+    String? helpLink,
     bool? isRequired,
     bool? isVisible,
   }) {
@@ -243,7 +270,10 @@ class Questions {
       isRequired: isRequired ?? this.isRequired,
       relatedAnswer: relatedAnswer ?? this.relatedAnswer,
       valueAnswer: valueAnswer ?? this.valueAnswer,
+      min: min ?? this.min,
+      max: max ?? this.max,
       isVisible: isVisible ?? this.isVisible,
+      helpLink: helpLink ?? this.helpLink,
     );
   }
 }

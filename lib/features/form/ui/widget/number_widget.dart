@@ -1,14 +1,13 @@
+import 'package:drawable_text/drawable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:pump_app/core/extensions/extensions.dart';
+import 'package:pump_app/core/util/snack_bar_message.dart';
+import 'package:pump_app/main.dart';
 
-import '../../../../core/util/my_style.dart';
 import '../../../../core/widgets/my_text_form_widget.dart';
 import '../../../../core/widgets/q_header_widget.dart';
-import '../../../../core/widgets/spinner_widget.dart';
 import '../../../db/models/app_specification.dart';
-import '../../../db/models/item_model.dart';
 import '../../bloc/get_form_cubit/get_form_cubit.dart';
 
 class NumberWidget extends StatefulWidget {
@@ -25,7 +24,7 @@ class _NumberWidgetState extends State<NumberWidget> {
 
   @override
   void initState() {
-    controller = TextEditingController(text: widget.q.answer?.answer??'');
+    controller = TextEditingController(text: widget.q.answer?.answer ?? '');
     super.initState();
   }
 
@@ -39,7 +38,30 @@ class _NumberWidgetState extends State<NumberWidget> {
           isRequired: widget.q.isRequired,
           keyBordType: TextInputType.number,
           controller: controller,
+          helperText: widget.q.max != null
+              ? Transform.translate(
+                  offset: Offset(10.w, -8.h),
+                  child: DrawableText(
+                    text: 'من ${widget.q.sMin} إلى ${widget.q.sMax}',
+                    color: Colors.green,
+                    underLine: true,
+                    size: 12.0.sp,
+                    matchParent: true,
+                  ),
+                )
+              : null,
           onChanged: (val) {
+            loggerObject.w(val);
+            num n = num.tryParse(val) ?? 0;
+            if (n < widget.q.min || n > widget.q.max) {
+              controller.value = controller.value.copyWith(
+                text: widget.q.answer?.answer ?? '',
+                selection: TextSelection.collapsed(offset: (widget.q.answer?.answer ?? '').length),
+              );
+              NoteMessage.showErrorSnackBar(
+                  message: 'خطأ في القيمة المدخلة', context: context);
+              return;
+            }
             context.read<GetFormCubit>().setAnswer(widget.q, sAnswer: val);
           },
         ),

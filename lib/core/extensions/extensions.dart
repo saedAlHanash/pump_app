@@ -150,14 +150,16 @@ extension SheetHelper on Sheet {
     await box.clear();
     await box.flush();
 
-    for (List<Data?> e in rows) {
+    final l = rows.skip(1);
+
+    for (List<Data?> e in l) {
       await box.add(
         sheetName == AppStringManager.formTable
             ? jsonEncode(Questions.fromData(e))
             : jsonEncode(ItemModel.fromData(e)),
       );
     }
-    box.close();
+    await  box.close();
   }
 
   Future<void> updateInHive() async {
@@ -179,7 +181,7 @@ extension SheetHelper on Sheet {
       }
     }
 
-    box.close();
+    await   box.close();
   }
 }
 

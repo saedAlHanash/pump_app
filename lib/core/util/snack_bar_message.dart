@@ -167,7 +167,7 @@ class NoteMessage {
     );
   }
 
-  static Future<bool> showMyDialog(BuildContext context, {required Widget child}) async {
+  static Future<dynamic> showMyDialog(BuildContext context, {required Widget child}) async {
     // show the dialog
     final result = await showDialog(
       context: context,
@@ -189,7 +189,7 @@ class NoteMessage {
         );
       },
     );
-    return (result ?? false);
+    return result ;
   }
 
   static void showAwesomeError({required BuildContext context, required String message}) {

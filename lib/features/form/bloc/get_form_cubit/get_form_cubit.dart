@@ -31,7 +31,8 @@ class GetFormCubit extends Cubit<GetFormInitial> {
       statuses: CubitStatuses.done,
       allFormes: mapGropingAsFormId,
     ));
-    box.close();
+
+    await box.close();
   }
 
   Future<void> getQuestionsForm({required String assessmentId}) async {
@@ -94,12 +95,15 @@ class GetFormCubit extends Cubit<GetFormInitial> {
   }
 
   void hideVisible(List<List<Questions>> gropingList) {
-    final singleList = gropingList.expand((questionsList) => questionsList).toList();
+    final singleList = gropingList.singleList;
+
     for (var e in singleList.where((element) => element.relatedAnswer.isNotEmpty)) {
       for (var e1 in singleList) {
-        if (e1.qstId != e.relatedAnswer) continue;
-        e1.isVisible = false;
-        break;
+        for (var e2 in e.relatedAnswer) {
+          if (e1.qstId != e2) continue;
+          e1.isVisible = false;
+          break;
+        }
       }
     }
   }
@@ -110,14 +114,16 @@ class GetFormCubit extends Cubit<GetFormInitial> {
     final singleList = state.result.expand((questionsList) => questionsList).toList();
 
     for (var e in singleList) {
-      if (e.qstId != q.relatedAnswer) continue;
+      for (var e1 in e.relatedAnswer) {
+        if (e.qstId != e1) continue;
 
-      e.isVisible = q.valueAnswer == q.answer?.answer;
-      if (!e.isVisible) e.answer = null;
+        e.isVisible = q.valueAnswer == q.answer?.answer;
+        if (!e.isVisible) e.answer = null;
 
-      updateShowRelatedAnswer(e);
+        updateShowRelatedAnswer(e);
 
-      return true;
+        return true;
+      }
     }
 
     return false;
@@ -129,13 +135,10 @@ class GetFormCubit extends Cubit<GetFormInitial> {
     String? sAnswer,
     List<Questions>? answers,
   }) {
-    if (q.answer == null) {
-      q.answer ??= answer ?? ItemModel.fromJson({'1': sAnswer});
-    } else {
-      if (answer != null) q.answer = answer;
-      if (sAnswer != null) q.answer!.answer = sAnswer;
-      if (answers != null) q.answer!.answers.add(answers);
-    }
+    q.answer ??= answer ?? ItemModel.fromJson({'1': sAnswer, '2': sAnswer});
+    if (answer != null) q.answer = answer;
+    if (sAnswer != null) q.answer!.answer = sAnswer;
+    if (answers != null) q.answer!.answers.add(answers);
 
     if (q.qstType == QType.list || q.qstType == QType.rList) clearRelated(qId: q.qstId);
 

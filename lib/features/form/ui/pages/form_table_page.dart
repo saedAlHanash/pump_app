@@ -45,11 +45,11 @@ class _FormTablePageState extends State<FormTablePage> {
         itemCount: list.length,
         separatorBuilder: (_, i) => 10.0.verticalSpace,
         itemBuilder: (_, i) {
-          final item = list[i];
+
           if (i == list.length - 1) {
             return Column(
               children: [
-                item.getTableWidget,
+                list[i].getTableWidget,
                 10.0.verticalSpace,
                 MyButton(
                   text: 'إضافة',
@@ -60,7 +60,7 @@ class _FormTablePageState extends State<FormTablePage> {
               ],
             );
           }
-          return item.getTableWidget;
+          return list[i].getTableWidget;
         },
       ),
     );

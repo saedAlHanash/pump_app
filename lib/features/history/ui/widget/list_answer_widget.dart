@@ -28,7 +28,7 @@ class ListAnswerWidget extends StatelessWidget {
           padding: const EdgeInsets.all(7.0).r,
           margin: const EdgeInsets.only(top: 5.0, bottom: 10.0).h,
           child: DrawableText(
-            text: q.answer?.answer ?? '',
+            text: q.answer?.name ?? '',
           ),
         ),
       ],
