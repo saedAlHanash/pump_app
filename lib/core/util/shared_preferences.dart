@@ -55,7 +55,7 @@ class AppSharedPreference {
     _prefs.setString(_myId, id);
   }
 
-  static String get getMyId => _prefs.getString(_myId) ?? '0';
+  static String? get getMyId => _prefs.getString(_myId);
 
   static void cashLocal(String langCode) {
     _prefs.setString(_lang, langCode);

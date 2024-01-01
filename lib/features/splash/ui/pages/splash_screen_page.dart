@@ -42,7 +42,7 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
           Navigator.pushReplacementNamed(context, RouteName.loadData);
           return;
         }
-        if (AppSharedPreference.getMyId == '0') {
+        if (AppSharedPreference.getMyId == null) {
           Navigator.pushReplacementNamed(context, RouteName.login);
         } else {
           Navigator.pushNamedAndRemoveUntil(context, RouteName.home, (route) => false);

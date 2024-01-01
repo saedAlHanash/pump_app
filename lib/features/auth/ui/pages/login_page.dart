@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pump_app/core/extensions/extensions.dart';
+import 'package:pump_app/core/strings/app_color_manager.dart';
 import 'package:pump_app/core/widgets/app_bar/app_bar_widget.dart';
 import 'package:pump_app/core/widgets/my_button.dart';
 import 'package:pump_app/core/widgets/my_text_form_widget.dart';
@@ -41,7 +42,23 @@ class _LoginPageState extends State<LoginPage> {
         Navigator.pushNamedAndRemoveUntil(context, RouteName.home, (route) => false);
       },
       child: Scaffold(
-        appBar: const AppBarWidget(),
+        appBar: const AppBarWidget(titleText: 'تسجيل الدخول'),
+        bottomNavigationBar: GestureDetector(
+          onTap: () {
+            Navigator.pushNamed(context, RouteName.loadData);
+          },
+          child: Container(
+            padding: const EdgeInsets.all(15.0).w,
+            color: AppColorManager.lightGrayEd,
+            child: DrawableText(
+              matchParent: true,
+              size: 18.0.sp,
+              fontFamily: FontManager.cairoBold.name,
+              textAlign: TextAlign.center,
+              text: 'إعادة تحميل الملفات',
+            ),
+          ),
+        ),
         body: SingleChildScrollView(
           padding: MyStyle.authPagesPadding,
           child: Form(

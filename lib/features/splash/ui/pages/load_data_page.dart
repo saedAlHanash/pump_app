@@ -39,10 +39,11 @@ class LoadData extends StatelessWidget {
       listenWhen: (p, c) => c.statuses.done,
       listener: (context, state) {
         context.read<GetFormCubit>().getAllForm();
-
-        NoteMessage.showSuccessSnackBar(message: 'تم بنجاح', context: context);
-        Navigator.pushReplacementNamed(context, RouteName.home);
-        
+        if (AppSharedPreference.getMyId != null) {
+          NoteMessage.showSuccessSnackBar(message: 'تم بنجاح', context: context);
+          return;
+        }
+        Navigator.pushReplacementNamed(context, RouteName.splash);
       },
       child: Scaffold(
         appBar: const AppBarWidget(titleText: 'تحميل الملفات'),
