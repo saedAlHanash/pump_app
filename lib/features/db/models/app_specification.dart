@@ -76,10 +76,6 @@ class Questions {
       return 0.0.verticalSpace;
     }
 
-    if (qstType == QType.helperLink) {
-      return 0.0.verticalSpace;
-    }
-
     if (!isVisible) {
       return 0.0.verticalSpace;
     }
@@ -103,8 +99,7 @@ class Questions {
         return TableWidget(q: this);
       case QType.header:
         return HeaderWidget(q: this);
-      case QType.helperLink:
-        return 0.0.verticalSpace;
+
     }
   }
 
@@ -128,8 +123,7 @@ class Questions {
         return TableWidget(q: this);
       case QType.header:
         return HeaderWidget(q: this);
-      case QType.helperLink:
-        return 0.0.verticalSpace;
+
     }
   }
 
@@ -153,8 +147,6 @@ class Questions {
         return TableAnswerWidget(q: this);
       case QType.header:
         return HeaderWidget(q: this);
-      case QType.helperLink:
-        return 0.0.verticalSpace;
     }
   }
 

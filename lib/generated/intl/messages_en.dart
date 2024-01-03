@@ -26,6 +26,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "aboutUs": MessageLookupByLibrary.simpleMessage("About Us"),
         "accountCreated":
             MessageLookupByLibrary.simpleMessage("Account Created!"),
+        "add": MessageLookupByLibrary.simpleMessage("Add"),
+        "addDetails": MessageLookupByLibrary.simpleMessage("إضافة تفاصيل"),
         "add_to_cart": MessageLookupByLibrary.simpleMessage("Add To Cart"),
         "additional_service":
             MessageLookupByLibrary.simpleMessage("Additional service"),
@@ -49,6 +51,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "changePhone":
             MessageLookupByLibrary.simpleMessage("Change Phone Number"),
         "city": MessageLookupByLibrary.simpleMessage("City"),
+        "clearAllData":
+            MessageLookupByLibrary.simpleMessage("مسح جميع البيانات"),
         "codeSentToEmail": MessageLookupByLibrary.simpleMessage(
             "Confirmation code sent to email: "),
         "code_invalid":
@@ -58,6 +62,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "confirm": MessageLookupByLibrary.simpleMessage("Confirm"),
         "confirmCode":
             MessageLookupByLibrary.simpleMessage("Enter Confirmation Code"),
+        "confirmDelete": MessageLookupByLibrary.simpleMessage("Confirm Delete"),
         "confirmMethod": MessageLookupByLibrary.simpleMessage(
             "Please Choose How You Would Like To Send The Verification Code"),
         "confirmNewPassword":
@@ -79,7 +84,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Current Password"),
         "cvc": MessageLookupByLibrary.simpleMessage("Cvc"),
         "days": MessageLookupByLibrary.simpleMessage("Days"),
+        "delete": MessageLookupByLibrary.simpleMessage("Delete"),
         "deleteAccount": MessageLookupByLibrary.simpleMessage("Delete Account"),
+        "deleteFromHistory":
+            MessageLookupByLibrary.simpleMessage("Delete item FromHistory?"),
         "description": MessageLookupByLibrary.simpleMessage("Description"),
         "didNotReceiveOTP":
             MessageLookupByLibrary.simpleMessage("Didn\'t Receive The OTP?"),
@@ -92,24 +100,30 @@ class MessageLookup extends MessageLookupByLibrary {
         "email": MessageLookupByLibrary.simpleMessage("Email"),
         "emailEmpty":
             MessageLookupByLibrary.simpleMessage("Email field is required"),
+        "enterFormName":
+            MessageLookupByLibrary.simpleMessage("يرجى إدخال اسم الاستبيان"),
         "enterOTP":
             MessageLookupByLibrary.simpleMessage("Enter Your OTP Code Here."),
         "enter_new_password_and_confirm": MessageLookupByLibrary.simpleMessage(
             "Enter New Password And Confirm."),
         "expiration": MessageLookupByLibrary.simpleMessage("Expiration"),
+        "exportExcel": MessageLookupByLibrary.simpleMessage("Export Excel"),
         "faq": MessageLookupByLibrary.simpleMessage("F.A.q"),
         "fav": MessageLookupByLibrary.simpleMessage("Favorites"),
-        "fileHistory": MessageLookupByLibrary.simpleMessage("سجل الملفات"),
+        "fileHistory": MessageLookupByLibrary.simpleMessage("File History"),
+        "fileName": MessageLookupByLibrary.simpleMessage("File Name"),
         "filters": MessageLookupByLibrary.simpleMessage("Filters"),
         "firstName": MessageLookupByLibrary.simpleMessage("first name"),
         "flash_deal": MessageLookupByLibrary.simpleMessage("Flash Deal"),
         "forgetPassword":
             MessageLookupByLibrary.simpleMessage("Forgot Password?"),
+        "forms": MessageLookupByLibrary.simpleMessage("الاستبيانات"),
+        "from": MessageLookupByLibrary.simpleMessage("From"),
         "fullName": MessageLookupByLibrary.simpleMessage("Full Name"),
         "governor": MessageLookupByLibrary.simpleMessage("governor"),
         "haveBeenCreated": MessageLookupByLibrary.simpleMessage(
             "Your Account Had Been Created"),
-        "history": MessageLookupByLibrary.simpleMessage("السجل"),
+        "history": MessageLookupByLibrary.simpleMessage("History"),
         "home": MessageLookupByLibrary.simpleMessage("Home"),
         "homeAddress": MessageLookupByLibrary.simpleMessage("Home Address"),
         "hours": MessageLookupByLibrary.simpleMessage("Hours"),
@@ -117,7 +131,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "language": MessageLookupByLibrary.simpleMessage("Language"),
         "lastName": MessageLookupByLibrary.simpleMessage("Last name"),
         "loadData": MessageLookupByLibrary.simpleMessage("Load Data"),
-        "loadData1": MessageLookupByLibrary.simpleMessage("تحميل ملفات"),
+        "loadData1": MessageLookupByLibrary.simpleMessage("Load Data"),
+        "loadMainData": MessageLookupByLibrary.simpleMessage("Load Main Files"),
         "location": MessageLookupByLibrary.simpleMessage("Location"),
         "login": MessageLookupByLibrary.simpleMessage("Login"),
         "logout": MessageLookupByLibrary.simpleMessage("Logout"),
@@ -140,6 +155,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "new_check_email": MessageLookupByLibrary.simpleMessage(
             "New Check Your Email For\nConfirmation Link"),
         "next": MessageLookupByLibrary.simpleMessage("Next"),
+        "noHistory": MessageLookupByLibrary.simpleMessage("Empty History"),
         "noInternet": MessageLookupByLibrary.simpleMessage(
             "Please check your internet connection"),
         "notification": MessageLookupByLibrary.simpleMessage("Notifications"),
@@ -171,6 +187,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "price": MessageLookupByLibrary.simpleMessage("Price"),
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
         "rePassword": MessageLookupByLibrary.simpleMessage("Confirm Password"),
+        "reUploadData":
+            MessageLookupByLibrary.simpleMessage("إعادة تحميل الملفات"),
         "receiverPhone": MessageLookupByLibrary.simpleMessage("receiverPhone"),
         "region": MessageLookupByLibrary.simpleMessage("Region"),
         "registeredBefore":
@@ -184,6 +202,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "reset_password":
             MessageLookupByLibrary.simpleMessage("Reset Password"),
         "reviews": MessageLookupByLibrary.simpleMessage("Reviews"),
+        "save": MessageLookupByLibrary.simpleMessage("Save"),
         "saveChange": MessageLookupByLibrary.simpleMessage("save change"),
         "save_for_later":
             MessageLookupByLibrary.simpleMessage("Save For Later?"),
@@ -202,14 +221,18 @@ class MessageLookup extends MessageLookupByLibrary {
             "Sign In With Social Networks:"),
         "signUp": MessageLookupByLibrary.simpleMessage("Sign Up"),
         "sizes": MessageLookupByLibrary.simpleMessage("Sizes"),
-        "startForm": MessageLookupByLibrary.simpleMessage("استبيان جديد"),
+        "sorry": MessageLookupByLibrary.simpleMessage("Sorry"),
+        "startForm": MessageLookupByLibrary.simpleMessage("Start Form"),
         "subtotal": MessageLookupByLibrary.simpleMessage("Subtotal"),
         "successfully": MessageLookupByLibrary.simpleMessage("Successfully."),
         "support": MessageLookupByLibrary.simpleMessage("Support"),
         "termsAndConditions":
             MessageLookupByLibrary.simpleMessage("Terms And Conditions"),
+        "to": MessageLookupByLibrary.simpleMessage("To"),
         "update": MessageLookupByLibrary.simpleMessage("update"),
-        "updateData": MessageLookupByLibrary.simpleMessage("تحديث الملفات"),
+        "updateData": MessageLookupByLibrary.simpleMessage("Update Data"),
+        "uploadHelperData":
+            MessageLookupByLibrary.simpleMessage("Load Helper Files"),
         "useCurrentLocation":
             MessageLookupByLibrary.simpleMessage("Use Current Location"),
         "userName": MessageLookupByLibrary.simpleMessage("Username"),
@@ -218,6 +241,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "wishList": MessageLookupByLibrary.simpleMessage("WishList"),
         "wishlist": MessageLookupByLibrary.simpleMessage("Wishlist"),
         "wrongEmail": MessageLookupByLibrary.simpleMessage("Invalid email"),
+        "wrongInputData":
+            MessageLookupByLibrary.simpleMessage("خطأ في القيمة المدخلة"),
         "wrongPhone":
             MessageLookupByLibrary.simpleMessage("Invalid phone number"),
         "yourAddress": MessageLookupByLibrary.simpleMessage("Your Address"),

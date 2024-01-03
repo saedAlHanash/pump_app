@@ -7,18 +7,20 @@ import 'package:pump_app/core/strings/app_color_manager.dart';
 import 'package:pump_app/core/strings/app_color_manager.dart';
 import 'package:pump_app/core/widgets/my_button.dart';
 
+import '../../../../generated/l10n.dart';
+
 class DeleteConfirmationDialog extends StatelessWidget {
   const DeleteConfirmationDialog({super.key});
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const DrawableText(
-        text: 'تأكيد عملية الحذف',
+      title:  DrawableText(
+        text: S.of(context).confirmDelete,
         color: Colors.black,
       ),
-      content: const DrawableText(
-        text: 'هل أنت متأكد من حذف عنصر من السجل؟',
+      content:  DrawableText(
+        text: S.of(context).deleteFromHistory,
         color: Colors.grey,
       ),
       actions: [
@@ -27,7 +29,7 @@ class DeleteConfirmationDialog extends StatelessWidget {
               ButtonStyle(backgroundColor: MaterialStatePropertyAll(AppColorManager.red)),
           child: DrawableText(
             color: Colors.white,
-            text: 'حذف',
+            text: S.of(context).delete,
             fontFamily: FontManager.cairoBold.name,
             matchParent: true,
             textAlign: TextAlign.center,

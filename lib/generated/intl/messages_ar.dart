@@ -26,6 +26,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "aboutUs": MessageLookupByLibrary.simpleMessage("معلومات عنا"),
         "accountCreated":
             MessageLookupByLibrary.simpleMessage("تم إنشاء الحساب!"),
+        "add": MessageLookupByLibrary.simpleMessage("إضافة"),
+        "addDetails": MessageLookupByLibrary.simpleMessage("إضافة تفاصيل"),
         "additional_service":
             MessageLookupByLibrary.simpleMessage("خدمة إضافية"),
         "alreadyHaveAnAccount":
@@ -49,6 +51,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("تغيير كلمة المرور"),
         "changePhone": MessageLookupByLibrary.simpleMessage("تغيير رقم الهاتف"),
         "city": MessageLookupByLibrary.simpleMessage("المدينة"),
+        "clearAllData":
+            MessageLookupByLibrary.simpleMessage("مسح جميع البيانات"),
         "codeSentToEmail": MessageLookupByLibrary.simpleMessage(
             "تم إرسال رمز التأكيد إلى البريد الإلكتروني: "),
         "code_invalid":
@@ -57,6 +61,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "colors": MessageLookupByLibrary.simpleMessage("الألوان"),
         "confirm": MessageLookupByLibrary.simpleMessage("تأكيد"),
         "confirmCode": MessageLookupByLibrary.simpleMessage("أدخل رمز التأكيد"),
+        "confirmDelete": MessageLookupByLibrary.simpleMessage("تأكيد الحذف"),
         "confirmMethod": MessageLookupByLibrary.simpleMessage(
             "يرجى اختيار كيفية إرسال رمز التحقق"),
         "confirmNewPassword":
@@ -78,7 +83,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("كلمة المرور الحالية"),
         "cvc": MessageLookupByLibrary.simpleMessage("الرقم السري"),
         "days": MessageLookupByLibrary.simpleMessage("أيام"),
+        "delete": MessageLookupByLibrary.simpleMessage("حذف"),
         "deleteAccount": MessageLookupByLibrary.simpleMessage("حذف الحساب"),
+        "deleteFromHistory":
+            MessageLookupByLibrary.simpleMessage("حذف عنصر من السجل؟"),
         "description": MessageLookupByLibrary.simpleMessage("الوصف"),
         "didNotReceiveOTP":
             MessageLookupByLibrary.simpleMessage("لم تتلقَ الرمز؟"),
@@ -92,19 +100,25 @@ class MessageLookup extends MessageLookupByLibrary {
         "email": MessageLookupByLibrary.simpleMessage("اسم المستخدم"),
         "emailEmpty":
             MessageLookupByLibrary.simpleMessage("حقل البريد الإلكتروني مطلوب"),
+        "enterFormName":
+            MessageLookupByLibrary.simpleMessage("يرجى إدخال اسم الاستبيان"),
         "enterOTP": MessageLookupByLibrary.simpleMessage(
             "أدخل رمز التفعيل الخاص بك هنا."),
         "enter_new_password_and_confirm":
             MessageLookupByLibrary.simpleMessage("أدخل كلمة السر مع التأكيد"),
         "expiration": MessageLookupByLibrary.simpleMessage("انتهاء الصلاحية"),
+        "exportExcel": MessageLookupByLibrary.simpleMessage("تصدير ملف الاكسل"),
         "faq": MessageLookupByLibrary.simpleMessage("الأسئلة الشائعة"),
         "fav": MessageLookupByLibrary.simpleMessage("المفضلة"),
         "fileHistory": MessageLookupByLibrary.simpleMessage("سجل الملفات"),
+        "fileName": MessageLookupByLibrary.simpleMessage("اسم المِلَفّ"),
         "filters": MessageLookupByLibrary.simpleMessage("الفلاتر"),
         "firstName": MessageLookupByLibrary.simpleMessage("الاسم الأول"),
         "flash_deal": MessageLookupByLibrary.simpleMessage("العروض السريعة"),
         "forgetPassword":
             MessageLookupByLibrary.simpleMessage("نسيت كلمة المرور؟"),
+        "forms": MessageLookupByLibrary.simpleMessage("الاستبيانات"),
+        "from": MessageLookupByLibrary.simpleMessage("من"),
         "fullName": MessageLookupByLibrary.simpleMessage("الاسم الكامل"),
         "governor": MessageLookupByLibrary.simpleMessage("المحافظة"),
         "haveBeenCreated":
@@ -117,6 +131,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "language": MessageLookupByLibrary.simpleMessage("اللغة"),
         "lastName": MessageLookupByLibrary.simpleMessage("الاسم الأخير"),
         "loadData": MessageLookupByLibrary.simpleMessage("تحميل ملفات"),
+        "loadData1": MessageLookupByLibrary.simpleMessage("تحميل ملفات"),
+        "loadMainData":
+            MessageLookupByLibrary.simpleMessage("تحميل الملفات الأساسية"),
         "location": MessageLookupByLibrary.simpleMessage("الموقع"),
         "login": MessageLookupByLibrary.simpleMessage("تسجيل الدخول"),
         "logout": MessageLookupByLibrary.simpleMessage("تسجيل الخروج"),
@@ -139,6 +156,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "new_check_email": MessageLookupByLibrary.simpleMessage(
             "تحقق من بريدك الإلكتروني للحصول على رابط التأكيد"),
         "next": MessageLookupByLibrary.simpleMessage("التالي"),
+        "noHistory": MessageLookupByLibrary.simpleMessage("السجل فارغ"),
         "noInternet": MessageLookupByLibrary.simpleMessage(
             "يرجى التحقق من اتصالك بالإنترنت"),
         "notification": MessageLookupByLibrary.simpleMessage("الإشعارات"),
@@ -170,6 +188,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "price": MessageLookupByLibrary.simpleMessage("السعر"),
         "profile": MessageLookupByLibrary.simpleMessage("الملف الشخصي"),
         "rePassword": MessageLookupByLibrary.simpleMessage("تأكيد كلمة المرور"),
+        "reUploadData":
+            MessageLookupByLibrary.simpleMessage("إعادة تحميل الملفات"),
         "receiverPhone": MessageLookupByLibrary.simpleMessage("هاتف المستلم"),
         "region": MessageLookupByLibrary.simpleMessage("المنطقة"),
         "registeredBefore": MessageLookupByLibrary.simpleMessage("مسجل سابقًا"),
@@ -182,6 +202,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "reset_password":
             MessageLookupByLibrary.simpleMessage("إعادة تعيين كلمة المرور"),
         "reviews": MessageLookupByLibrary.simpleMessage("التقييمات"),
+        "save": MessageLookupByLibrary.simpleMessage("حفظ"),
         "saveChange": MessageLookupByLibrary.simpleMessage("حفظ التغيير"),
         "save_for_later": MessageLookupByLibrary.simpleMessage("حفظ لاحقًا؟"),
         "search_In_All": MessageLookupByLibrary.simpleMessage("البحث في الكل"),
@@ -198,14 +219,18 @@ class MessageLookup extends MessageLookupByLibrary {
             "تسجيل الدخول باستخدام الشبكات الاجتماعية:"),
         "signUp": MessageLookupByLibrary.simpleMessage("الاشتراك"),
         "sizes": MessageLookupByLibrary.simpleMessage("الأحجام"),
+        "sorry": MessageLookupByLibrary.simpleMessage("آسف !"),
         "startForm": MessageLookupByLibrary.simpleMessage("استبيان جديد"),
         "subtotal": MessageLookupByLibrary.simpleMessage("المجموع الفرعي"),
         "successfully": MessageLookupByLibrary.simpleMessage("بنجاح."),
         "support": MessageLookupByLibrary.simpleMessage("الدعم"),
         "termsAndConditions":
             MessageLookupByLibrary.simpleMessage("الشروط والأحكام"),
+        "to": MessageLookupByLibrary.simpleMessage("إلى"),
         "update": MessageLookupByLibrary.simpleMessage("تعديل"),
         "updateData": MessageLookupByLibrary.simpleMessage("تحديث الملفات"),
+        "uploadHelperData":
+            MessageLookupByLibrary.simpleMessage("تحميل ملفات المساعدة"),
         "useCurrentLocation":
             MessageLookupByLibrary.simpleMessage("استخدم الموقع الحالي"),
         "userName": MessageLookupByLibrary.simpleMessage("اسم المستخدم"),
@@ -215,6 +240,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "wishlist": MessageLookupByLibrary.simpleMessage("قائمة الرغبات"),
         "wrongEmail":
             MessageLookupByLibrary.simpleMessage("خطأ في البريد الإلكتروني"),
+        "wrongInputData":
+            MessageLookupByLibrary.simpleMessage("خطأ في القيمة المدخلة"),
         "wrongPhone": MessageLookupByLibrary.simpleMessage("رقم هاتف غير صحيح"),
         "yourAddress": MessageLookupByLibrary.simpleMessage("عنوانك"),
         "yourEmail": MessageLookupByLibrary.simpleMessage("بريدك الإلكتروني"),

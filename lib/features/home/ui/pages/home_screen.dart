@@ -10,6 +10,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_multi_type/image_multi_type.dart';
 
 import '../../../../../router/app_router.dart';
+import '../../../../generated/l10n.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -17,32 +18,42 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppBarWidget(
-        titleText: 'القائمة الرئيسية',
-        title: ImageMultiType(url: Assets.iconsLogo),
+      appBar:  AppBarWidget(
+        titleText: S.of(context).home,
+        title: const ImageMultiType(url: Assets.iconsLogo),
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0).r,
         child: Column(
           children: [
-             Row(
+            Row(
               children: [
-                Expanded(child: ItemCardWidget(item: HomeCards.loadData)),
+                 Expanded(child: ItemCardWidget(item: HomeCards.loadData)),
                 30.0.verticalSpace,
-                Expanded(child: ItemCardWidget(item: HomeCards.fileHistory)),
+                 Expanded(child: ItemCardWidget(item: HomeCards.fileHistory)),
               ],
             ),
             Row(
               children: [
-                const Expanded(child: ItemCardWidget(item: HomeCards.startForm)),
+                 Expanded(child: ItemCardWidget(item: HomeCards.startForm)),
                 30.0.verticalSpace,
-                const Expanded(child: ItemCardWidget(item: HomeCards.history)),
+                 Expanded(child: ItemCardWidget(item: HomeCards.history)),
               ],
             ),
-            ImageMultiType(
-              url: Assets.iconsWater,
-              fit: BoxFit.cover,
-              width: 300.0.r,
+            SizedBox(
+              width: 1.0.sw,
+              child:  ItemCardWidget(
+                item: HomeCards.settings,
+              ),
+            ),
+            Expanded(
+              child: SizedBox(
+                width: 1.0.sw,
+                child: ImageMultiType(
+                  url: Assets.iconsWater,
+                  width: 300.0.r,
+                ),
+              ),
             ),
           ],
         ),
@@ -66,6 +77,11 @@ class _ItemCardWidgetState extends State<ItemCardWidget> {
     return GestureDetector(
       onTap: () {
         switch (widget.item) {
+          case HomeCards.settings:
+            {
+              Navigator.pushNamed(context, RouteName.settings);
+              break;
+            }
           case HomeCards.loadData:
             {
               Navigator.pushNamed(context, RouteName.loadData);

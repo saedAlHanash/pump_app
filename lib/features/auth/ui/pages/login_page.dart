@@ -42,7 +42,7 @@ class _LoginPageState extends State<LoginPage> {
         Navigator.pushNamedAndRemoveUntil(context, RouteName.home, (route) => false);
       },
       child: Scaffold(
-        appBar: const AppBarWidget(titleText: 'تسجيل الدخول'),
+        appBar:  AppBarWidget(titleText: S.of(context).login),
         bottomNavigationBar: GestureDetector(
           onTap: () {
             Navigator.pushNamed(context, RouteName.loadData);
@@ -55,7 +55,7 @@ class _LoginPageState extends State<LoginPage> {
               size: 18.0.sp,
               fontFamily: FontManager.cairoBold.name,
               textAlign: TextAlign.center,
-              text: 'إعادة تحميل الملفات',
+              text:S.of(context).reUploadData ,
             ),
           ),
         ),

@@ -9,6 +9,7 @@ import 'package:pump_app/features/form/ui/pages/form_table_page.dart';
 import 'package:pump_app/main.dart';
 
 import '../../../../core/widgets/my_button.dart';
+import '../../../../generated/l10n.dart';
 import '../../bloc/get_form_cubit/get_form_cubit.dart';
 
 class TableWidget extends StatefulWidget {
@@ -49,8 +50,8 @@ class _TableWidgetState extends State<TableWidget> {
           );
         }),
         MyButton(
-          child: const DrawableText(
-            text: 'إضافة تفاصيل',
+          child:  DrawableText(
+            text: S.of(context).addDetails,
             color: Colors.white,
           ),
           onTap: () async {

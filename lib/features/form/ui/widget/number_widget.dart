@@ -7,6 +7,7 @@ import 'package:pump_app/main.dart';
 
 import '../../../../core/widgets/my_text_form_widget.dart';
 import '../../../../core/widgets/q_header_widget.dart';
+import '../../../../generated/l10n.dart';
 import '../../../db/models/app_specification.dart';
 import '../../bloc/get_form_cubit/get_form_cubit.dart';
 
@@ -42,7 +43,7 @@ class _NumberWidgetState extends State<NumberWidget> {
               ? Transform.translate(
                   offset: Offset(10.w, -8.h),
                   child: DrawableText(
-                    text: 'من ${widget.q.sMin} إلى ${widget.q.sMax}',
+                    text: '${S.of(context).from} ${widget.q.sMin} ${S.of(context).to} ${widget.q.sMax}',
                     color: Colors.green,
                     underLine: true,
                     size: 12.0.sp,
@@ -59,7 +60,7 @@ class _NumberWidgetState extends State<NumberWidget> {
                 selection: TextSelection.collapsed(offset: (widget.q.answer?.answer ?? '').length),
               );
               NoteMessage.showErrorSnackBar(
-                  message: 'خطأ في القيمة المدخلة', context: context);
+                  message: S.of(context).wrongInputData, context: context);
               return;
             }
             context.read<GetFormCubit>().setAnswer(widget.q, sAnswer: val);

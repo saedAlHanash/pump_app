@@ -9,6 +9,7 @@ import 'package:pump_app/features/db/models/app_specification.dart';
 import 'package:pump_app/main.dart';
 
 import '../../../../core/util/my_style.dart';
+import '../../../../generated/l10n.dart';
 import '../../bloc/get_form_cubit/get_form_cubit.dart';
 
 class FormTablePage extends StatefulWidget {
@@ -52,7 +53,7 @@ class _FormTablePageState extends State<FormTablePage> {
                 list[i].getTableWidget,
                 10.0.verticalSpace,
                 MyButton(
-                  text: 'إضافة',
+                  text: S.of(context).add,
                   onTap: () {
                     Navigator.pop(context, list);
                   },

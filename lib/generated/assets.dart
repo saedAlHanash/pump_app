@@ -14,6 +14,7 @@ class Assets {
   static const String iconsLogo = 'assets/icons/logo.svg';
   static const String iconsNoTextLogo = 'assets/icons/no_text_logo.svg';
   static const String iconsPdf = 'assets/icons/pdf.svg';
+  static const String iconsSettings = 'assets/icons/settings.svg';
   static const String iconsTextLogo = 'assets/icons/text_logo.svg';
   static const String iconsWater = 'assets/icons/water.svg';
   static const String iconsWaterPump = 'assets/icons/water_pump.svg';

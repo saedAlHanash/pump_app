@@ -20,7 +20,6 @@ enum QType {
   mCheckbox,
   table,
   header,
-  helperLink,
 }
 
 enum HomeCards {
@@ -28,5 +27,6 @@ enum HomeCards {
   fileHistory,
   startForm,
   history,
+  settings,
 }
 enum StartPage { login, home, otp, passwordOtp, resetPassword }

@@ -11,6 +11,7 @@ import '../../../../core/strings/app_color_manager.dart';
 import '../../../../core/util/my_style.dart';
 import '../../../../core/widgets/my_card_widget.dart';
 import '../../../../generated/assets.dart';
+import '../../../../generated/l10n.dart';
 import '../../../../router/app_router.dart';
 import '../../bloc/get_form_cubit/get_form_cubit.dart';
 
@@ -21,7 +22,7 @@ class ChoseFormePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBarWidget(
-        titleText: 'الاستبيانات',
+        titleText: S.of(context).forms,
       ),
       body: BlocBuilder<GetFormCubit, GetFormInitial>(
         builder: (context, state) {

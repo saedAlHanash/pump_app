@@ -6,6 +6,7 @@ import 'package:pump_app/features/auth/ui/pages/login_page.dart';
 import 'package:pump_app/features/form/ui/pages/chose_form_page.dart';
 import 'package:pump_app/features/history/ui/pages/answers_page.dart';
 import 'package:pump_app/features/home/ui/pages/home_screen.dart';
+import 'package:pump_app/features/home/ui/pages/settings.dart';
 
 import '../core/injection/injection_container.dart' as di;
 import '../core/injection/injection_container.dart';
@@ -73,6 +74,11 @@ class AppRoutes {
         return MaterialPageRoute(builder: (_) => const HomeScreen());
       //endregion
 
+      case RouteName.settings:
+        //region
+        return MaterialPageRoute(builder: (_) => const SettingsScreen());
+      //endregion
+
       //endregion
 
       //region Files
@@ -123,4 +129,5 @@ class RouteName {
   static const home = '/6';
   static const answers = '/7';
   static const files = '/8';
+  static const settings = '/9';
 }

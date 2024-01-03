@@ -117,7 +117,6 @@ extension StringHelper on String? {
     if (this == 'Number') return QType.number;
     if (this == 'M_checkbox') return QType.mCheckbox;
     if (this == 'Table') return QType.table;
-    if (this == 'HLP_LINK') return QType.helperLink;
     if (this == 'Header') return QType.header;
     return QType.header;
   }
@@ -132,7 +131,7 @@ extension MaxInt on num {
 }
 
 extension QTypeH on QType {
-  bool get isQ => this != QType.table && this != QType.header && this != QType.helperLink;
+  bool get isQ => this != QType.table && this != QType.header ;
 }
 
 extension ListHelper on List<Data?> {
@@ -330,6 +329,8 @@ extension EnumHelper on Enum {
   String get arabicName {
     if (this is HomeCards) {
       switch (this as HomeCards) {
+        case HomeCards.settings:
+          return S().settings;
         case HomeCards.loadData:
           return S().loadData;
         case HomeCards.fileHistory:
@@ -346,6 +347,8 @@ extension EnumHelper on Enum {
   dynamic get icon {
     if (this is HomeCards) {
       switch (this as HomeCards) {
+        case HomeCards.settings:
+          return Assets.iconsSettings;
         case HomeCards.loadData:
           return Assets.iconsFiles;
         case HomeCards.fileHistory:

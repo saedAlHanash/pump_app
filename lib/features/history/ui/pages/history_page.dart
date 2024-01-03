@@ -20,6 +20,7 @@ import '../../../../core/widgets/my_text_form_widget.dart';
 import '../../../../core/widgets/not_found_widget.dart';
 import '../../../../core/widgets/q_header_widget.dart';
 import '../../../../generated/assets.dart';
+import '../../../../generated/l10n.dart';
 import '../../../db/models/app_specification.dart';
 import '../../../splash/bloc/files_cubit/files_cubit.dart';
 import '../../bloc/export_report_cubit/export_file_cubit.dart';
@@ -34,10 +35,10 @@ class HistoryPage extends StatelessWidget {
       listenWhen: (p, c) => c.statuses.done,
       listener: (context, state) {
         context.read<FilesCubit>().getFiles();
-        NoteMessage.showSuccessSnackBar(message: 'تم بنجاح', context: context);
+        NoteMessage.showSuccessSnackBar(message: S.of(context).done, context: context);
       },
       child: Scaffold(
-        appBar: const AppBarWidget(titleText: 'السجل'),
+        appBar:  AppBarWidget(titleText: S.of(context).history),
         bottomNavigationBar: Padding(
           padding: const EdgeInsets.all(16.0).r,
           child: Row(
@@ -71,7 +72,7 @@ class HistoryPage extends StatelessWidget {
                                       QHeaderWidget(
                                         q: Questions.fromJson(
                                           {
-                                            '6': 'هل ترغب في تعيين اسم للملف؟',
+                                            '6': S.of(context).enterFormName,
                                             '11': true
                                           },
                                         ),
@@ -79,10 +80,10 @@ class HistoryPage extends StatelessWidget {
                                       5.0.verticalSpace,
                                       MyTextFormOutLineWidget(
                                         controller: c,
-                                        label: 'اسم الملف',
+                                        label: S.of(context).fileName,
                                       ),
                                       MyButton(
-                                        text: 'تم',
+                                        text: S.of(context).done,
                                         onTap: () {
                                           Navigator.pop(context, c.text);
                                         },
@@ -102,7 +103,7 @@ class HistoryPage extends StatelessWidget {
                             }
                           },
                           color: const Color(0xFF107C41),
-                          text: 'تصدير الإكسل',
+                          text: S.of(context).exportExcel,
                         );
                       },
                     );
@@ -126,7 +127,7 @@ class HistoryPage extends StatelessWidget {
               return MyStyle.loadingWidget();
             }
             if (state.result.isEmpty) {
-              return const NotFoundWidget(text: 'لا يوجد سجل', icon: Assets.iconsHistory);
+              return  NotFoundWidget(text: S.of(context).noHistory, icon: Assets.iconsHistory);
             }
             return ListView.separated(
               separatorBuilder: (_, i) => 10.0.verticalSpace,

@@ -1570,51 +1570,241 @@ class S {
     );
   }
 
-  /// `تحديث الملفات`
+  /// `Update Data`
   String get updateData {
     return Intl.message(
-      'تحديث الملفات',
+      'Update Data',
       name: 'updateData',
       desc: '',
       args: [],
     );
   }
 
-  /// `استبيان جديد`
+  /// `Start Form`
   String get startForm {
     return Intl.message(
-      'استبيان جديد',
+      'Start Form',
       name: 'startForm',
       desc: '',
       args: [],
     );
   }
 
-  /// `السجل`
+  /// `History`
   String get history {
     return Intl.message(
-      'السجل',
+      'History',
       name: 'history',
       desc: '',
       args: [],
     );
   }
 
-  /// `سجل الملفات`
+  /// `File History`
   String get fileHistory {
     return Intl.message(
-      'سجل الملفات',
+      'File History',
       name: 'fileHistory',
       desc: '',
       args: [],
     );
   }
 
-  /// `تحميل ملفات`
+  /// `Sorry`
+  String get sorry {
+    return Intl.message(
+      'Sorry',
+      name: 'sorry',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `إعادة تحميل الملفات`
+  String get reUploadData {
+    return Intl.message(
+      'إعادة تحميل الملفات',
+      name: 'reUploadData',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `الاستبيانات`
+  String get forms {
+    return Intl.message(
+      'الاستبيانات',
+      name: 'forms',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Save`
+  String get save {
+    return Intl.message(
+      'Save',
+      name: 'save',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add`
+  String get add {
+    return Intl.message(
+      'Add',
+      name: 'add',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `From`
+  String get from {
+    return Intl.message(
+      'From',
+      name: 'from',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `To`
+  String get to {
+    return Intl.message(
+      'To',
+      name: 'to',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `خطأ في القيمة المدخلة`
+  String get wrongInputData {
+    return Intl.message(
+      'خطأ في القيمة المدخلة',
+      name: 'wrongInputData',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `إضافة تفاصيل`
+  String get addDetails {
+    return Intl.message(
+      'إضافة تفاصيل',
+      name: 'addDetails',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Load Data`
   String get loadData1 {
     return Intl.message(
-      'تحميل ملفات',
+      'Load Data',
       name: 'loadData1',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `File Name`
+  String get fileName {
+    return Intl.message(
+      'File Name',
+      name: 'fileName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Export Excel`
+  String get exportExcel {
+    return Intl.message(
+      'Export Excel',
+      name: 'exportExcel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Empty History`
+  String get noHistory {
+    return Intl.message(
+      'Empty History',
+      name: 'noHistory',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirm Delete`
+  String get confirmDelete {
+    return Intl.message(
+      'Confirm Delete',
+      name: 'confirmDelete',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delete item FromHistory?`
+  String get deleteFromHistory {
+    return Intl.message(
+      'Delete item FromHistory?',
+      name: 'deleteFromHistory',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delete`
+  String get delete {
+    return Intl.message(
+      'Delete',
+      name: 'delete',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Load Main Files`
+  String get loadMainData {
+    return Intl.message(
+      'Load Main Files',
+      name: 'loadMainData',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Load Helper Files`
+  String get uploadHelperData {
+    return Intl.message(
+      'Load Helper Files',
+      name: 'uploadHelperData',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `يرجى إدخال اسم الاستبيان`
+  String get enterFormName {
+    return Intl.message(
+      'يرجى إدخال اسم الاستبيان',
+      name: 'enterFormName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `مسح جميع البيانات`
+  String get clearAllData {
+    return Intl.message(
+      'مسح جميع البيانات',
+      name: 'clearAllData',
       desc: '',
       args: [],
     );

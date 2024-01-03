@@ -17,6 +17,7 @@ import '../../../../core/strings/app_string_manager.dart';
 import '../../../../core/util/my_style.dart';
 import '../../../../core/util/snack_bar_message.dart';
 import '../../../../core/widgets/q_header_widget.dart';
+import '../../../../generated/l10n.dart';
 import '../../../../router/app_router.dart';
 import '../../../history/data/history_model.dart';
 import '../../bloc/get_form_cubit/get_form_cubit.dart';
@@ -78,7 +79,7 @@ class _StartFormState extends State<StartForm> {
                     ),
                   if (widget.pageNumber < state.result.length - 1)
                     MyButton(
-                      text: 'التالي',
+                      text: S.of(context).next,
                       onTap: () {
                         final error =
                             context.read<GetFormCubit>().isComplete(widget.pageNumber);
@@ -92,7 +93,7 @@ class _StartFormState extends State<StartForm> {
                     )
                   else
                     MyButton(
-                      text: 'حفظ',
+                      text: S.of(context).save,
                       onTap: () async {
                         var name = '';
                         name = await NoteMessage.showMyDialog(

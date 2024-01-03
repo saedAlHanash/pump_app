@@ -153,5 +153,28 @@
   "startForm": "استبيان جديد",
   "history": "السجل",
   "fileHistory": "سجل الملفات",
-  "loadData": "تحميل ملفات"
+  "sorry": "آسف !",
+  "clearAllData": "مسح جميع البيانات",
+  "loadData": "تحميل ملفات",
+
+
+  "reUploadData": "إعادة تحميل الملفات",
+  "forms": "الاستبيانات",
+  "save": "حفظ",
+  "add": "إضافة",
+  "from": "من",
+  "to": "إلى",
+  "wrongInputData": "خطأ في القيمة المدخلة",
+  "addDetails": "إضافة تفاصيل",
+  "loadData1": "تحميل ملفات",
+  "fileName": "اسم المِلَفّ",
+  "exportExcel": "تصدير ملف الاكسل",
+  "noHistory": "السجل فارغ",
+  "confirmDelete": "تأكيد الحذف",
+  "deleteFromHistory": "حذف عنصر من السجل؟",
+  "delete": "حذف",
+  "loadMainData": "تحميل الملفات الأساسية",
+  "uploadHelperData": "تحميل ملفات المساعدة",
+  "enterFormName": "يرجى إدخال اسم الاستبيان"
+
 }

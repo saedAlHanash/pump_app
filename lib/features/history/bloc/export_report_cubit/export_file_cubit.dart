@@ -72,6 +72,82 @@ class ExportReportCubit extends Cubit<ExportReportInitial> {
     );
   }
 
+  void s({
+    required List<HistoryModel> list,
+  }) {
+    final ll = list
+        .groupListsBy<String>((e) => e.list.firstOrNull?.firstOrNull?.assessmentNu ?? '-')
+        .values
+        .toList();
+    for (var e in ll) {
+      s1(list: e);
+    }
+  }
+
+  void s1({
+    required List<HistoryModel> list,
+  }) {
+    final uuID = const Uuid().v4();
+    final sheetName = list.first.list.firstOrNull?.firstOrNull?.assessmentName ?? uuID;
+    final sheet = state.getSheet(sheetName);
+    final qIdHeaderAndIndex = getQIds(list);
+
+    final headerList =
+        List<CellValue>.from(qIdHeaderAndIndex.keys.map((e) => TextCellValue(e)))
+          ..insert(0, const TextCellValue('UUID'));
+
+    sheet.appendRow(headerList);
+  }
+
+  void s2({
+    required List<Questions> list,
+    Sheet? sheet,
+    required Map<String, int> qIdHeaderAndIndex,
+    required String uuID,
+  }) {
+    final emptyList = List.generate(
+      qIdHeaderAndIndex.length,
+      (_) => const TextCellValue(''),
+    );
+
+    ///put answer in on form
+    for (var e in list) {
+      if (e.qstType.isQ && e.answer != null && e.tableNumber.isEmpty) {
+        emptyList[(qIdHeaderAndIndex[e.qstId]) ?? 0] =
+            TextCellValue(e.answer?.answer ?? '-');
+      } else if (e.qstType == QType.table &&
+          e.answer != null &&
+          e.answer!.answers.isNotEmpty) {
+        s3(
+          list: e.answer!.answers,
+          tableId: e.tableNumber,
+          uuID: uuID,
+        );
+      }
+    }
+    sheet?.appendRow(emptyList..insert(0, TextCellValue(uuID)));
+  }
+
+  void s3(
+      {required List<List<Questions>> list,
+      required String uuID,
+      required String tableId}) {
+
+    // final sheetName = list.first.firstOrNull?.assessmentName ?? uuID;
+    //
+    // final sheet = state.getSheet(sheetName);
+    // final qIdHeaderAndIndex = getQIds(list);
+    // for (var e1 in list) {
+    //   for (var e in e1) {
+    //     if (e.qstType.isQ && e.answer != null && e.tableNumber.isEmpty) {
+    //       emptyList[(qIdHeaderAndIndex[e.qstId]) ?? 0] =
+    //           TextCellValue(e.answer?.answer ?? '-');
+    //     } else if (e.qstType == QType.table && e.answer != null) {}
+    //   }
+    // }
+    // sheet?.appendRow(emptyList..insert(0, TextCellValue(uuID)));
+  }
+
   void _saveDataIds(Map<String, int> m, List<HistoryModel> list) {
     final headerList = List<CellValue?>.from(m.keys.map((e) => TextCellValue(e)))
       ..insert(0, const TextCellValue('UUID'));
@@ -119,5 +195,30 @@ class ExportReportCubit extends Cubit<ExportReportInitial> {
       }
     }
     sheet?.appendRow(emptyList..insert(0, TextCellValue(uuID)));
+  }
+
+  //------------helper-----------
+
+  // Map<String, int> getQIds(List<HistoryModel> l) => <String, int>{}..addAll(
+  //     l
+  //         .expand((assessment) => assessment.list.singleList)
+  //         .where((answer) => answer.qstType.isQ)
+  //         .fold<Map<String, int>>({}, (m, answer) => m..[answer.qstId] ??= m.length),
+  //   );
+
+  Map<String, int> getQIds(List<HistoryModel> l) {
+    final m = <String, int>{};
+    l.forEachIndexed(
+      (i, assessment) {
+        assessment.list.singleList.forEachIndexed((i, answer) {
+          //سؤال وليس سؤال ضمن جدول
+          if (answer.qstType.isQ && answer.tableNumber.isEmpty) {
+            if (m[answer.qstId] == null) m[answer.qstId] = m.length;
+          }
+        });
+      },
+    );
+
+    return m;
   }
 }

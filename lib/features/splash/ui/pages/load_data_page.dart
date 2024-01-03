@@ -40,13 +40,13 @@ class LoadData extends StatelessWidget {
       listener: (context, state) {
         context.read<GetFormCubit>().getAllForm();
         if (AppSharedPreference.getMyId != null) {
-          NoteMessage.showSuccessSnackBar(message: 'تم بنجاح', context: context);
+          NoteMessage.showSuccessSnackBar(message: S.of(context).done, context: context);
           return;
         }
         Navigator.pushReplacementNamed(context, RouteName.splash);
       },
       child: Scaffold(
-        appBar: const AppBarWidget(titleText: 'تحميل الملفات'),
+        appBar:  AppBarWidget(titleText: S.of(context).loadData),
         body: Padding(
           padding: MyStyle.authPagesPadding,
           child: BlocBuilder<LoadDataCubit, LoadDataInitial>(
@@ -78,7 +78,7 @@ class LoadData extends StatelessWidget {
                               ),
                               10.0.verticalSpace,
                               DrawableText(
-                                text: 'تحميل الملفات الأساسية',
+                                text: S.of(context).loadMainData,
                                 color: AppColorManager.black,
                                 fontFamily: FontManager.cairoBold.name,
                               ),
@@ -108,7 +108,7 @@ class LoadData extends StatelessWidget {
                               ),
                               10.0.verticalSpace,
                               DrawableText(
-                                text: 'تحميل ملفات المساعدة',
+                                text: S.of(context).uploadHelperData,
                                 color: AppColorManager.black,
                                 fontFamily: FontManager.cairoBold.name,
                               ),
