@@ -1580,6 +1580,26 @@ class S {
     );
   }
 
+  /// `Export For DB`
+  String get exportForDb {
+    return Intl.message(
+      'Export For DB',
+      name: 'exportForDb',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Export For Review`
+  String get exportForReview {
+    return Intl.message(
+      'Export For Review',
+      name: 'exportForReview',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Start Form`
   String get startForm {
     return Intl.message(
@@ -1620,20 +1640,20 @@ class S {
     );
   }
 
-  /// `إعادة تحميل الملفات`
+  /// `Reload Files`
   String get reUploadData {
     return Intl.message(
-      'إعادة تحميل الملفات',
+      'Reload Files',
       name: 'reUploadData',
       desc: '',
       args: [],
     );
   }
 
-  /// `الاستبيانات`
+  /// `Forms`
   String get forms {
     return Intl.message(
-      'الاستبيانات',
+      'Forms',
       name: 'forms',
       desc: '',
       args: [],
@@ -1680,20 +1700,20 @@ class S {
     );
   }
 
-  /// `خطأ في القيمة المدخلة`
+  /// `Input error`
   String get wrongInputData {
     return Intl.message(
-      'خطأ في القيمة المدخلة',
+      'Input error',
       name: 'wrongInputData',
       desc: '',
       args: [],
     );
   }
 
-  /// `إضافة تفاصيل`
+  /// `Add record`
   String get addDetails {
     return Intl.message(
-      'إضافة تفاصيل',
+      'Add record',
       name: 'addDetails',
       desc: '',
       args: [],
@@ -1715,6 +1735,16 @@ class S {
     return Intl.message(
       'File Name',
       name: 'fileName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Edit`
+  String get edit {
+    return Intl.message(
+      'Edit',
+      name: 'edit',
       desc: '',
       args: [],
     );
@@ -1790,20 +1820,20 @@ class S {
     );
   }
 
-  /// `يرجى إدخال اسم الاستبيان`
+  /// `Enter form name`
   String get enterFormName {
     return Intl.message(
-      'يرجى إدخال اسم الاستبيان',
+      'Enter form name',
       name: 'enterFormName',
       desc: '',
       args: [],
     );
   }
 
-  /// `مسح جميع البيانات`
+  /// `Clear all data`
   String get clearAllData {
     return Intl.message(
-      'مسح جميع البيانات',
+      'Clear all data',
       name: 'clearAllData',
       desc: '',
       args: [],

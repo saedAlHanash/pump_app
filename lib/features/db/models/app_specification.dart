@@ -71,6 +71,14 @@ class Questions {
 
   String get sMax => max is DateTime ? (max as DateTime).formatDate : max.toString();
 
+  String get getSheetName {
+    List<String> charactersToRemove = ["/", "\\", "*", "[", "]"];
+
+    String pattern = charactersToRemove.map((char) => "\\$char").join("|");
+
+    return assessmentName.replaceAll(RegExp(pattern), '_').splitByLength1(31).first;
+  }
+
   Widget get getWidget {
     if (tableNumber.isNotEmpty && qstType != QType.table) {
       return 0.0.verticalSpace;
@@ -99,7 +107,6 @@ class Questions {
         return TableWidget(q: this);
       case QType.header:
         return HeaderWidget(q: this);
-
     }
   }
 
@@ -123,7 +130,6 @@ class Questions {
         return TableWidget(q: this);
       case QType.header:
         return HeaderWidget(q: this);
-
     }
   }
 
@@ -164,7 +170,8 @@ class Questions {
       rListQstId: map['9'] ?? '',
       tableNumber: map['10'] ?? '',
       isRequired: map['11'] ?? false,
-      relatedAnswer: ((map['12'] ?? '') as String).split(';'),
+      relatedAnswer: ((map['12'] ?? '') as String).split(';')
+        ..removeWhere((element) => element.isEmpty),
       valueAnswer: map['13'] ?? '',
       min: num.tryParse(map['14'] ?? '-') ?? DateTime.tryParse(map['14'] ?? '-'),
       max: num.tryParse(map['15'] ?? '-') ?? DateTime.tryParse(map['15'] ?? '-'),
@@ -213,7 +220,7 @@ class Questions {
       '9': rListQstId,
       '10': tableNumber,
       '11': isRequired,
-      '12': relatedAnswer.join(';'),
+      '12': (relatedAnswer.join(';')),
       '13': valueAnswer,
       '14': min != null
           ? ((min is DateTime) ? (min as DateTime).toIso8601String() : min.toString())

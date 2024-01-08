@@ -12,6 +12,7 @@ import 'package:pump_app/core/widgets/icon_stepper_widget.dart';
 import 'package:pump_app/core/widgets/my_button.dart';
 import 'package:pump_app/core/widgets/my_text_form_widget.dart';
 import 'package:pump_app/features/db/models/app_specification.dart';
+import 'package:pump_app/features/history/ui/widget/item_history.dart';
 
 import '../../../../core/strings/app_string_manager.dart';
 import '../../../../core/util/my_style.dart';
@@ -19,6 +20,7 @@ import '../../../../core/util/snack_bar_message.dart';
 import '../../../../core/widgets/q_header_widget.dart';
 import '../../../../generated/l10n.dart';
 import '../../../../router/app_router.dart';
+import '../../../history/bloc/get_history_cubit/get_history_cubit.dart';
 import '../../../history/data/history_model.dart';
 import '../../bloc/get_form_cubit/get_form_cubit.dart';
 
@@ -134,6 +136,11 @@ class _StartFormState extends State<StartForm> {
                           return;
                         }
 
+                        if (deleteIndex >= 0) {
+                          final box = await Hive.openBox<String>(AppStringManager.answerBox);
+                          box.deleteAt(deleteIndex);
+                          deleteIndex = -1;
+                        }
                         final box =
                             await Hive.openBox<String>(AppStringManager.answerBox);
 
@@ -144,13 +151,18 @@ class _StartFormState extends State<StartForm> {
                           date: DateTime.now(),
                           name: name,
                         );
+
                         box.add(
                           jsonEncode(model.toJson()),
                         );
+
                         await box.close();
                         if (!mounted) return;
                         Navigator.pushNamedAndRemoveUntil(
-                            context, RouteName.home, (route) => false);
+                          context,
+                          RouteName.home,
+                          (route) => false,
+                        );
                       },
                     ),
                   20.0.verticalSpace,

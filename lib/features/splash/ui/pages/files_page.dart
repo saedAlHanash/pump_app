@@ -14,6 +14,7 @@ import '../../../../core/strings/app_color_manager.dart';
 import '../../../../core/util/my_style.dart';
 import '../../../../core/widgets/my_card_widget.dart';
 import '../../../../generated/assets.dart';
+import '../../../../generated/l10n.dart';
 import '../../../history/ui/widget/delete_dialog.dart';
 import '../../bloc/files_cubit/files_cubit.dart';
 
@@ -23,7 +24,7 @@ class FilesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppBarWidget(titleText: 'سجل الملفات'),
+      appBar:  AppBarWidget(titleText: S.of(context).fileHistory),
       body: Padding(
         padding: MyStyle.authPagesPadding,
         child: BlocBuilder<FilesCubit, FilesInitial>(

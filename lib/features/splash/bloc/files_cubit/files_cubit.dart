@@ -38,4 +38,20 @@ class FilesCubit extends Cubit<FilesInitial> {
       state.copyWith(statuses: CubitStatuses.done, result: l, request: ls),
     );
   }
+
+  Future<void> clearAll() async {
+    final d = (await getDownloadsDirectory())?.listSync() ?? <FileSystemEntity>[];
+    final l = <XFile>[];
+    final ls = <FileStat>[];
+    for (var e in d) {
+      if (e is File) {
+        await File(e.path).delete();
+      } else if (e is Directory) {
+        print(e.path);
+      }
+    }
+    emit(
+      state.copyWith(statuses: CubitStatuses.done, result: l, request: ls),
+    );
+  }
 }

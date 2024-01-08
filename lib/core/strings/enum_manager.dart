@@ -9,6 +9,7 @@ enum PricingMatrixType { day, date }
 enum DoneType { password, signup, order }
 
 enum FilterItem { activity, group, country, city }
+enum ExportType{ db,review}
 
 enum QType {
   list,

@@ -156,8 +156,6 @@
   "sorry": "آسف !",
   "clearAllData": "مسح جميع البيانات",
   "loadData": "تحميل ملفات",
-
-
   "reUploadData": "إعادة تحميل الملفات",
   "forms": "الاستبيانات",
   "save": "حفظ",
@@ -173,8 +171,10 @@
   "confirmDelete": "تأكيد الحذف",
   "deleteFromHistory": "حذف عنصر من السجل؟",
   "delete": "حذف",
+  "edit": "تعديل",
+  "exportForDb": "تصدير لقاعدة المعطيات",
+  "exportForReview": "تصدير للمراجعة",
   "loadMainData": "تحميل الملفات الأساسية",
   "uploadHelperData": "تحميل ملفات المساعدة",
   "enterFormName": "يرجى إدخال اسم الاستبيان"
-
 }

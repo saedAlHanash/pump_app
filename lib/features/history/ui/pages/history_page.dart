@@ -1,12 +1,8 @@
-import 'dart:io';
-
-import 'package:excel/excel.dart';
+import 'package:drawable_text/drawable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:path/path.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:permission_handler/permission_handler.dart';
+import 'package:image_multi_type/image_multi_type.dart';
 import 'package:pump_app/core/extensions/extensions.dart';
 import 'package:pump_app/core/strings/app_color_manager.dart';
 import 'package:pump_app/core/strings/enum_manager.dart';
@@ -16,19 +12,28 @@ import 'package:pump_app/core/widgets/my_button.dart';
 import 'package:pump_app/features/history/ui/widget/item_history.dart';
 
 import '../../../../core/util/my_style.dart';
-import '../../../../core/widgets/my_text_form_widget.dart';
+import '../../../../core/widgets/my_card_widget.dart';
 import '../../../../core/widgets/not_found_widget.dart';
-import '../../../../core/widgets/q_header_widget.dart';
 import '../../../../generated/assets.dart';
 import '../../../../generated/l10n.dart';
-import '../../../db/models/app_specification.dart';
 import '../../../splash/bloc/files_cubit/files_cubit.dart';
 import '../../bloc/export_report_cubit/export_file_cubit.dart';
 import '../../bloc/get_history_cubit/get_history_cubit.dart';
 
-class HistoryPage extends StatelessWidget {
+class HistoryPage extends StatefulWidget {
   const HistoryPage({super.key});
 
+  @override
+  State<HistoryPage> createState() => _HistoryPageState();
+}
+
+class _HistoryPageState extends State<HistoryPage> {
+  late final ExportReportCubit exportCubit;
+  @override
+  void initState() {
+    exportCubit = context.read<ExportReportCubit>();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return BlocListener<ExportReportCubit, ExportReportInitial>(
@@ -38,7 +43,7 @@ class HistoryPage extends StatelessWidget {
         NoteMessage.showSuccessSnackBar(message: S.of(context).done, context: context);
       },
       child: Scaffold(
-        appBar:  AppBarWidget(titleText: S.of(context).history),
+        appBar: AppBarWidget(titleText: S.of(context).history),
         bottomNavigationBar: Padding(
           padding: const EdgeInsets.all(16.0).r,
           child: Row(
@@ -60,46 +65,14 @@ class HistoryPage extends StatelessWidget {
                             final list = context.read<GetHistoryCubit>().state.result;
                             final m = context.read<GetHistoryCubit>().getQIds();
 
-                            var name = '';
-                            name = await NoteMessage.showMyDialog(
-                              context,
-                              child: Builder(builder: (context) {
-                                final c = TextEditingController();
-                                return Padding(
-                                  padding: const EdgeInsets.all(20.0).r,
-                                  child: Column(
-                                    children: [
-                                      QHeaderWidget(
-                                        q: Questions.fromJson(
-                                          {
-                                            '6': S.of(context).enterFormName,
-                                            '11': true
-                                          },
-                                        ),
-                                      ),
-                                      5.0.verticalSpace,
-                                      MyTextFormOutLineWidget(
-                                        controller: c,
-                                        label: S.of(context).fileName,
-                                      ),
-                                      MyButton(
-                                        text: S.of(context).done,
-                                        onTap: () {
-                                          Navigator.pop(context, c.text);
-                                        },
-                                      ),
-                                    ],
-                                  ),
-                                );
-                              }),
-                            );
-
-                            if (context.mounted) {
-                              context.read<ExportReportCubit>().saveExcelFile(
-                                    list: list,
-                                    m: m,
-                                    name: name,
-                                  );
+                            final type = await choseExportType(context);
+                            if (type == null) return;
+                            switch (type) {
+                              case ExportType.db:
+                                exportCubit.exportForDb(list: list);
+                                break;
+                              case ExportType.review:
+                                exportCubit.exportForReview(list: list);
                             }
                           },
                           color: const Color(0xFF107C41),
@@ -127,7 +100,8 @@ class HistoryPage extends StatelessWidget {
               return MyStyle.loadingWidget();
             }
             if (state.result.isEmpty) {
-              return  NotFoundWidget(text: S.of(context).noHistory, icon: Assets.iconsHistory);
+              return NotFoundWidget(
+                  text: S.of(context).noHistory, icon: Assets.iconsHistory);
             }
             return ListView.separated(
               separatorBuilder: (_, i) => 10.0.verticalSpace,
@@ -139,6 +113,75 @@ class HistoryPage extends StatelessWidget {
             );
           },
         ),
+      ),
+    );
+  }
+
+  Future<ExportType?> choseExportType(BuildContext context) async {
+    return await NoteMessage.showBottomSheet1(
+      context,
+      Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          20.0.verticalSpace,
+          InkWell(
+            onTap: () => Navigator.pop(context, ExportType.db),
+            child: MyCardWidget(
+                cardColor: AppColorManager.cardColor,
+                elevation: 5.0.r,
+                padding: EdgeInsets.zero,
+                margin: const EdgeInsets.all(10.0).r,
+                child: SizedBox(
+                  height: 152.0.h,
+                  width: .9.sw,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ImageMultiType(
+                        url: Assets.iconsDb,
+                        height: 70.0.r,
+                        width: 70.0.r,
+                      ),
+                      10.0.verticalSpace,
+                      DrawableText(
+                        text: S.of(context).exportForDb,
+                        color: AppColorManager.black,
+                        fontFamily: FontManager.cairoBold.name,
+                      ),
+                    ],
+                  ),
+                )),
+          ),
+          InkWell(
+            onTap: () => Navigator.pop(context, ExportType.review),
+            child: MyCardWidget(
+                cardColor: AppColorManager.cardColor,
+                elevation: 5.0.r,
+                padding: EdgeInsets.zero,
+                margin: const EdgeInsets.all(10.0).r,
+                child: SizedBox(
+                  height: 152.0.h,
+                  width: .9.sw,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ImageMultiType(
+                        url: Assets.iconsReview,
+                        height: 70.0.r,
+                        width: 70.0.r,
+                      ),
+                      10.0.verticalSpace,
+                      DrawableText(
+                        text: S.of(context).exportForReview,
+                        color: AppColorManager.black,
+                        fontFamily: FontManager.cairoBold.name,
+                      ),
+                    ],
+                  ),
+                )),
+          ),
+          20.0.verticalSpace,
+        ],
       ),
     );
   }

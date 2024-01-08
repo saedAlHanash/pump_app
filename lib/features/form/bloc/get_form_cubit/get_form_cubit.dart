@@ -49,6 +49,7 @@ class GetFormCubit extends Cubit<GetFormInitial> {
       gropingList.add(value.map((e) => e.copyWith()).toList()
         ..sort((a, b) => a.sequenceNo.compareTo(b.sequenceNo)));
     });
+
     hideVisible(gropingList);
 
     emit(
@@ -111,19 +112,15 @@ class GetFormCubit extends Cubit<GetFormInitial> {
   bool updateShowRelatedAnswer(Questions q) {
     if (!q.needUpdateRelatedQst) return false;
 
-    final singleList = state.result.expand((questionsList) => questionsList).toList();
+    final singleList = state.result.singleList
+        .where((element) => q.relatedAnswer.contains(element.qstId))
+        .toList();
 
     for (var e in singleList) {
-      for (var e1 in e.relatedAnswer) {
-        if (e.qstId != e1) continue;
+      e.isVisible = q.valueAnswer == q.answer?.answer;
+      if (!e.isVisible) e.answer = null;
 
-        e.isVisible = q.valueAnswer == q.answer?.answer;
-        if (!e.isVisible) e.answer = null;
-
-        updateShowRelatedAnswer(e);
-
-        return true;
-      }
+      updateShowRelatedAnswer(e);
     }
 
     return false;

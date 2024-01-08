@@ -95,6 +95,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "done": MessageLookupByLibrary.simpleMessage("تم"),
         "done_resend_code":
             MessageLookupByLibrary.simpleMessage("تم إعادة الإرسال"),
+        "edit": MessageLookupByLibrary.simpleMessage("تعديل"),
         "editProfile":
             MessageLookupByLibrary.simpleMessage("تعديل الصفحة الشخصية"),
         "email": MessageLookupByLibrary.simpleMessage("اسم المستخدم"),
@@ -108,6 +109,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("أدخل كلمة السر مع التأكيد"),
         "expiration": MessageLookupByLibrary.simpleMessage("انتهاء الصلاحية"),
         "exportExcel": MessageLookupByLibrary.simpleMessage("تصدير ملف الاكسل"),
+        "exportForDb":
+            MessageLookupByLibrary.simpleMessage("تصدير لقاعدة المعطيات"),
+        "exportForReview":
+            MessageLookupByLibrary.simpleMessage("تصدير للمراجعة"),
         "faq": MessageLookupByLibrary.simpleMessage("الأسئلة الشائعة"),
         "fav": MessageLookupByLibrary.simpleMessage("المفضلة"),
         "fileHistory": MessageLookupByLibrary.simpleMessage("سجل الملفات"),

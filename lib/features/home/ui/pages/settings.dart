@@ -1,13 +1,24 @@
 import 'package:drawable_text/drawable_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hive/hive.dart';
 import 'package:pump_app/core/strings/app_color_manager.dart';
+import 'package:pump_app/core/strings/app_string_manager.dart';
+import 'package:pump_app/core/strings/app_string_manager.dart';
+import 'package:pump_app/core/strings/app_string_manager.dart';
+import 'package:pump_app/core/strings/app_string_manager.dart';
+import 'package:pump_app/core/util/snack_bar_message.dart';
 import 'package:pump_app/core/widgets/app_bar/app_bar_widget.dart';
 import 'package:pump_app/core/widgets/my_button.dart';
 
 import '../../../../core/app/app_widget.dart';
 import '../../../../core/util/shared_preferences.dart';
 import '../../../../generated/l10n.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+
+import '../../../../router/app_router.dart';
+import '../../../splash/bloc/files_cubit/files_cubit.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -24,8 +35,34 @@ class SettingsScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             LanWidget(),
+            30.0.verticalSpace,
+            MyButton(
+              onTap: () async {
+                final result = await NoteMessage.showCheckDialog(context,
+                    text: S.of(context).confirmDelete,
+                    textButton: S.of(context).confirm,
+                    image: Icons.delete);
 
-            MyButton(color: Colors.red,text: S.of(context).clearAllData,),
+                if (result && context.mounted) {
+                  AppSharedPreference.logout();
+
+                  clearAppData();
+
+                  context.read<FilesCubit>().clearAll();
+
+                  await Hive.deleteBoxFromDisk('pdf_files');
+                  await Hive.deleteBoxFromDisk(AppStringManager.usersTable);
+                  await Hive.deleteBoxFromDisk(AppStringManager.formTable);
+                  await Hive.deleteBoxFromDisk(AppStringManager.answerBox);
+                  await Hive.deleteBoxFromDisk(AppStringManager.filePathsBox);
+
+                  Navigator.pushNamedAndRemoveUntil(
+                      context, RouteName.splash, (route) => false);
+                }
+              },
+              color: Colors.red,
+              text: S.of(context).clearAllData,
+            ),
           ],
         ),
       ),
@@ -73,8 +110,8 @@ class _LanWidgetState extends State<LanWidget> {
                   setState(() => select = 0);
                 },
                 child: Container(
-                  height: 260.0.r,
-                  width: 240.0.r,
+                  height: .4.sw,
+                  width: .4.sw,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20.0.r),
                     border:
@@ -115,8 +152,8 @@ class _LanWidgetState extends State<LanWidget> {
                   setState(() => select = 1);
                 },
                 child: Container(
-                  height: 260.0.r,
-                  width: 240.0.r,
+                  height: .4.sw,
+                  width: .4.sw,
                   decoration: BoxDecoration(
                     border:
                         select == 1 ? null : Border.all(color: const Color(0xFFE8F3F1)),
@@ -156,4 +193,11 @@ class _LanWidgetState extends State<LanWidget> {
       ),
     );
   }
+}
+
+void clearAppData() async {
+  final secureStorage = FlutterSecureStorage();
+
+  // Delete all data stored by the app
+  await secureStorage.deleteAll();
 }

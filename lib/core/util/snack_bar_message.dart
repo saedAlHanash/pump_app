@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:drawable_text/drawable_text.dart';
@@ -241,6 +243,98 @@ class NoteMessage {
                 autoPlayInterval: const Duration(seconds: 10),
                 viewportFraction: 1,
               ),
+            ),
+          ),
+        );
+      },
+    );
+    return (result ?? false);
+  }
+
+
+  static Future<bool> showCheckDialog(
+      BuildContext context, {
+        required String text,
+        required String textButton,
+        required dynamic image,
+      }) async {
+    // show the dialog
+    final result = await showDialog(
+      context: context,
+      barrierColor: Colors.black.withOpacity(0.3),
+      builder: (BuildContext context) {
+        return BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 3.0, sigmaY: 3.0),
+          child: Dialog(
+            alignment: Alignment.center,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(
+                Radius.circular(20.0.r),
+              ),
+            ),
+            elevation: 10.0,
+            clipBehavior: Clip.hardEdge,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  width: 1.0.sw,
+                  padding: const EdgeInsets.all(15.0).r,
+                  clipBehavior: Clip.hardEdge,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.vertical(top: Radius.circular(20.0.r)),
+                  ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      50.0.verticalSpace,
+                      ImageMultiType(
+                        url: image,
+                        height: 60.0.r,
+                        width: 60.0.r,
+                        color: AppColorManager.mainColor,
+                      ),
+                      20.0.verticalSpace,
+                      DrawableText(
+                        text: text,
+                        size: 20.0.sp,
+                        textAlign: TextAlign.center,
+                        fontFamily: FontManager.cairoSemiBold.name,
+                        color: AppColorManager.black,
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 23.0, horizontal: 40.0).r,
+                  child: Row(
+                    children: [
+                      Expanded(
+                        flex: 3,
+                        child: GestureDetector(
+                          onTap: () => Navigator.pop(context, true),
+                          child: DrawableText(
+                            text: textButton,
+                            color: AppColorManager.gray,
+                            fontFamily: FontManager.cairoSemiBold.name,
+                            matchParent: true,
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        flex: 1,
+                        child: GestureDetector(
+                          onTap: () => Navigator.pop(context, false),
+                          child: DrawableText(
+                            text: S.of(context).cancel,
+                            matchParent: true,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
           ),
         );
