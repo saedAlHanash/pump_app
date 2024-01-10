@@ -2,6 +2,7 @@ import 'package:drawable_text/drawable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pump_app/core/extensions/extensions.dart';
 import 'package:pump_app/core/util/snack_bar_message.dart';
 import 'package:pump_app/main.dart';
 
@@ -37,13 +38,14 @@ class _NumberWidgetState extends State<NumberWidget> {
         5.0.verticalSpace,
         MyTextFormOutLineWidget(
           isRequired: widget.q.isRequired,
-          keyBordType: TextInputType.number,
+          keyBordType: const TextInputType.numberWithOptions(decimal: true, signed: true),
           controller: controller,
           helperText: widget.q.max != null
               ? Transform.translate(
                   offset: Offset(10.w, -8.h),
                   child: DrawableText(
-                    text: '${S.of(context).from} ${widget.q.sMin} ${S.of(context).to} ${widget.q.sMax}',
+                    text:
+                        '${S.of(context).from} ${widget.q.sMin} ${S.of(context).to} ${widget.q.sMax}',
                     color: Colors.green,
                     underLine: true,
                     size: 12.0.sp,
@@ -52,12 +54,13 @@ class _NumberWidgetState extends State<NumberWidget> {
                 )
               : null,
           onChanged: (val) {
-            loggerObject.w(val);
-            num n = num.tryParse(val) ?? 0;
-            if (n < widget.q.min || n > widget.q.max) {
+            var n = (num.tryParse(val.toString())) ?? 0;
+            loggerObject.w(n);
+            if (n < (widget.q.min ?? -1.max) || n > (widget.q.max ?? 1.max)) {
               controller.value = controller.value.copyWith(
                 text: widget.q.answer?.answer ?? '',
-                selection: TextSelection.collapsed(offset: (widget.q.answer?.answer ?? '').length),
+                selection: TextSelection.collapsed(
+                    offset: (widget.q.answer?.answer ?? '').length),
               );
               NoteMessage.showErrorSnackBar(
                   message: S.of(context).wrongInputData, context: context);

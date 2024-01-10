@@ -172,6 +172,7 @@
   "deleteFromHistory": "حذف عنصر من السجل؟",
   "delete": "حذف",
   "edit": "تعديل",
+  "designBy": "صمم بواسطة",
   "exportForDb": "تصدير لقاعدة المعطيات",
   "exportForReview": "تصدير للمراجعة",
   "loadMainData": "تحميل الملفات الأساسية",

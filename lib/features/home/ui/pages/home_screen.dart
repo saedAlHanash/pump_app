@@ -18,9 +18,8 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:  AppBarWidget(
+      appBar: AppBarWidget(
         titleText: S.of(context).home,
-        title: const ImageMultiType(url: Assets.iconsLogo),
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0).r,
@@ -28,31 +27,22 @@ class HomeScreen extends StatelessWidget {
           children: [
             Row(
               children: [
-                 Expanded(child: ItemCardWidget(item: HomeCards.loadData)),
+                Expanded(child: ItemCardWidget(item: HomeCards.loadData)),
                 30.0.verticalSpace,
-                 Expanded(child: ItemCardWidget(item: HomeCards.fileHistory)),
+                Expanded(child: ItemCardWidget(item: HomeCards.fileHistory)),
               ],
             ),
             Row(
               children: [
-                 Expanded(child: ItemCardWidget(item: HomeCards.startForm)),
+                Expanded(child: ItemCardWidget(item: HomeCards.startForm)),
                 30.0.verticalSpace,
-                 Expanded(child: ItemCardWidget(item: HomeCards.history)),
+                Expanded(child: ItemCardWidget(item: HomeCards.history)),
               ],
             ),
             SizedBox(
               width: 1.0.sw,
-              child:  ItemCardWidget(
+              child: ItemCardWidget(
                 item: HomeCards.settings,
-              ),
-            ),
-            Expanded(
-              child: SizedBox(
-                width: 1.0.sw,
-                child: ImageMultiType(
-                  url: Assets.iconsWater,
-                  width: 300.0.r,
-                ),
               ),
             ),
           ],

@@ -88,6 +88,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "deleteFromHistory":
             MessageLookupByLibrary.simpleMessage("Delete item FromHistory?"),
         "description": MessageLookupByLibrary.simpleMessage("Description"),
+        "designBy": MessageLookupByLibrary.simpleMessage("Design By"),
         "didNotReceiveOTP":
             MessageLookupByLibrary.simpleMessage("Didn\'t Receive The OTP?"),
         "doNotHaveAnAccount":

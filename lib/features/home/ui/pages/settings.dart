@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive/hive.dart';
+import 'package:image_multi_type/image_multi_type.dart';
 import 'package:pump_app/core/strings/app_color_manager.dart';
 import 'package:pump_app/core/strings/app_string_manager.dart';
 import 'package:pump_app/core/strings/app_string_manager.dart';
@@ -14,6 +15,7 @@ import 'package:pump_app/core/widgets/my_button.dart';
 
 import '../../../../core/app/app_widget.dart';
 import '../../../../core/util/shared_preferences.dart';
+import '../../../../generated/assets.dart';
 import '../../../../generated/l10n.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
@@ -63,6 +65,18 @@ class SettingsScreen extends StatelessWidget {
               color: Colors.red,
               text: S.of(context).clearAllData,
             ),
+            Spacer(),
+            DrawableText(
+              text: S.of(context).designBy,
+              color: AppColorManager.mainColor,
+              size: 22.0.sp,
+            ),
+            10.0.verticalSpace,
+            ImageMultiType(
+              url: Assets.iconsLogo,
+              width: 200.0.r,
+            ),
+            Spacer(),
           ],
         ),
       ),
@@ -93,13 +107,7 @@ class _LanWidgetState extends State<LanWidget> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          DrawableText(
-            color: const Color(0xFF333333),
-            size: 18.0.sp,
-            padding: const EdgeInsets.symmetric(vertical: 30.0).h,
-            fontFamily: FontManager.cairoBold.name,
-            text: S.of(context).language,
-          ),
+
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.center,

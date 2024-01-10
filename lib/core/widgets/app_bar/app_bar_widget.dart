@@ -31,19 +31,20 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: AppColorManager.whit,
+      backgroundColor: AppColorManager.mainColor,
       toolbarHeight: (zeroHeight ?? false) ? 0 : 80.0.h,
       title: title ??
           DrawableText(
             text: titleText ?? '',
             size: 20.0.spMin,
+            color: Colors.white,
             fontFamily: FontManager.cairoBold.name,
           ),
       leading: Navigator.canPop(context) ? const BackBtnWidget() : leading,
       actions: (actions == null && title == null) ? [const ActionLeading()] : actions,
       elevation: elevation ?? 5.0,
       shadowColor: AppColorManager.black.withOpacity(0.28),
-      iconTheme: const IconThemeData(color: AppColorManager.mainColor),
+      iconTheme: const IconThemeData(color: AppColorManager.whit),
     );
   }
 
@@ -58,8 +59,8 @@ class ActionLeading extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15.0).w,
-      child: const ImageMultiType(url: Assets.iconsNoTextLogo),
+      padding: const EdgeInsets.symmetric(horizontal: 15.0,vertical: 5.0).w,
+      child: const ImageMultiType(url: Assets.iconsMainLogo),
     );
   }
 }

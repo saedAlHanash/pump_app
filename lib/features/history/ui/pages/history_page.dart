@@ -63,9 +63,9 @@ class _HistoryPageState extends State<HistoryPage> {
                         return MyButton(
                           onTap: () async {
                             final list = context.read<GetHistoryCubit>().state.result;
-                            final m = context.read<GetHistoryCubit>().getQIds();
 
                             final type = await choseExportType(context);
+
                             if (type == null) return;
                             switch (type) {
                               case ExportType.db:
@@ -83,14 +83,7 @@ class _HistoryPageState extends State<HistoryPage> {
                   },
                 ),
               ),
-              // 15.0.horizontalSpace,
-              // Expanded(
-              //   child: MyButton(
-              //     onTap: () {},
-              //     color: AppColorManager.red,
-              //     text: 'مسح السجل',
-              //   ),
-              // ),
+
             ],
           ),
         ),

@@ -46,7 +46,6 @@ class _FormTablePageState extends State<FormTablePage> {
         itemCount: list.length,
         separatorBuilder: (_, i) => 10.0.verticalSpace,
         itemBuilder: (_, i) {
-
           if (i == list.length - 1) {
             return Column(
               children: [
@@ -55,7 +54,18 @@ class _FormTablePageState extends State<FormTablePage> {
                 MyButton(
                   text: S.of(context).add,
                   onTap: () {
-                    Navigator.pop(context, list);
+                    final currentFocus = FocusScope.of(context);
+
+                    if (!currentFocus.hasPrimaryFocus &&
+                        currentFocus.focusedChild != null) {
+                      FocusManager.instance.primaryFocus?.unfocus();
+                    }
+                    Future.delayed(
+                      const Duration(milliseconds: 500),
+                      () {
+                        Navigator.pop(context, list);
+                      },
+                    );
                   },
                 ),
               ],

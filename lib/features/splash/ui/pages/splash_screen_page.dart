@@ -69,10 +69,10 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
         backgroundColor: AppColorManager.mainColor,
         body: Center(
           child: ImageMultiType(
-            url: Assets.iconsNoTextLogo,
+            url: Assets.iconsMainLogo,
             height: 250.0.r,
             width: 250.0.r,
-            color: Colors.white,
+            // color: Colors.white,
           ),
         ),
       ),

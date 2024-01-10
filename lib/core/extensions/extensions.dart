@@ -1,13 +1,13 @@
 import 'dart:convert';
 
+import 'package:collection/collection.dart';
 import 'package:excel/excel.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
 import 'package:pump_app/core/strings/app_string_manager.dart';
 import 'package:pump_app/features/db/models/item_model.dart';
-import 'package:collection/collection.dart';
-import 'package:pump_app/main.dart';
+
 import '../../features/db/models/app_specification.dart';
 import '../../generated/assets.dart';
 import '../../generated/l10n.dart';
@@ -131,7 +131,7 @@ extension MaxInt on num {
 }
 
 extension QTypeH on QType {
-  bool get isQ => this != QType.table && this != QType.header ;
+  bool get isQ => this != QType.table && this != QType.header;
 }
 
 extension ListHelper on List<Data?> {
@@ -158,7 +158,7 @@ extension SheetHelper on Sheet {
             : jsonEncode(ItemModel.fromData(e)),
       );
     }
-    await  box.close();
+    await box.close();
   }
 
   Future<void> updateInHive() async {
@@ -180,7 +180,7 @@ extension SheetHelper on Sheet {
       }
     }
 
-    await   box.close();
+    await box.close();
   }
 }
 
@@ -226,13 +226,24 @@ extension DateUtcHelper on DateTime {
   DateTime get getUtc => DateTime.utc(year, month, day);
 
   String get formatDate => DateFormat('yyyy/MM/dd', 'en').format(this);
+  // String get formatDateAr => DateFormat('yyyy/MM/dd', 'en').format(this);
 
   String get formatDateAther => DateFormat('yyyy/MM/dd HH:MM', 'en').format(this);
 
   String get formatTime => DateFormat('h:mm a', 'en').format(this);
+  // String get formatTimeAr => DateFormat('h:mm', 'en').format(this);
 
   String get formatDateTime => '$formatTime $formatDate';
 
+  String get formatDateTimeFileName => '$formatDate $formatTime'
+    .replaceAll('/', '-')
+    .replaceAll(':', '_');
+
+  String get  generateFileName {
+
+    final formattedDate = DateFormat('yyyyMMdd_HHmmss').format(this);
+    return formattedDate;
+  }
   DateTime addFromNow({int? year, int? month, int? day, int? hour}) {
     return DateTime(
       this.year + (year ?? 0),

@@ -169,6 +169,7 @@
   "loadData1": "Load Data",
   "fileName": "File Name",
   "edit": "Edit",
+  "designBy": "Design By",
   "exportExcel": "Export Excel",
   "noHistory": "Empty History",
   "confirmDelete": "Confirm Delete",

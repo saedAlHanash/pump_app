@@ -25,7 +25,6 @@ part 'export_file_state.dart';
 class ExportReportCubit extends Cubit<ExportReportInitial> {
   ExportReportCubit() : super(ExportReportInitial.initial());
 
-
   Future<void> saveFile(String? name) async {
     var directory = await getDownloadsDirectory();
 
@@ -37,6 +36,8 @@ class ExportReportCubit extends Cubit<ExportReportInitial> {
       loggerObject.w('true');
       fName = '$fName${filePathsBox.length}';
     }
+
+    state.excel.delete('Sheet1');
 
     final file = File(join('${directory.path}/$fName.xlsx'))
       ..createSync(recursive: true)
@@ -67,7 +68,6 @@ class ExportReportCubit extends Cubit<ExportReportInitial> {
   void exportForDb({
     required List<HistoryModel> list,
   }) async {
-
     emit(state.copyWith(statuses: CubitStatuses.loading));
     await Permission.manageExternalStorage.request();
     await Permission.storage.request();
@@ -82,13 +82,13 @@ class ExportReportCubit extends Cubit<ExportReportInitial> {
       s1(list: e);
     }
 
-    await saveFile('تقرير محاطات الضخ');
+    await saveFile(
+        'تقرير محاطات الضخ لقواعد المعطيات ${DateTime.now().formatDateTimeFileName}');
   }
 
   void exportForReview({
     required List<HistoryModel> list,
   }) async {
-
     emit(state.copyWith(statuses: CubitStatuses.loading));
     await Permission.manageExternalStorage.request();
     await Permission.storage.request();
@@ -103,7 +103,7 @@ class ExportReportCubit extends Cubit<ExportReportInitial> {
       s11(list: e);
     }
 
-    await saveFile('تقرير محاطات الضخ');
+    await saveFile('تقرير محاطات الضخ للمراجعة ${DateTime.now().formatDateTimeFileName}');
   }
 
   void s1({
@@ -289,7 +289,7 @@ class ExportReportCubit extends Cubit<ExportReportInitial> {
           var i = getIndexFromHeaderList(header, e.qstLabel);
           if (i == null) {
             header.add(e.qstLabel);
-            emptyList.add(   TextCellValue('\t\t\t ${e.answer?.name ?? ' - '}\t\t\t '));
+            emptyList.add(TextCellValue('\t\t\t ${e.answer?.name ?? ' - '}\t\t\t '));
             sheet.updateCell(
                 CellIndex.indexByColumnRow(columnIndex: header.length - 1, rowIndex: 0),
                 TextCellValue(e.qstLabel));
@@ -311,57 +311,7 @@ class ExportReportCubit extends Cubit<ExportReportInitial> {
     return null;
   }
 
-  void _saveDataIds(Map<String, int> m, List<HistoryModel> list) {
-    final headerList = List<CellValue?>.from(m.keys.map((e) => TextCellValue(e)))
-      ..insert(0, const TextCellValue('UUID'));
-
-    state.sheetObject.appendRow(headerList);
-    state.sheetObjectTable.appendRow(headerList);
-
-    final uuID = const Uuid().v4();
-
-    ///for in all forms
-    for (var e in list) {
-      _saveShite(
-        headerLength: m.length,
-        list: e.list.singleList,
-        sheet: state.sheetObject,
-        m: m,
-        uuID: uuID,
-      );
-    }
-  }
-
-  void _saveShite({
-    required int headerLength,
-    required List<Questions> list,
-    Sheet? sheet,
-    required Map<String, int> m,
-    required String uuID,
-  }) {
-    final emptyList = List.generate(headerLength, (_) => const TextCellValue(''));
-
-    ///put answer in on form
-    for (var e in list) {
-      if (e.qstType.isQ && e.answer != null) {
-        emptyList[(m[e.qstId]) ?? 0] = TextCellValue(e.answer?.answer ?? '-');
-      } else if (e.qstType == QType.table && e.answer != null) {
-        for (var e1 in e.answer!.answers) {
-          _saveShite(
-            headerLength: headerLength,
-            list: e1,
-            sheet: state.sheetObjectTable,
-            m: m,
-            uuID: uuID,
-          );
-        }
-      }
-    }
-    sheet?.appendRow(emptyList..insert(0, TextCellValue(uuID)));
-  }
-
   //------------helper-----------
-
 
   Map<String, int> getQIds(List<HistoryModel> l) {
     final m = <String, int>{};
@@ -378,6 +328,7 @@ class ExportReportCubit extends Cubit<ExportReportInitial> {
 
     return m;
   }
+
   Map<String, int> getNames(List<HistoryModel> l) {
     final m = <String, int>{};
     l.forEachIndexed(

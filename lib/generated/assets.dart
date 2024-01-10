@@ -13,6 +13,7 @@ class Assets {
   static const String iconsForm = 'assets/icons/form.svg';
   static const String iconsHistory = 'assets/icons/history.svg';
   static const String iconsLogo = 'assets/icons/logo.svg';
+  static const String iconsMainLogo = 'assets/icons/main_logo.jpeg';
   static const String iconsNoTextLogo = 'assets/icons/no_text_logo.svg';
   static const String iconsPdf = 'assets/icons/pdf.svg';
   static const String iconsReview = 'assets/icons/review.svg';

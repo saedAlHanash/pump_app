@@ -50,7 +50,7 @@ class _TableWidgetState extends State<TableWidget> {
           );
         }),
         MyButton(
-          child:  DrawableText(
+          child: DrawableText(
             text: S.of(context).addDetails,
             color: Colors.white,
           ),
@@ -59,11 +59,15 @@ class _TableWidgetState extends State<TableWidget> {
               context,
               FormTablePage(tableId: widget.q.tableNumber),
             );
-            loggerObject.w(list);
+
             if (list != null) {
-              setState(() {
-                context.read<GetFormCubit>().setAnswer(widget.q, answers: list);
-              });
+              Future.delayed(
+                const Duration(milliseconds: 600),
+                () {
+                  setState(() =>
+                      context.read<GetFormCubit>().setAnswer(widget.q, answers: list));
+                },
+              );
             }
           },
         ),

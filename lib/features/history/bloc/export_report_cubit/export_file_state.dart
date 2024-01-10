@@ -2,8 +2,6 @@ part of 'export_file_cubit.dart';
 
 class ExportReportInitial extends AbstractCubit<bool> {
   final excel = Excel.createExcel();
-  late final Sheet sheetObject;
-  late final Sheet sheetObjectTable;
   final List<Sheet> sheets = [];
 
   Sheet getSheet(String name) => excel[name];
@@ -12,10 +10,7 @@ class ExportReportInitial extends AbstractCubit<bool> {
     required super.result,
     super.error,
     super.statuses,
-  }) {
-    sheetObject = excel['Sheet1'];
-    sheetObjectTable = excel['Sheet2'];
-  }
+  });
 
   factory ExportReportInitial.initial() {
     return ExportReportInitial(

@@ -1750,6 +1750,16 @@ class S {
     );
   }
 
+  /// `Design By`
+  String get designBy {
+    return Intl.message(
+      'Design By',
+      name: 'designBy',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Export Excel`
   String get exportExcel {
     return Intl.message(
