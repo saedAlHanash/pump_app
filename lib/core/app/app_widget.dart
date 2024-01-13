@@ -60,9 +60,8 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    loggerObject.w(MediaQuery.of(context).size);
     return ScreenUtilInit(
-      designSize: const Size(800.0, 1232.0),
+      designSize: MediaQuery.of(context).size,
       minTextAdapt: true,
       builder: (context, child) {
         DrawableText.initial(
