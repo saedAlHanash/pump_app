@@ -17,13 +17,13 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
     this.leading,
     this.zeroHeight,
     this.actions,
-    this.title,
+    this.title, this.onBack,
   }) : super(key: key);
 
   final String? titleText;
   final Widget? title;
   final Widget? leading;
-
+  final Function()? onBack;
   final bool? zeroHeight;
   final double? elevation;
   final List<Widget>? actions;
@@ -40,7 +40,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
             color: Colors.white,
             fontFamily: FontManager.cairoBold.name,
           ),
-      leading: Navigator.canPop(context) ? const BackBtnWidget() : leading,
+      leading: Navigator.canPop(context) ? BackBtnWidget(onBack: onBack) : leading,
       actions: (actions == null && title == null) ? [const ActionLeading()] : actions,
       elevation: elevation ?? 5.0,
       shadowColor: AppColorManager.black.withOpacity(0.28),
@@ -59,7 +59,7 @@ class ActionLeading extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15.0,vertical: 5.0).w,
+      padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 5.0).w,
       child: const ImageMultiType(url: Assets.iconsMainLogo),
     );
   }

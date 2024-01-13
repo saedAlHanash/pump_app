@@ -25,8 +25,16 @@ class NoteMessage {
     );
   }
 
+  static var canShow = true;
+
   static void showErrorSnackBar(
       {required String message, required BuildContext context}) {
+    if (!canShow) return;
+    canShow = false;
+    Future.delayed(
+      const Duration(seconds: 4),
+      () => canShow = true,
+    );
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(
@@ -169,7 +177,8 @@ class NoteMessage {
     );
   }
 
-  static Future<dynamic> showMyDialog(BuildContext context, {required Widget child}) async {
+  static Future<dynamic> showMyDialog(BuildContext context,
+      {required Widget child}) async {
     // show the dialog
     final result = await showDialog(
       context: context,
@@ -191,7 +200,7 @@ class NoteMessage {
         );
       },
     );
-    return result ;
+    return result;
   }
 
   static void showAwesomeError({required BuildContext context, required String message}) {
@@ -251,13 +260,12 @@ class NoteMessage {
     return (result ?? false);
   }
 
-
   static Future<bool> showCheckDialog(
-      BuildContext context, {
-        required String text,
-        required String textButton,
-        required dynamic image,
-      }) async {
+    BuildContext context, {
+    required String text,
+    required String textButton,
+    required dynamic image,
+  }) async {
     // show the dialog
     final result = await showDialog(
       context: context,

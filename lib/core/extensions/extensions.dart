@@ -132,6 +132,8 @@ extension MaxInt on num {
 
 extension QTypeH on QType {
   bool get isQ => this != QType.table && this != QType.header;
+
+  bool get isList => this == QType.list || this == QType.rList;
 }
 
 extension ListHelper on List<Data?> {
@@ -226,24 +228,25 @@ extension DateUtcHelper on DateTime {
   DateTime get getUtc => DateTime.utc(year, month, day);
 
   String get formatDate => DateFormat('yyyy/MM/dd', 'en').format(this);
+
   // String get formatDateAr => DateFormat('yyyy/MM/dd', 'en').format(this);
 
   String get formatDateAther => DateFormat('yyyy/MM/dd HH:MM', 'en').format(this);
 
   String get formatTime => DateFormat('h:mm a', 'en').format(this);
+
   // String get formatTimeAr => DateFormat('h:mm', 'en').format(this);
 
   String get formatDateTime => '$formatTime $formatDate';
 
-  String get formatDateTimeFileName => '$formatDate $formatTime'
-    .replaceAll('/', '-')
-    .replaceAll(':', '_');
+  String get formatDateTimeFileName =>
+      '$formatDate $formatTime'.replaceAll('/', '-').replaceAll(':', '_');
 
-  String get  generateFileName {
-
+  String get generateFileName {
     final formattedDate = DateFormat('yyyyMMdd_HHmmss').format(this);
     return formattedDate;
   }
+
   DateTime addFromNow({int? year, int? month, int? day, int? hour}) {
     return DateTime(
       this.year + (year ?? 0),

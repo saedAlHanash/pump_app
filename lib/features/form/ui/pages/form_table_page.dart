@@ -9,6 +9,7 @@ import 'package:pump_app/features/db/models/app_specification.dart';
 import 'package:pump_app/main.dart';
 
 import '../../../../core/util/my_style.dart';
+import '../../../../core/util/snack_bar_message.dart';
 import '../../../../generated/l10n.dart';
 import '../../bloc/get_form_cubit/get_form_cubit.dart';
 
@@ -29,7 +30,10 @@ class _FormTablePageState extends State<FormTablePage> {
     context.read<GetFormCubit>().state.result.forEach((e1) {
       for (var e in e1) {
         if (e.tableNumber == widget.tableId && e.qstType != QType.table) {
-          list.add(e.copyWith());
+          if (e.equalTo.isEmpty) {
+            e.answer = null;
+          }
+          list.add(e);
         }
       }
     });
@@ -38,42 +42,63 @@ class _FormTablePageState extends State<FormTablePage> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 1.0.sw,
-      height: 0.7.sh,
-      child: ListView.separated(
-        padding: const EdgeInsets.only(left: 20.0, right: 20.0, bottom: 50.0).r,
-        itemCount: list.length,
-        separatorBuilder: (_, i) => 10.0.verticalSpace,
-        itemBuilder: (_, i) {
-          if (i == list.length - 1) {
-            return Column(
-              children: [
-                list[i].getTableWidget,
-                10.0.verticalSpace,
-                MyButton(
-                  text: S.of(context).add,
-                  onTap: () {
-                    final currentFocus = FocusScope.of(context);
+    return Scaffold(
+      appBar: AppBarWidget(),
+      body: BlocBuilder<GetFormCubit, GetFormInitial>(
+        builder: (context, state) {
+          return ListView.separated(
+            padding: const EdgeInsets.only(left: 20.0, right: 20.0, bottom: 50.0).r,
+            itemCount: list.length,
+            separatorBuilder: (_, i) => 10.0.verticalSpace,
+            itemBuilder: (_, i) {
+              if (i == list.length - 1) {
+                return Column(
+                  children: [
+                    list[i].getTableWidget,
+                    10.0.verticalSpace,
+                    MyButton(
+                      text: S.of(context).add,
+                      onTap: () {
+                        final currentFocus = FocusScope.of(context);
 
-                    if (!currentFocus.hasPrimaryFocus &&
-                        currentFocus.focusedChild != null) {
-                      FocusManager.instance.primaryFocus?.unfocus();
-                    }
-                    Future.delayed(
-                      const Duration(milliseconds: 500),
-                      () {
-                        Navigator.pop(context, list);
+                        if (!currentFocus.hasPrimaryFocus &&
+                            currentFocus.focusedChild != null) {
+                          FocusManager.instance.primaryFocus?.unfocus();
+                        }
+                        final error = context.read<GetFormCubit>().iTable(list);
+
+                        if (error.isNotEmpty) {
+                          NoteMessage.showAwesomeError(context: context, message: error);
+                          return;
+                        }
+                        // context.read<GetFormCubit>().saveEqualToTable(list);
+
+                        Future.delayed(
+                          const Duration(milliseconds: 500),
+                          () {
+                            Navigator.pop(context, list);
+                          },
+                        );
                       },
-                    );
-                  },
-                ),
-              ],
-            );
-          }
-          return list[i].getTableWidget;
+                    ),
+                  ],
+                );
+              }
+              return list[i].getTableWidget;
+            },
+          );
         },
       ),
     );
+  }
+
+  void flush(BuildContext context) {
+    context.read<GetFormCubit>().state.result.forEach((e1) {
+      for (var e in e1) {
+        if (e.tableNumber == widget.tableId && e.qstType != QType.table) {
+          e.answer = null;
+        }
+      }
+    });
   }
 }

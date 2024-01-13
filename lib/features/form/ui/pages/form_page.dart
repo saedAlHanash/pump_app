@@ -13,6 +13,7 @@ import 'package:pump_app/core/widgets/my_button.dart';
 import 'package:pump_app/core/widgets/my_text_form_widget.dart';
 import 'package:pump_app/features/db/models/app_specification.dart';
 import 'package:pump_app/features/history/ui/widget/item_history.dart';
+import 'package:pump_app/main.dart';
 
 import '../../../../core/strings/app_string_manager.dart';
 import '../../../../core/util/my_style.dart';
@@ -37,6 +38,8 @@ class _StartFormState extends State<StartForm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBody: false,
+      extendBodyBehindAppBar: false,
       appBar: AppBarWidget(
         title: BlocBuilder<GetFormCubit, GetFormInitial>(
           builder: (context, state) {
@@ -89,6 +92,7 @@ class _StartFormState extends State<StartForm> {
                           NoteMessage.showAwesomeError(context: context, message: error);
                           return;
                         }
+
                         Navigator.pushNamed(context, RouteName.startForm,
                             arguments: widget.pageNumber + 1);
                       },
@@ -137,7 +141,8 @@ class _StartFormState extends State<StartForm> {
                         }
 
                         if (deleteIndex >= 0) {
-                          final box = await Hive.openBox<String>(AppStringManager.answerBox);
+                          final box =
+                              await Hive.openBox<String>(AppStringManager.answerBox);
                           box.deleteAt(deleteIndex);
                           deleteIndex = -1;
                         }

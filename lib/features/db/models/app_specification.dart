@@ -41,6 +41,7 @@ class Questions {
     required this.min,
     required this.max,
     required this.helpLink,
+    required this.equalTo,
     this.answer,
   });
 
@@ -61,6 +62,7 @@ class Questions {
   final dynamic min;
   final dynamic max;
   final String helpLink;
+  final String equalTo;
   ItemModel? answer;
 
   bool isVisible = true;
@@ -80,7 +82,7 @@ class Questions {
   }
 
   Widget get getWidget {
-    if (tableNumber.isNotEmpty && qstType != QType.table) {
+    if (tableNumber.isNotEmpty && qstType != QType.table||equalTo.isNotEmpty) {
       return 0.0.verticalSpace;
     }
 
@@ -111,6 +113,7 @@ class Questions {
   }
 
   Widget get getTableWidget {
+    if(equalTo.isNotEmpty) return 0.0.verticalSpace;
     switch (qstType) {
       case QType.list:
         return ListWidget(q: this);
@@ -134,6 +137,7 @@ class Questions {
   }
 
   Widget get getTableAnswerWidget {
+    if(equalTo.isNotEmpty) return 0.0.verticalSpace;
     switch (qstType) {
       case QType.list:
         return ListAnswerWidget(q: this);
@@ -176,6 +180,7 @@ class Questions {
       min: num.tryParse(map['14'] ?? '-') ?? DateTime.tryParse(map['14'] ?? '-'),
       max: num.tryParse(map['15'] ?? '-') ?? DateTime.tryParse(map['15'] ?? '-'),
       helpLink: map['16'] ?? '',
+      equalTo: map['17'] ?? '',
       isVisible: map['isVisible'] ?? true,
       answer: map['answer'] == null ? null : ItemModel.fromJson(map['answer']),
     );
@@ -202,6 +207,7 @@ class Questions {
         '14': e.getValueOrEmpty(14),
         '15': e.getValueOrEmpty(15),
         '16': e.getValueOrEmpty(16),
+        '17': e.getValueOrEmpty(17),
       },
     );
   }
@@ -229,6 +235,7 @@ class Questions {
           ? ((max is DateTime) ? (max as DateTime).toIso8601String() : max.toString())
           : null,
       '16': helpLink,
+      '17': equalTo,
       'isVisible': isVisible,
       'answer': answer?.toJson(),
     };
@@ -251,6 +258,7 @@ class Questions {
     dynamic min,
     dynamic max,
     String? helpLink,
+    String? equalTo,
     bool? isRequired,
     bool? isVisible,
   }) {
@@ -273,6 +281,7 @@ class Questions {
       max: max ?? this.max,
       isVisible: isVisible ?? this.isVisible,
       helpLink: helpLink ?? this.helpLink,
+      equalTo: equalTo ?? this.equalTo,
     );
   }
 }

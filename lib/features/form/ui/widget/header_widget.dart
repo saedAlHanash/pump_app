@@ -25,7 +25,7 @@ class HeaderWidget extends StatelessWidget {
       drawableEnd: IconButton(
           onPressed: () async {
             final filePath = await getFilePath(q.helpLink);
-            loggerObject.w(filePath);
+            //loggerObject.w(filePath);
 
             if (context.mounted) {
               NoteMessage.showMyDialog(

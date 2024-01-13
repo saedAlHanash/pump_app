@@ -123,12 +123,18 @@ class MyStyle {
 }
 
 class BackBtnWidget extends StatelessWidget {
-  const BackBtnWidget({super.key});
+  const BackBtnWidget({super.key, this.onBack});
+
+  final Function()? onBack;
 
   @override
   Widget build(BuildContext context) {
     return IconButton(
       onPressed: () {
+        if (onBack != null) {
+          onBack!.call();
+          return;
+        }
         if (!Navigator.canPop(context)) return;
         Navigator.pop(context);
       },

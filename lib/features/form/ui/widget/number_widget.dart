@@ -55,7 +55,7 @@ class _NumberWidgetState extends State<NumberWidget> {
               : null,
           onChanged: (val) {
             var n = (num.tryParse(val.toString())) ?? 0;
-            loggerObject.w(n);
+            //loggerObject.w(n);
             if (n < (widget.q.min ?? -1.max) || n > (widget.q.max ?? 1.max)) {
               controller.value = controller.value.copyWith(
                 text: widget.q.answer?.answer ?? '',

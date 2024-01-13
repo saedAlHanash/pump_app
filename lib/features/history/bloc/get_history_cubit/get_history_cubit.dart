@@ -22,7 +22,7 @@ class GetHistoryCubit extends Cubit<GetHistoryInitial> {
     emit(state.copyWith(statuses: CubitStatuses.loading));
 
     final box = await Hive.openBox<String>(AppStringManager.answerBox);
-    loggerObject.w(box.keys);
+
     final list = box.values.map((e) => HistoryModel.fromJson(jsonDecode(e))).toList();
 
     emit(state.copyWith(statuses: CubitStatuses.done, result: list));

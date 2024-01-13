@@ -11,12 +11,12 @@ class UpdateRListCubit extends Cubit<UpdateRListInitial> {
   UpdateRListCubit() : super(UpdateRListInitial.initial());
 
   void updateRList() {
-
     emit(state.copyWith(result: state.result + 1, statuses: CubitStatuses.loading));
+
     Future.delayed(
       const Duration(milliseconds: 600),
       () {
-        emit(state.copyWith( statuses: CubitStatuses.done));
+        emit(state.copyWith(statuses: CubitStatuses.done));
       },
     );
   }

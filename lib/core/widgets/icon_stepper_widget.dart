@@ -31,11 +31,11 @@ class IconStepperDemo extends StatelessWidget {
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 border: Border.all(
-                  color: AppColorManager.mainColor,
+                  color: AppColorManager.whit,
                   width: e.active ? 3.0 : 1.0,
                 ),
               ),
-              child: DrawableText(text: '${i + 1}'),
+              child: DrawableText(text: '${i + 1}',color: Colors.white,),
             );
           }
           return ImageMultiType(

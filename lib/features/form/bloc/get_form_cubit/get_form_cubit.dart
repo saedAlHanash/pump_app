@@ -52,8 +52,26 @@ class GetFormCubit extends Cubit<GetFormInitial> {
 
     hideVisible(gropingList);
 
+    final List<String> rAnswers = [];
+    final List<String> eAnswers = [];
+    final List<String> rList = [];
+
+    for (var e in gropingList.singleList) {
+      if (e.rListQstId.isNotEmpty) rList.add(e.rListQstId);
+
+      if (e.relatedAnswer.isNotEmpty) rAnswers.add(e.qstId);
+
+      if (e.equalTo.isNotEmpty) eAnswers.add(e.equalTo);
+    }
+
     emit(
-      state.copyWith(statuses: CubitStatuses.done, result: gropingList),
+      state.copyWith(
+        statuses: CubitStatuses.done,
+        result: gropingList,
+        rAnswers: rAnswers,
+        eAnswers: eAnswers,
+        rList: rList,
+      ),
     );
   }
 
@@ -109,21 +127,22 @@ class GetFormCubit extends Cubit<GetFormInitial> {
     }
   }
 
-  bool updateShowRelatedAnswer(Questions q) {
-    if (!q.needUpdateRelatedQst) return false;
+  void updateShowRelatedAnswer(Questions q) {
+    _updateShowRelatedAnswer(q);
+    emit(state.copyWith(statuses: CubitStatuses.done));
+  }
 
-    final singleList = state.result.singleList
+  void _updateShowRelatedAnswer(Questions q) {
+    //قائمة الأسئلة المرتبطة بهذا السؤال
+    final listRelatedQ = state.result.singleList
         .where((element) => q.relatedAnswer.contains(element.qstId))
         .toList();
 
-    for (var e in singleList) {
+    for (var e in listRelatedQ) {
       e.isVisible = q.valueAnswer == q.answer?.answer;
       if (!e.isVisible) e.answer = null;
-
-      updateShowRelatedAnswer(e);
+      _updateShowRelatedAnswer(e);
     }
-
-    return false;
   }
 
   void setAnswer(
@@ -133,23 +152,71 @@ class GetFormCubit extends Cubit<GetFormInitial> {
     List<Questions>? answers,
   }) {
     q.answer ??= answer ?? ItemModel.fromJson({'1': sAnswer, '2': sAnswer});
+
     if (answer != null) q.answer = answer;
     if (sAnswer != null) q.answer!.answer = sAnswer;
     if (answers != null) q.answer!.answers.add(answers);
 
-    if (q.qstType == QType.list || q.qstType == QType.rList) clearRelated(qId: q.qstId);
+    if (state.eAnswers.contains(q.qstId)) {
+      saveEqualTo(q);
+    }
 
-    var needEmit = updateShowRelatedAnswer(q);
+    if (q.qstType.isList && state.rList.contains(q.qstId)) {
+      clearRelated(qId: q.qstId);
+    }
 
-    if (needEmit) emit(state.copyWith(statuses: CubitStatuses.done));
+    if (state.rAnswers.contains(q.qstId)) {
+      updateShowRelatedAnswer(q);
+    }
   }
 
   String isComplete(int i) {
     for (var e in state.result[i]) {
-      if (!e.isRequired) continue;
+      if (!e.isRequired || e.equalTo.isNotEmpty) continue;
       if ((e.answer == null || e.answer!.answer.isEmpty) &&
           e.isVisible &&
           e.tableNumber.isEmpty) {
+        return 'يرجى إكمال ${e.qstLabel}';
+      }
+    }
+    return '';
+  }
+
+  void saveEqualTo(Questions q) {
+    _saveEqualTo(q);
+    emit(state.copyWith(statuses: CubitStatuses.done));
+  }
+
+  void _saveEqualTo(Questions q) {
+    final list = state.result.singleList.where((e) {
+      final r = e.equalTo == q.qstId;
+      return r;
+    }).toList();
+
+    for (var e in list) {
+      e.answer = q.answer;
+      if (state.eAnswers.contains(e.qstId)) {
+        _saveEqualTo(e);
+      }
+    }
+  }
+
+  // void saveEqualToTable(List<Questions> list) {
+  //   final allList = state.result.singleList
+  //     ..where(
+  //       (e) => e.tableNumber.isNotEmpty || !e.qstType.isQ,
+  //     );
+  //
+  //   for (var e in list) {
+  //     if (e.equalTo.isEmpty) return;
+  //     e.answer = allList.firstWhereOrNull((e1) => e1.qstId == e.equalTo)?.answer;
+  //   }
+  // }
+
+  String iTable(List<Questions> list) {
+    for (var e in list) {
+      if (!e.isRequired || e.equalTo.isNotEmpty) continue;
+      if ((e.answer == null || e.answer!.answer.isEmpty) && e.isVisible) {
         return 'يرجى إكمال ${e.qstLabel}';
       }
     }

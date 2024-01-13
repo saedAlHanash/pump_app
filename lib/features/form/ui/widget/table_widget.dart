@@ -55,9 +55,13 @@ class _TableWidgetState extends State<TableWidget> {
             color: Colors.white,
           ),
           onTap: () async {
-            final list = await NoteMessage.showBottomSheet1(
+            final list = await Navigator.push(
               context,
-              FormTablePage(tableId: widget.q.tableNumber),
+              MaterialPageRoute(
+                builder: (context) {
+                  return FormTablePage(tableId: widget.q.tableNumber);
+                },
+              ),
             );
 
             if (list != null) {

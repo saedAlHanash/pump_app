@@ -33,7 +33,7 @@ class ExportReportCubit extends Cubit<ExportReportInitial> {
     var fName = name ?? 'report${filePathsBox.length}';
 
     if (await File(join('${directory!.path}/$fName.xlsx')).exists()) {
-      loggerObject.w('true');
+      //loggerObject.w('true');
       fName = '$fName${filePathsBox.length}';
     }
 
