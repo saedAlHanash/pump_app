@@ -1,11 +1,7 @@
 import 'package:drawable_text/drawable_text.dart';
-import 'package:drawable_text/drawable_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_multi_type/image_multi_type.dart';
 import 'package:pump_app/core/strings/app_color_manager.dart';
-import 'package:pump_app/core/strings/app_color_manager.dart';
-import 'package:pump_app/core/widgets/my_button.dart';
 
 import '../../../../generated/l10n.dart';
 
@@ -26,14 +22,14 @@ class DeleteConfirmationDialog extends StatelessWidget {
       actions: [
         TextButton(
           style:
-              ButtonStyle(backgroundColor: MaterialStatePropertyAll(AppColorManager.red)),
+              const ButtonStyle(backgroundColor: MaterialStatePropertyAll(AppColorManager.red)),
           child: DrawableText(
             color: Colors.white,
             text: S.of(context).delete,
             fontFamily: FontManager.cairoBold.name,
             matchParent: true,
             textAlign: TextAlign.center,
-            drawableEnd: ImageMultiType(
+            drawableEnd: const ImageMultiType(
               url: Icons.delete,
               color: AppColorManager.whit,
             ),
@@ -58,8 +54,8 @@ void showDeleteConfirmation(BuildContext context) async {
 
   if (deleteConfirmed) {
     // Delete logic goes here
-    print('Item deleted!');
+
   } else {
-    print('Delete canceled!');
+
   }
 }

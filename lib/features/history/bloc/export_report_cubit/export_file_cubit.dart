@@ -1,9 +1,7 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:collection/collection.dart';
 import 'package:excel/excel.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
 import 'package:path/path.dart';
@@ -11,7 +9,6 @@ import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:pump_app/core/extensions/extensions.dart';
 import 'package:pump_app/features/db/models/app_specification.dart';
-import 'package:pump_app/features/history/data/history_model.dart';
 import 'package:pump_app/features/history/data/history_model.dart';
 import 'package:pump_app/main.dart';
 import 'package:uuid/uuid.dart';
@@ -270,7 +267,6 @@ class ExportReportCubit extends Cubit<ExportReportInitial> {
   }) {
     final sheetName = list.first.firstOrNull?.assessmentNu ?? uuID;
     final sheet = state.getSheet('${sheetName}table$tableId');
-
     if (sheet.rows.firstOrNull?.firstOrNull?.value == null) {
       sheet.appendRow([const TextCellValue('UUID')]);
     }
@@ -294,7 +290,7 @@ class ExportReportCubit extends Cubit<ExportReportInitial> {
                 CellIndex.indexByColumnRow(columnIndex: header.length - 1, rowIndex: 0),
                 TextCellValue(e.qstLabel));
           } else {
-            emptyList[i] = TextCellValue(e.answer?.answer ?? '-');
+            emptyList[i] = TextCellValue(e.answer?.name ?? '-');
           }
         } else if (e.qstType == QType.table && e.answer != null) {}
       }

@@ -1,7 +1,6 @@
 import 'dart:ui';
 
 import 'package:awesome_dialog/awesome_dialog.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:drawable_text/drawable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -210,54 +209,6 @@ class NoteMessage {
       animType: AnimType.scale,
       desc: message,
     ).show();
-  }
-
-  static Future<bool> showImageDialog(
-    BuildContext context, {
-    required List<String> images,
-    required int currentPage,
-  }) async {
-    // show the dialog
-    final controller = CarouselController();
-    final result = await showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return Dialog(
-          alignment: Alignment.center,
-          backgroundColor: Colors.transparent,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(
-              Radius.circular(20.0.r),
-            ),
-          ),
-          elevation: 0.0,
-          clipBehavior: Clip.hardEdge,
-          child: SizedBox(
-            height: 1.0.sh,
-            child: CarouselSlider(
-              carouselController: controller,
-              items: images.map(
-                (e) {
-                  return ImageMultiType(
-                    url: e,
-                    height: double.infinity,
-                    width: double.infinity,
-                    fit: BoxFit.cover,
-                  );
-                },
-              ).toList(),
-              options: CarouselOptions(
-                initialPage: currentPage,
-                enableInfiniteScroll: false,
-                autoPlayInterval: const Duration(seconds: 10),
-                viewportFraction: 1,
-              ),
-            ),
-          ),
-        );
-      },
-    );
-    return (result ?? false);
   }
 
   static Future<bool> showCheckDialog(

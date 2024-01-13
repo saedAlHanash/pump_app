@@ -1,15 +1,16 @@
 import 'package:drawable_text/drawable_text.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_multi_type/image_multi_type.dart';
+import 'package:pump_app/main.dart';
 
-import 'package:flutter_localizations/flutter_localizations.dart';
 import '../../features/form/bloc/get_form_cubit/get_form_cubit.dart';
 import '../../features/form/bloc/update_r_list_cubit/update_r_list_cubit.dart';
 import '../../features/history/bloc/export_report_cubit/export_file_cubit.dart';
-import '../../features/history/bloc/get_history_cubit/get_history_cubit.dart';
 import '../../features/splash/bloc/files_cubit/files_cubit.dart';
 import '../../features/splash/bloc/load_data_cubit/load_data_cubit.dart';
 import '../../generated/l10n.dart';
@@ -18,7 +19,6 @@ import '../app_theme.dart';
 import '../injection/injection_container.dart';
 import '../strings/app_color_manager.dart';
 import '../util/shared_preferences.dart';
-import 'bloc/loading_cubit.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
@@ -35,6 +35,11 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   void initState() {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+
     setImageMultiTypeErrorImage(
       const Opacity(
         opacity: 0.3,
@@ -55,8 +60,9 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    loggerObject.w(MediaQuery.of(context).size);
     return ScreenUtilInit(
-      designSize:  MediaQuery.of(context).size,
+      designSize: const Size(800.0, 1232.0),
       minTextAdapt: true,
       builder: (context, child) {
         DrawableText.initial(

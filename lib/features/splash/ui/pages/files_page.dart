@@ -67,7 +67,7 @@ class FilesPage extends StatelessWidget {
                       ),
                       Divider(height: 20.0.h, endIndent: 0, indent: 0),
                       DrawableText(
-                        text: file.name ?? '',
+                        text: file.name,
                         matchParent: true,
                         size: 14.0.sp,
                         drawablePadding: 10.0.w,

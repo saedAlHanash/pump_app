@@ -19,8 +19,7 @@ class LoginInitial extends AbstractCubit<bool> {
     );
   }
 
-  @override
-  List<Object> get props => [statuses, result, error];
+
 
   LoginInitial copyWith({
     CubitStatuses? statuses,

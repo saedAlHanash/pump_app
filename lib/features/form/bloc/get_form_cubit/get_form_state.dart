@@ -6,6 +6,7 @@ class GetFormInitial extends AbstractCubit<List<List<Questions>>> {
   final List<String> rList;
   final List<String> eAnswers;
   final List<String> rValues;
+  final int pageNumber;
 
   const GetFormInitial({
     required super.result,
@@ -15,6 +16,7 @@ class GetFormInitial extends AbstractCubit<List<List<Questions>>> {
     required this.rList,
     required this.eAnswers,
     required this.rValues,
+    required this.pageNumber,
     super.statuses,
   });
 
@@ -25,6 +27,7 @@ class GetFormInitial extends AbstractCubit<List<List<Questions>>> {
       rList: [],
       eAnswers: [],
       rValues: [],
+      pageNumber: 0,
       error: '',
       allFormes: {},
       statuses: CubitStatuses.init,
@@ -41,6 +44,7 @@ class GetFormInitial extends AbstractCubit<List<List<Questions>>> {
     List<String>? rList,
     List<String>? eAnswers,
     List<String>? rValues,
+    int? pageNumber,
     String? error,
     Map<String, List<Questions>>? allFormes,
   }) {
@@ -51,6 +55,7 @@ class GetFormInitial extends AbstractCubit<List<List<Questions>>> {
       rList: rList ?? this.rList,
       eAnswers: eAnswers ?? this.eAnswers,
       rValues: rValues ?? this.rValues,
+      pageNumber: pageNumber ?? this.pageNumber,
       error: error ?? this.error,
       allFormes: allFormes ?? this.allFormes,
     );

@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pump_app/core/extensions/extensions.dart';
 import 'package:pump_app/core/util/snack_bar_message.dart';
-import 'package:pump_app/main.dart';
 
 import '../../../../core/widgets/my_text_form_widget.dart';
 import '../../../../core/widgets/q_header_widget.dart';

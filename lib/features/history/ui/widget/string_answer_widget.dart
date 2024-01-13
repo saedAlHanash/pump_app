@@ -1,12 +1,9 @@
 import 'package:drawable_text/drawable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import 'package:pump_app/core/widgets/q_header_widget.dart';
 
-
 import '../../../../core/strings/app_color_manager.dart';
-
 import '../../../db/models/app_specification.dart';
 
 class StringAnswerWidget extends StatelessWidget {

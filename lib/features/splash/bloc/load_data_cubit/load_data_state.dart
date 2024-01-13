@@ -12,7 +12,7 @@ class LoadDataInitial extends AbstractCubit<bool> {
   });
 
   factory LoadDataInitial.initial() {
-    return LoadDataInitial(
+    return const LoadDataInitial(
       result: false,
       error: '',
       // request: LoadDataRequest(),
@@ -20,8 +20,6 @@ class LoadDataInitial extends AbstractCubit<bool> {
     );
   }
 
-  @override
-  List<Object> get props => [statuses, result, error];
 
   LoadDataInitial copyWith({
     CubitStatuses? statuses,

@@ -2,7 +2,6 @@ import 'package:drawable_text/drawable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pump_app/core/strings/app_color_manager.dart';
-
 import 'package:pump_app/features/db/models/app_specification.dart';
 
 import '../../../../core/util/snack_bar_message.dart';

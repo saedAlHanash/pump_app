@@ -1,13 +1,12 @@
+import 'package:drawable_text/drawable_text.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:image_multi_type/image_multi_type.dart';
 import 'package:pump_app/core/extensions/extensions.dart';
 import 'package:pump_app/core/strings/app_color_manager.dart';
 import 'package:pump_app/core/strings/enum_manager.dart';
 import 'package:pump_app/core/widgets/app_bar/app_bar_widget.dart';
 import 'package:pump_app/core/widgets/my_card_widget.dart';
-import 'package:pump_app/generated/assets.dart';
-import 'package:drawable_text/drawable_text.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:image_multi_type/image_multi_type.dart';
 
 import '../../../../../router/app_router.dart';
 import '../../../../generated/l10n.dart';

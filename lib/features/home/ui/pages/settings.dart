@@ -6,9 +6,6 @@ import 'package:hive/hive.dart';
 import 'package:image_multi_type/image_multi_type.dart';
 import 'package:pump_app/core/strings/app_color_manager.dart';
 import 'package:pump_app/core/strings/app_string_manager.dart';
-import 'package:pump_app/core/strings/app_string_manager.dart';
-import 'package:pump_app/core/strings/app_string_manager.dart';
-import 'package:pump_app/core/strings/app_string_manager.dart';
 import 'package:pump_app/core/util/snack_bar_message.dart';
 import 'package:pump_app/core/widgets/app_bar/app_bar_widget.dart';
 import 'package:pump_app/core/widgets/my_button.dart';
@@ -17,8 +14,6 @@ import '../../../../core/app/app_widget.dart';
 import '../../../../core/util/shared_preferences.dart';
 import '../../../../generated/assets.dart';
 import '../../../../generated/l10n.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-
 import '../../../../router/app_router.dart';
 import '../../../splash/bloc/files_cubit/files_cubit.dart';
 
@@ -47,8 +42,6 @@ class SettingsScreen extends StatelessWidget {
 
                 if (result && context.mounted) {
                   AppSharedPreference.logout();
-
-                  clearAppData();
 
                   context.read<FilesCubit>().clearAll();
 
@@ -203,9 +196,3 @@ class _LanWidgetState extends State<LanWidget> {
   }
 }
 
-void clearAppData() async {
-  final secureStorage = FlutterSecureStorage();
-
-  // Delete all data stored by the app
-  await secureStorage.deleteAll();
-}

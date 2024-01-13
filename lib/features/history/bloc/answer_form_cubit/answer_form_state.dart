@@ -19,8 +19,6 @@ class AnswerFormInitial extends AbstractCubit<List<Questions>> {
     );
   }
 
-  @override
-  List<Object> get props => [statuses, result, error];
 
   AnswerFormInitial copyWith({
     CubitStatuses? statuses,

@@ -5,15 +5,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_multi_type/image_multi_type.dart';
 import 'package:pump_app/core/extensions/extensions.dart';
 import 'package:pump_app/core/widgets/app_bar/app_bar_widget.dart';
-import 'package:pump_app/core/widgets/my_button.dart';
 
 import '../../../../core/strings/app_color_manager.dart';
 import '../../../../core/util/my_style.dart';
 import '../../../../core/widgets/my_card_widget.dart';
-import '../../../../generated/assets.dart';
 import '../../../../generated/l10n.dart';
 import '../../../../router/app_router.dart';
 import '../../bloc/get_form_cubit/get_form_cubit.dart';
+import 'form_page.dart';
 
 class ChoseFormePage extends StatelessWidget {
   const ChoseFormePage({super.key});
@@ -37,6 +36,7 @@ class ChoseFormePage extends StatelessWidget {
                     onTap: () {
                       context.read<GetFormCubit>().getQuestionsForm(
                           assessmentId: e.firstOrNull?.assessmentNu ?? '0');
+                      pageNumber = 0;
                       Navigator.pushNamed(context, RouteName.startForm);
                     },
                     child: MyCardWidget(

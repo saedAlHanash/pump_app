@@ -1,14 +1,10 @@
-import 'package:drawable_text/drawable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pump_app/core/extensions/extensions.dart';
 import 'package:pump_app/core/widgets/q_header_widget.dart';
-import 'package:pump_app/features/db/models/item_model.dart';
 import 'package:pump_app/features/form/bloc/get_form_cubit/get_form_cubit.dart';
-import 'package:pump_app/main.dart';
 
-import '../../../../core/strings/app_color_manager.dart';
 import '../../../../core/widgets/my_text_form_widget.dart';
 import '../../../../core/widgets/select_date.dart';
 import '../../../db/models/app_specification.dart';

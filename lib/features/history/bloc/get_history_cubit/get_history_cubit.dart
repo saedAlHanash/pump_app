@@ -4,10 +4,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
 import 'package:pump_app/core/extensions/extensions.dart';
-import 'package:pump_app/features/db/models/app_specification.dart';
 import 'package:pump_app/features/history/data/history_model.dart';
-import 'package:pump_app/features/history/data/history_model.dart';
-import 'package:pump_app/main.dart';
 
 import '../../../../core/strings/app_string_manager.dart';
 import '../../../../core/strings/enum_manager.dart';

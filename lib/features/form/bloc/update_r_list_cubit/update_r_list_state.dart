@@ -19,8 +19,7 @@ class UpdateRListInitial extends AbstractCubit<int> {
     );
   }
 
-  @override
-  List<Object> get props => [statuses, result, error];
+
 
   UpdateRListInitial copyWith({
     CubitStatuses? statuses,

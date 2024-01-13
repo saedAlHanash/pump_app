@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:pump_app/core/extensions/extensions.dart';
 import 'package:pump_app/core/strings/enum_manager.dart';
 import 'package:pump_app/core/widgets/app_bar/app_bar_widget.dart';
 import 'package:pump_app/core/widgets/my_button.dart';
 import 'package:pump_app/features/db/models/app_specification.dart';
-import 'package:pump_app/main.dart';
 
-import '../../../../core/util/my_style.dart';
 import '../../../../core/util/snack_bar_message.dart';
 import '../../../../generated/l10n.dart';
 import '../../bloc/get_form_cubit/get_form_cubit.dart';
@@ -43,7 +40,7 @@ class _FormTablePageState extends State<FormTablePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBarWidget(),
+      appBar: const AppBarWidget(),
       body: BlocBuilder<GetFormCubit, GetFormInitial>(
         builder: (context, state) {
           return ListView.separated(
@@ -71,7 +68,6 @@ class _FormTablePageState extends State<FormTablePage> {
                           NoteMessage.showAwesomeError(context: context, message: error);
                           return;
                         }
-                        // context.read<GetFormCubit>().saveEqualToTable(list);
 
                         Future.delayed(
                           const Duration(milliseconds: 500),

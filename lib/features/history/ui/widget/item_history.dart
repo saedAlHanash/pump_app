@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:drawable_text/drawable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,22 +5,18 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_multi_type/image_multi_type.dart';
 import 'package:pump_app/core/extensions/extensions.dart';
 import 'package:pump_app/core/strings/app_color_manager.dart';
-import 'package:pump_app/core/widgets/app_bar/app_bar_widget.dart';
-import 'package:pump_app/core/widgets/my_button.dart';
 import 'package:pump_app/core/widgets/my_card_widget.dart';
-import 'package:pump_app/main.dart';
 
-import '../../../../core/util/my_style.dart';
-import '../../../../generated/assets.dart';
 import '../../../../generated/l10n.dart';
 import '../../../../router/app_router.dart';
 import '../../../form/bloc/get_form_cubit/get_form_cubit.dart';
+import '../../../form/ui/pages/form_page.dart';
 import '../../bloc/get_history_cubit/get_history_cubit.dart';
 import '../../data/history_model.dart';
-import '../pages/history_page.dart';
 import 'delete_dialog.dart';
 
-int deleteIndex =-1;
+int deleteIndex = -1;
+
 class ItemHistory extends StatelessWidget {
   const ItemHistory({super.key, required this.item, required this.i});
 
@@ -62,11 +56,11 @@ class ItemHistory extends StatelessWidget {
             children: [
               Expanded(
                 child: TextButton(
-                  onPressed: () async{
+                  onPressed: () async {
                     context.read<GetFormCubit>().setQuestionsFromHistory(list: item.list);
-                     Navigator.pushNamed(context, RouteName.startForm);
-                     deleteIndex = i;
-
+                    pageNumber = 0;
+                    Navigator.pushNamed(context, RouteName.startForm);
+                    deleteIndex = i;
                   },
                   child: Column(
                     children: [

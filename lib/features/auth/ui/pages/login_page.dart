@@ -10,7 +10,6 @@ import 'package:pump_app/core/widgets/my_text_form_widget.dart';
 
 import '../../../../core/strings/enum_manager.dart';
 import '../../../../core/util/my_style.dart';
-
 import '../../../../generated/l10n.dart';
 import '../../../../router/app_router.dart';
 import '../../bloc/login_cubit/login_cubit.dart';

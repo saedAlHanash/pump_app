@@ -2,10 +2,8 @@ import 'package:collection/collection.dart';
 import 'package:drawable_text/drawable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:pump_app/core/strings/app_color_manager.dart';
-import 'package:pump_app/generated/assets.dart';
-
 import 'package:image_multi_type/image_multi_type.dart';
+import 'package:pump_app/core/strings/app_color_manager.dart';
 
 class IconStepperDemo extends StatelessWidget {
   const IconStepperDemo({super.key, required this.items});

@@ -2,8 +2,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/strings/enum_manager.dart';
 import '../../../../core/util/abstraction.dart';
-import '../../../../main.dart';
-import '../../../db/models/app_specification.dart';
 
 part 'update_r_list_state.dart';
 

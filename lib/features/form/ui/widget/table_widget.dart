@@ -3,10 +3,8 @@ import 'package:drawable_text/drawable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_multi_type/image_multi_type.dart';
-import 'package:pump_app/core/util/snack_bar_message.dart';
 import 'package:pump_app/features/db/models/app_specification.dart';
 import 'package:pump_app/features/form/ui/pages/form_table_page.dart';
-import 'package:pump_app/main.dart';
 
 import '../../../../core/widgets/my_button.dart';
 import '../../../../generated/l10n.dart';

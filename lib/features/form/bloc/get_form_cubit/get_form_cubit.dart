@@ -184,7 +184,23 @@ class GetFormCubit extends Cubit<GetFormInitial> {
 
   void saveEqualTo(Questions q) {
     _saveEqualTo(q);
+    _clearTableEqualAnswerData(q);
     emit(state.copyWith(statuses: CubitStatuses.done));
+  }
+
+  void _clearTableEqualAnswerData(Questions q) {
+    final tables =
+        state.result.singleList.where((element) => element.qstType == QType.table);
+
+    final list = state.result.singleList.where((e) => e.equalTo == q.qstId);
+    for (var t in tables) {
+      for (var q in list) {
+        if (t.tableNumber == q.tableNumber) {
+          t.answer?.answers.clear();
+          break;
+        }
+      }
+    }
   }
 
   void _saveEqualTo(Questions q) {

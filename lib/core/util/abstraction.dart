@@ -1,6 +1,3 @@
-import 'package:equatable/equatable.dart';
-
-
 import '../strings/enum_manager.dart';
 
 abstract class AbstractCubit<T>{

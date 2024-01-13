@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:collection/collection.dart';
-import 'package:drawable_text/drawable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -21,14 +20,13 @@ import '../../../../core/util/snack_bar_message.dart';
 import '../../../../core/widgets/q_header_widget.dart';
 import '../../../../generated/l10n.dart';
 import '../../../../router/app_router.dart';
-import '../../../history/bloc/get_history_cubit/get_history_cubit.dart';
 import '../../../history/data/history_model.dart';
 import '../../bloc/get_form_cubit/get_form_cubit.dart';
 
-class StartForm extends StatefulWidget {
-  const StartForm({super.key, this.pageNumber = 0});
+var pageNumber = 0;
 
-  final int pageNumber;
+class StartForm extends StatefulWidget {
+  const StartForm({super.key});
 
   @override
   State<StartForm> createState() => _StartFormState();
@@ -37,6 +35,7 @@ class StartForm extends StatefulWidget {
 class _StartFormState extends State<StartForm> {
   @override
   Widget build(BuildContext context) {
+    loggerObject.w('message');
     return Scaffold(
       extendBody: false,
       extendBodyBehindAppBar: false,
@@ -50,8 +49,8 @@ class _StartFormState extends State<StartForm> {
               items: state.result
                   .mapIndexed(
                     (i, e) => StepperItem(
-                      active: i == widget.pageNumber,
-                      complete: i < widget.pageNumber,
+                      active: i == pageNumber,
+                      complete: i < pageNumber,
                     ),
                   )
                   .toList(),
@@ -71,9 +70,9 @@ class _StartFormState extends State<StartForm> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  if (widget.pageNumber < state.result.length)
+                  if (pageNumber < state.result.length)
                     Column(
-                      children: state.result[widget.pageNumber]
+                      children: state.result[pageNumber]
                           .mapIndexed(
                             (i, item) => Padding(
                               padding: const EdgeInsets.only(bottom: 10.0).h,
@@ -82,19 +81,20 @@ class _StartFormState extends State<StartForm> {
                           )
                           .toList(),
                     ),
-                  if (widget.pageNumber < state.result.length - 1)
+                  if (pageNumber < state.result.length - 1)
                     MyButton(
                       text: S.of(context).next,
                       onTap: () {
-                        final error =
-                            context.read<GetFormCubit>().isComplete(widget.pageNumber);
+                        final error = context.read<GetFormCubit>().isComplete(pageNumber);
                         if (error.isNotEmpty) {
                           NoteMessage.showAwesomeError(context: context, message: error);
                           return;
                         }
+                        pageNumber += 1;
 
-                        Navigator.pushNamed(context, RouteName.startForm,
-                            arguments: widget.pageNumber + 1);
+                        Navigator.pushNamed(context, RouteName.startForm).then((value) {
+                          pageNumber -= 1;
+                        });
                       },
                     )
                   else

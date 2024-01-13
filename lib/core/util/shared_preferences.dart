@@ -1,8 +1,4 @@
-import 'dart:convert';
-
 import 'package:shared_preferences/shared_preferences.dart';
-
-import '../strings/enum_manager.dart';
 
 class AppSharedPreference {
   static const _loadData = '5';

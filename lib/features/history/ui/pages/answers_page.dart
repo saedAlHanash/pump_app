@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pump_app/core/widgets/app_bar/app_bar_widget.dart';
 import 'package:pump_app/features/db/models/app_specification.dart';
-import 'package:pump_app/main.dart';
 
 import '../../../../core/strings/enum_manager.dart';
 import '../../../../generated/l10n.dart';
