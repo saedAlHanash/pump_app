@@ -11,6 +11,7 @@ import 'package:pump_app/core/extensions/extensions.dart';
 import 'package:pump_app/core/util/snack_bar_message.dart';
 import 'package:pump_app/features/db/models/app_specification.dart';
 import 'package:pump_app/features/history/data/history_model.dart';
+import 'package:pump_app/main.dart';
 
 import 'package:uuid/uuid.dart';
 
@@ -55,12 +56,18 @@ class ExportReportCubit extends Cubit<ExportReportInitial> {
     await filePathsBox.close();
 
     // Copy the file to the Downloads directory
-    final downloadsFilePath = '/storage/emulated/0/Download/'
+    final downloadsFilePath = '/storage/emulated/0/WSAS/'
         '$fName.xlsx';
 
     try {
+      final directoryWsas = Directory('/storage/emulated/0/WSAS');
+      if (!(await directoryWsas.exists())) {
+        await directoryWsas.create(recursive: true);
+      }
+
       await file.copy(downloadsFilePath);
     } on Exception catch (e) {
+      loggerObject.e(e);
       emit(state.copyWith(statuses: CubitStatuses.error, error: e.toString()));
     }
 
