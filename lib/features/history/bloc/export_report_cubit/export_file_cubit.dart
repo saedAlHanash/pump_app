@@ -8,14 +8,17 @@ import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:pump_app/core/extensions/extensions.dart';
+import 'package:pump_app/core/util/snack_bar_message.dart';
 import 'package:pump_app/features/db/models/app_specification.dart';
 import 'package:pump_app/features/history/data/history_model.dart';
-import 'package:pump_app/main.dart';
+
 import 'package:uuid/uuid.dart';
 
+import '../../../../core/app/app_widget.dart';
 import '../../../../core/strings/app_string_manager.dart';
 import '../../../../core/strings/enum_manager.dart';
 import '../../../../core/util/abstraction.dart';
+import '../../../../generated/l10n.dart';
 
 part 'export_file_state.dart';
 
@@ -27,7 +30,15 @@ class ExportReportCubit extends Cubit<ExportReportInitial> {
 
     final filePathsBox = await Hive.openBox<String>(AppStringManager.filePathsBox);
 
-    var fName = name ?? 'report${filePathsBox.length}';
+    var fName = name ?? '${S().report} ${filePathsBox.length}';
+
+    final invalidChars = ['<', '>', ':', '"', '/', '\\', '|', '?', '*'];
+
+    // Replace invalid characters with an empty string
+
+    for (var char in invalidChars) {
+      fName = fName.replaceAll(char, '');
+    }
 
     if (await File(join('${directory!.path}/$fName.xlsx')).exists()) {
       //loggerObject.w('true');
@@ -50,8 +61,7 @@ class ExportReportCubit extends Cubit<ExportReportInitial> {
     try {
       await file.copy(downloadsFilePath);
     } on Exception catch (e) {
-      loggerObject.e(e);
-      emit(state.copyWith(statuses: CubitStatuses.error));
+      emit(state.copyWith(statuses: CubitStatuses.error, error: e.toString()));
     }
 
     Future.delayed(
@@ -65,42 +75,40 @@ class ExportReportCubit extends Cubit<ExportReportInitial> {
   void exportForDb({
     required List<HistoryModel> list,
   }) async {
+    if (list.isEmpty) {
+      NoteMessage.showAwesomeError(context: ctx!, message: S().noAssessmentsWithThisType);
+      return;
+    }
     emit(state.copyWith(statuses: CubitStatuses.loading));
     await Permission.manageExternalStorage.request();
     await Permission.storage.request();
 
-    //تجميع الاستمارات بشكل منفصل
-    final ll = list
-        .groupListsBy<String>((e) => e.list.firstOrNull?.firstOrNull?.assessmentNu ?? '-')
-        .values
-        .toList();
-
-    for (var e in ll) {
-      s1(list: e);
-    }
+    s1(list: list);
 
     await saveFile(
-        'تقرير محاطات الضخ لقواعد المعطيات ${DateTime.now().formatDateTimeFileName}');
+        '${S().report} ${list.firstOrNull?.list.firstOrNull?.firstOrNull?.assessmentName} '
+        '${S().exportForDb}'
+        ' ${DateTime.now().formatDateTimeFileName}');
   }
 
   void exportForReview({
     required List<HistoryModel> list,
   }) async {
+    if (list.isEmpty) {
+      NoteMessage.showAwesomeError(context: ctx!, message: S().noAssessmentsWithThisType);
+      return;
+    }
+
     emit(state.copyWith(statuses: CubitStatuses.loading));
     await Permission.manageExternalStorage.request();
     await Permission.storage.request();
 
-    //تجميع الاستمارات بشكل منفصل
-    final ll = list
-        .groupListsBy<String>((e) => e.list.firstOrNull?.firstOrNull?.assessmentNu ?? '-')
-        .values
-        .toList();
+    s11(list: list);
 
-    for (var e in ll) {
-      s11(list: e);
-    }
-
-    await saveFile('تقرير محاطات الضخ للمراجعة ${DateTime.now().formatDateTimeFileName}');
+    await saveFile(
+        '${S().report} ${list.firstOrNull?.list.firstOrNull?.firstOrNull?.assessmentName} '
+        '${S().exportForReview}'
+        ' ${DateTime.now().formatDateTimeFileName}');
   }
 
   void s1({

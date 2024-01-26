@@ -8,6 +8,8 @@ import 'package:pump_app/features/db/models/item_model.dart';
 import '../../../../core/strings/app_string_manager.dart';
 import '../../../../core/strings/enum_manager.dart';
 import '../../../../core/util/abstraction.dart';
+import '../../../../core/widgets/spinner_widget.dart';
+import '../../../../generated/l10n.dart';
 
 part 'get_form_state.dart';
 
@@ -153,9 +155,19 @@ class GetFormCubit extends Cubit<GetFormInitial> {
   }) {
     q.answer ??= answer ?? ItemModel.fromJson({'1': sAnswer, '2': sAnswer});
 
-    if (answer != null) q.answer = answer;
-    if (sAnswer != null) q.answer!.answer = sAnswer;
-    if (answers != null) q.answer!.answers.add(answers);
+    if (answer != null) {
+      q.answer = answer;
+    }
+
+    if (sAnswer != null) {
+      q.answer!
+        ..answer = sAnswer
+        ..name = sAnswer;
+    }
+
+    if (answers != null) {
+      q.answer!.answers.add(answers.map((e) => e.copyWith()).toList());
+    }
 
     if (state.eAnswers.contains(q.qstId)) {
       saveEqualTo(q);
@@ -233,9 +245,17 @@ class GetFormCubit extends Cubit<GetFormInitial> {
     for (var e in list) {
       if (!e.isRequired || e.equalTo.isNotEmpty) continue;
       if ((e.answer == null || e.answer!.answer.isEmpty) && e.isVisible) {
-        return 'يرجى إكمال ${e.qstLabel}';
+        return '${S().pleasComplete}${e.qstLabel}';
       }
     }
     return '';
+  }
+
+  List<SpinnerItem> get getAssessmentSpinnerItems {
+    final list = <SpinnerItem>[];
+    state.allFormes.forEach((key, value) {
+      list.add(SpinnerItem(id: key, name: value.firstOrNull?.assessmentName));
+    });
+    return list;
   }
 }

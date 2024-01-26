@@ -178,5 +178,13 @@
   "loadMainData": "Load Main Files",
   "uploadHelperData": "Load Helper Files",
   "enterFormName": "Enter form name",
+  "addAssessmentName": "Add Assessment Name",
+  "assessmentName": "Assessment Name",
+  "assessmentType": "Assessment Type",
+  "pleasComplete": "pleas Complete",
+  "pleasSelectExportType": "Pleas Select Export Type",
+  "pleasSelectAssessmentType": "Pleas Select Assessment Type",
+  "report": "Report",
+  "noAssessmentsWithThisType": "No Assessments With This Type",
   "clearAllData": "Clear all data"
 }

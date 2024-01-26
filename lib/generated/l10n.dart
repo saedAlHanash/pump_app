@@ -1,7 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-
 import 'intl/messages_all.dart';
 
 // **************************************************************************
@@ -1836,6 +1835,86 @@ class S {
     return Intl.message(
       'Enter form name',
       name: 'enterFormName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add Assessment Name`
+  String get addAssessmentName {
+    return Intl.message(
+      'Add Assessment Name',
+      name: 'addAssessmentName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Assessment Name`
+  String get assessmentName {
+    return Intl.message(
+      'Assessment Name',
+      name: 'assessmentName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Assessment Type`
+  String get assessmentType {
+    return Intl.message(
+      'Assessment Type',
+      name: 'assessmentType',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `pleas Complete`
+  String get pleasComplete {
+    return Intl.message(
+      'pleas Complete',
+      name: 'pleasComplete',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Pleas Select Export Type`
+  String get pleasSelectExportType {
+    return Intl.message(
+      'Pleas Select Export Type',
+      name: 'pleasSelectExportType',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Pleas Select Assessment Type`
+  String get pleasSelectAssessmentType {
+    return Intl.message(
+      'Pleas Select Assessment Type',
+      name: 'pleasSelectAssessmentType',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Report`
+  String get report {
+    return Intl.message(
+      'Report',
+      name: 'report',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No Assessments With This Type`
+  String get noAssessmentsWithThisType {
+    return Intl.message(
+      'No Assessments With This Type',
+      name: 'noAssessmentsWithThisType',
       desc: '',
       args: [],
     );

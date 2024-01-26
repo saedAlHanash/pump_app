@@ -59,19 +59,15 @@ class SpinnerWidgetState<T> extends State<SpinnerWidget<T>> {
                 )
               : null,
         ),
+        3.0.verticalSpace,
         DropdownButton2(
           items: widget.items.map(
             (item) {
-              final padding = (item.icon == null)
-                  ? const EdgeInsets.symmetric(horizontal: 10.0).w
-                  : EdgeInsets.only(left: 10.0.w);
-
               return DropdownMenuItem(
                 value: item,
                 child: DrawableText(
                   selectable: false,
                   text: item.name ?? '',
-                  padding: padding,
                   color: (item.id != '-1')
                       ? (item.enable)
                           ? Colors.black

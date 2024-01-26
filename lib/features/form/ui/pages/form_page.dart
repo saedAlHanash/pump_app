@@ -35,7 +35,6 @@ class StartForm extends StatefulWidget {
 class _StartFormState extends State<StartForm> {
   @override
   Widget build(BuildContext context) {
-    loggerObject.w('message');
     return Scaffold(
       extendBody: false,
       extendBodyBehindAppBar: false,
@@ -85,11 +84,11 @@ class _StartFormState extends State<StartForm> {
                     MyButton(
                       text: S.of(context).next,
                       onTap: () {
-                        final error = context.read<GetFormCubit>().isComplete(pageNumber);
-                        if (error.isNotEmpty) {
-                          NoteMessage.showAwesomeError(context: context, message: error);
-                          return;
-                        }
+                        // final error = context.read<GetFormCubit>().isComplete(pageNumber);
+                        // if (error.isNotEmpty) {
+                        //   NoteMessage.showAwesomeError(context: context, message: error);
+                        //   return;
+                        // }
                         pageNumber += 1;
 
                         Navigator.pushNamed(context, RouteName.startForm).then((value) {
@@ -101,27 +100,34 @@ class _StartFormState extends State<StartForm> {
                     MyButton(
                       text: S.of(context).save,
                       onTap: () async {
-                        var name = '';
+                        var name = context
+                                .read<GetFormCubit>()
+                                .state
+                                .result
+                                .firstOrNull
+                                ?.firstOrNull
+                                ?.assessmentName ??
+                            '';
                         name = await NoteMessage.showMyDialog(
                           context,
                           child: Builder(builder: (context) {
-                            final c = TextEditingController();
+                            final c = TextEditingController(text: name);
                             return Padding(
                               padding: const EdgeInsets.all(20.0).r,
                               child: Column(
                                 children: [
                                   QHeaderWidget(
                                     q: Questions.fromJson(
-                                      {'6': 'يرجى إدخال اسم للاستمارة', '11': true},
+                                      {'6': S.of(context).addAssessmentName, '11': true},
                                     ),
                                   ),
                                   5.0.verticalSpace,
                                   MyTextFormOutLineWidget(
                                     controller: c,
-                                    label: 'اسم الاستمارة',
+                                    label: S.of(context).assessmentName,
                                   ),
                                   MyButton(
-                                    text: 'تم',
+                                    text: S.of(context).done,
                                     onTap: () {
                                       Navigator.pop(context, c.text);
                                     },
@@ -135,8 +141,7 @@ class _StartFormState extends State<StartForm> {
                         if (!mounted) return;
                         if (name.trim().isEmpty) {
                           NoteMessage.showErrorSnackBar(
-                              message: 'يجب ادخال اسم الاستمارة للمتابعة',
-                              context: context);
+                              message: S.of(context).addAssessmentName, context: context);
                           return;
                         }
 

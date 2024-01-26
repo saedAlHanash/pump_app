@@ -10,6 +10,11 @@ final appTheme = ThemeData(
       backgroundColor: primaryColor,
       centerTitle: true,
     ),
+    cardTheme: const CardTheme(
+      surfaceTintColor: AppColorManager.cardColor,
+      color: AppColorManager.cardColor,
+    ),
+    dividerColor:AppColorManager.dividerColor ,
     switchTheme: const SwitchThemeData(
         thumbColor: MaterialStatePropertyAll(primaryColor),
         overlayColor: MaterialStatePropertyAll(secondaryColor)),

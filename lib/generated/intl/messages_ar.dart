@@ -27,6 +27,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "accountCreated":
             MessageLookupByLibrary.simpleMessage("تم إنشاء الحساب!"),
         "add": MessageLookupByLibrary.simpleMessage("إضافة"),
+        "addAssessmentName":
+            MessageLookupByLibrary.simpleMessage("يرجى إدخال اسم للاستمارة"),
         "addDetails": MessageLookupByLibrary.simpleMessage("إضافة تفاصيل"),
         "additional_service":
             MessageLookupByLibrary.simpleMessage("خدمة إضافية"),
@@ -34,6 +36,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("هل لديك حساب بالفعل؟"),
         "apply": MessageLookupByLibrary.simpleMessage("تطبيق"),
         "apply_filters": MessageLookupByLibrary.simpleMessage("تطبيق الفلاتر"),
+        "assessmentName": MessageLookupByLibrary.simpleMessage("اسم للاستمارة"),
+        "assessmentType": MessageLookupByLibrary.simpleMessage("نوع الاستمارة"),
         "back": MessageLookupByLibrary.simpleMessage("عودة"),
         "badCredential": MessageLookupByLibrary.simpleMessage(
             "اسم المستخدم أو كلمة المرور غير صحيحة"),
@@ -110,10 +114,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("أدخل كلمة السر مع التأكيد"),
         "expiration": MessageLookupByLibrary.simpleMessage("انتهاء الصلاحية"),
         "exportExcel": MessageLookupByLibrary.simpleMessage("تصدير ملف الاكسل"),
-        "exportForDb":
-            MessageLookupByLibrary.simpleMessage("تصدير لقاعدة المعطيات"),
-        "exportForReview":
-            MessageLookupByLibrary.simpleMessage("تصدير للمراجعة"),
+        "exportForDb": MessageLookupByLibrary.simpleMessage("لقاعدة المعطيات"),
+        "exportForReview": MessageLookupByLibrary.simpleMessage("للمراجعة"),
         "faq": MessageLookupByLibrary.simpleMessage("الأسئلة الشائعة"),
         "fav": MessageLookupByLibrary.simpleMessage("المفضلة"),
         "fileHistory": MessageLookupByLibrary.simpleMessage("سجل الملفات"),
@@ -162,6 +164,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "new_check_email": MessageLookupByLibrary.simpleMessage(
             "تحقق من بريدك الإلكتروني للحصول على رابط التأكيد"),
         "next": MessageLookupByLibrary.simpleMessage("التالي"),
+        "noAssessmentsWithThisType":
+            MessageLookupByLibrary.simpleMessage("لا يوجد استمارات بهذا النوع"),
         "noHistory": MessageLookupByLibrary.simpleMessage("السجل فارغ"),
         "noInternet": MessageLookupByLibrary.simpleMessage(
             "يرجى التحقق من اتصالك بالإنترنت"),
@@ -187,8 +191,13 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("حقل رقم الهاتف مطلوب"),
         "phoneSms":
             MessageLookupByLibrary.simpleMessage("رسالة نصية على الهاتف"),
+        "pleasComplete": MessageLookupByLibrary.simpleMessage("يرجى إكمال "),
         "pleasCreateAccount":
             MessageLookupByLibrary.simpleMessage("يرجى إنشاء حساب"),
+        "pleasSelectAssessmentType":
+            MessageLookupByLibrary.simpleMessage("يرجى اختيار نوع الاستمارة "),
+        "pleasSelectExportType":
+            MessageLookupByLibrary.simpleMessage("يرجى اختيار نوع التصدير "),
         "policy":
             MessageLookupByLibrary.simpleMessage("سياسة الاستخدام والخصوصية"),
         "price": MessageLookupByLibrary.simpleMessage("السعر"),
@@ -204,6 +213,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "related_products":
             MessageLookupByLibrary.simpleMessage("منتجات ذات صلة"),
         "rememberMe": MessageLookupByLibrary.simpleMessage("تذكرني"),
+        "report": MessageLookupByLibrary.simpleMessage("تقرير"),
         "resend": MessageLookupByLibrary.simpleMessage("إعادة الإرسال"),
         "reset_password":
             MessageLookupByLibrary.simpleMessage("إعادة تعيين كلمة المرور"),

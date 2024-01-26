@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_multi_type/image_multi_type.dart';
 import 'package:pump_app/features/db/models/app_specification.dart';
 import 'package:pump_app/features/form/ui/pages/form_table_page.dart';
+import 'package:pump_app/main.dart';
 
 import '../../../../core/widgets/my_button.dart';
 import '../../../../generated/l10n.dart';
@@ -31,7 +32,7 @@ class _TableWidgetState extends State<TableWidget> {
                 child: Column(
                   children: e
                       .map(
-                        (e) => e.getTableAnswerWidget,
+                        (e1) => e1.getTableAnswerWidget,
                       )
                       .toList()
                     ..add(const Divider()),

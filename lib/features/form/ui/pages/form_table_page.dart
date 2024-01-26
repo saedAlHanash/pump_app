@@ -62,6 +62,7 @@ class _FormTablePageState extends State<FormTablePage> {
                             currentFocus.focusedChild != null) {
                           FocusManager.instance.primaryFocus?.unfocus();
                         }
+
                         final error = context.read<GetFormCubit>().iTable(list);
 
                         if (error.isNotEmpty) {

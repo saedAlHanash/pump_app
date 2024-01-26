@@ -27,6 +27,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "accountCreated":
             MessageLookupByLibrary.simpleMessage("Account Created!"),
         "add": MessageLookupByLibrary.simpleMessage("Add"),
+        "addAssessmentName":
+            MessageLookupByLibrary.simpleMessage("Add Assessment Name"),
         "addDetails": MessageLookupByLibrary.simpleMessage("Add record"),
         "add_to_cart": MessageLookupByLibrary.simpleMessage("Add To Cart"),
         "additional_service":
@@ -35,6 +37,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Already Have An Account?"),
         "apply": MessageLookupByLibrary.simpleMessage("Apply"),
         "apply_filters": MessageLookupByLibrary.simpleMessage("Apply filters"),
+        "assessmentName":
+            MessageLookupByLibrary.simpleMessage("Assessment Name"),
+        "assessmentType":
+            MessageLookupByLibrary.simpleMessage("Assessment Type"),
         "back": MessageLookupByLibrary.simpleMessage("Back"),
         "badCredential": MessageLookupByLibrary.simpleMessage("Bad Credential"),
         "birthday": MessageLookupByLibrary.simpleMessage("birthday"),
@@ -159,6 +165,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "new_check_email": MessageLookupByLibrary.simpleMessage(
             "New Check Your Email For\nConfirmation Link"),
         "next": MessageLookupByLibrary.simpleMessage("Next"),
+        "noAssessmentsWithThisType": MessageLookupByLibrary.simpleMessage(
+            "No Assessments With This Type"),
         "noHistory": MessageLookupByLibrary.simpleMessage("Empty History"),
         "noInternet": MessageLookupByLibrary.simpleMessage(
             "Please check your internet connection"),
@@ -184,8 +192,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "phoneNumberEmpty": MessageLookupByLibrary.simpleMessage(
             "Phone number field is required"),
         "phoneSms": MessageLookupByLibrary.simpleMessage("Phone SMS"),
+        "pleasComplete": MessageLookupByLibrary.simpleMessage("pleas Complete"),
         "pleasCreateAccount":
             MessageLookupByLibrary.simpleMessage("Please create an account"),
+        "pleasSelectAssessmentType": MessageLookupByLibrary.simpleMessage(
+            "Pleas Select Assessment Type"),
+        "pleasSelectExportType":
+            MessageLookupByLibrary.simpleMessage("Pleas Select Export Type"),
         "policy": MessageLookupByLibrary.simpleMessage(
             "Terms of Use and Privacy Policy"),
         "price": MessageLookupByLibrary.simpleMessage("Price"),
@@ -201,6 +214,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "related_products":
             MessageLookupByLibrary.simpleMessage("Related Products"),
         "rememberMe": MessageLookupByLibrary.simpleMessage("Remember Me"),
+        "report": MessageLookupByLibrary.simpleMessage("Report"),
         "resend": MessageLookupByLibrary.simpleMessage("Resend"),
         "reset_password":
             MessageLookupByLibrary.simpleMessage("Reset Password"),

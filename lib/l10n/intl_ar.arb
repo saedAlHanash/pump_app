@@ -173,9 +173,18 @@
   "delete": "حذف",
   "edit": "تعديل",
   "designBy": "صمم بواسطة",
-  "exportForDb": "تصدير لقاعدة المعطيات",
-  "exportForReview": "تصدير للمراجعة",
+  "addAssessmentName": "يرجى إدخال اسم للاستمارة",
+  "assessmentName": "اسم للاستمارة",
+  "exportForDb": "لقاعدة المعطيات",
+  "exportForReview": "للمراجعة",
   "loadMainData": "تحميل الملفات الأساسية",
   "uploadHelperData": "تحميل ملفات المساعدة",
+  "assessmentType": "نوع الاستمارة",
+  "pleasComplete": "يرجى إكمال ",
+  "pleasSelectExportType": "يرجى اختيار نوع التصدير ",
+  "pleasSelectAssessmentType": "يرجى اختيار نوع الاستمارة ",
+  "report": "تقرير",
+  "noAssessmentsWithThisType": "لا يوجد استمارات بهذا النوع",
+
   "enterFormName": "يرجى إدخال اسم الاستبيان"
 }

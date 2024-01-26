@@ -78,7 +78,7 @@ class Questions {
   }
 
   Widget get getWidget {
-    if (tableNumber.isNotEmpty && qstType != QType.table||equalTo.isNotEmpty) {
+    if (tableNumber.isNotEmpty && qstType != QType.table || equalTo.isNotEmpty) {
       return 0.0.verticalSpace;
     }
 
@@ -109,7 +109,7 @@ class Questions {
   }
 
   Widget get getTableWidget {
-    if(equalTo.isNotEmpty) return 0.0.verticalSpace;
+    if (equalTo.isNotEmpty) return 0.0.verticalSpace;
     switch (qstType) {
       case QType.list:
         return ListWidget(q: this);
@@ -133,7 +133,7 @@ class Questions {
   }
 
   Widget get getTableAnswerWidget {
-    if(equalTo.isNotEmpty) return 0.0.verticalSpace;
+    if (equalTo.isNotEmpty) return 0.0.verticalSpace;
     switch (qstType) {
       case QType.list:
         return ListAnswerWidget(q: this);
@@ -278,6 +278,7 @@ class Questions {
       isVisible: isVisible ?? this.isVisible,
       helpLink: helpLink ?? this.helpLink,
       equalTo: equalTo ?? this.equalTo,
+      answer: answer,
     );
   }
 }

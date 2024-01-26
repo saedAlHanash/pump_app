@@ -54,7 +54,7 @@ class _DateWidgetState extends State<DateWidget> {
                   controller.text = selected?.formatDate ?? '';
                   context.read<GetFormCubit>().setAnswer(
                         widget.q,
-                        sAnswer: selected?.toIso8601String(),
+                        sAnswer: selected?.formatDate,
                       );
                 });
               },
