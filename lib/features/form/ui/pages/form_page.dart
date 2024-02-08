@@ -59,7 +59,6 @@ class _StartFormState extends State<StartForm> {
                       )
                       .toList(),
                 ),
-
                 DrawableText(
                   padding: EdgeInsets.only(left: 30.0.w),
                   text: context
@@ -81,6 +80,7 @@ class _StartFormState extends State<StartForm> {
       ),
       body: SizedBox(
         width: 1.0.sw,
+        height: 1.0.sh,
         child: BlocBuilder<GetFormCubit, GetFormInitial>(
           builder: (context, state) {
             if (state.statuses.loading) {
@@ -106,11 +106,11 @@ class _StartFormState extends State<StartForm> {
                     MyButton(
                       text: S.of(context).next,
                       onTap: () {
-                        // final error = context.read<GetFormCubit>().isComplete(pageNumber);
-                        // if (error.isNotEmpty) {
-                        //   NoteMessage.showAwesomeError(context: context, message: error);
-                        //   return;
-                        // }
+                        final error = context.read<GetFormCubit>().isComplete(pageNumber);
+                        if (error.isNotEmpty) {
+                          NoteMessage.showAwesomeError(context: context, message: error);
+                          return;
+                        }
                         pageNumber += 1;
 
                         Navigator.pushNamed(context, RouteName.startForm).then((value) {

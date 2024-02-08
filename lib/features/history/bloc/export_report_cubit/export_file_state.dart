@@ -1,6 +1,6 @@
 part of 'export_file_cubit.dart';
 
-class ExportReportInitial extends AbstractCubit<bool> {
+class ExportReportInitial extends AbstractCubit<bool>   {
   final excel = Excel.createExcel();
   final List<Sheet> sheets = [];
 
