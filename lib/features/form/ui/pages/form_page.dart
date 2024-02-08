@@ -39,6 +39,109 @@ class _StartFormState extends State<StartForm> {
     return Scaffold(
       extendBody: false,
       extendBodyBehindAppBar: false,
+      bottomNavigationBar: BlocBuilder<GetFormCubit, GetFormInitial>(
+        builder: (context, state) {
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              if (pageNumber < state.result.length - 1)
+                MyButton(
+                  text: S.of(context).next,
+                  onTap: () {
+                    // final error = context.read<GetFormCubit>().isComplete(pageNumber);
+                    // if (error.isNotEmpty) {
+                    //   NoteMessage.showAwesomeError(context: context, message: error);
+                    //   return;
+                    // }
+                    pageNumber += 1;
+
+                    Navigator.pushNamed(context, RouteName.startForm).then((value) {
+                      pageNumber -= 1;
+                    });
+                  },
+                )
+              else
+                MyButton(
+                  text: S.of(context).save,
+                  onTap: () async {
+                    var name = context
+                            .read<GetFormCubit>()
+                            .state
+                            .result
+                            .firstOrNull
+                            ?.firstOrNull
+                            ?.assessmentName ??
+                        '';
+                    name = await NoteMessage.showMyDialog(
+                      context,
+                      child: Builder(builder: (context) {
+                        final c = TextEditingController(text: name);
+                        return Padding(
+                          padding: const EdgeInsets.all(20.0).r,
+                          child: Column(
+                            children: [
+                              QHeaderWidget(
+                                q: Questions.fromJson(
+                                  {'6': S.of(context).addAssessmentName, '11': true},
+                                ),
+                              ),
+                              5.0.verticalSpace,
+                              MyTextFormOutLineWidget(
+                                controller: c,
+                                label: S.of(context).assessmentName,
+                              ),
+                              MyButton(
+                                text: S.of(context).done,
+                                onTap: () {
+                                  Navigator.pop(context, c.text);
+                                },
+                              ),
+                            ],
+                          ),
+                        );
+                      }),
+                    );
+
+                    if (!mounted) return;
+                    if (name.trim().isEmpty) {
+                      NoteMessage.showErrorSnackBar(
+                          message: S.of(context).addAssessmentName, context: context);
+                      return;
+                    }
+
+                    if (deleteIndex >= 0) {
+                      final box = await Hive.openBox<String>(AppStringManager.answerBox);
+                      box.deleteAt(deleteIndex);
+                      deleteIndex = -1;
+                    }
+                    final box = await Hive.openBox<String>(AppStringManager.answerBox);
+
+                    if (!mounted) return;
+
+                    final model = HistoryModel(
+                      list: context.read<GetFormCubit>().state.result,
+                      date: DateTime.now(),
+                      name: name,
+                    );
+
+                    box.add(
+                      jsonEncode(model.toJson()),
+                    );
+
+                    await box.close();
+                    if (!mounted) return;
+                    Navigator.pushNamedAndRemoveUntil(
+                      context,
+                      RouteName.home,
+                      (route) => false,
+                    );
+                  },
+                ),
+              20.0.verticalSpace,
+            ],
+          );
+        },
+      ),
       appBar: AppBarWidget(
         height: 130.0.h,
         title: BlocBuilder<GetFormCubit, GetFormInitial>(
@@ -102,102 +205,6 @@ class _StartFormState extends State<StartForm> {
                           )
                           .toList(),
                     ),
-                  if (pageNumber < state.result.length - 1)
-                    MyButton(
-                      text: S.of(context).next,
-                      onTap: () {
-                        final error = context.read<GetFormCubit>().isComplete(pageNumber);
-                        if (error.isNotEmpty) {
-                          NoteMessage.showAwesomeError(context: context, message: error);
-                          return;
-                        }
-                        pageNumber += 1;
-
-                        Navigator.pushNamed(context, RouteName.startForm).then((value) {
-                          pageNumber -= 1;
-                        });
-                      },
-                    )
-                  else
-                    MyButton(
-                      text: S.of(context).save,
-                      onTap: () async {
-                        var name = context
-                                .read<GetFormCubit>()
-                                .state
-                                .result
-                                .firstOrNull
-                                ?.firstOrNull
-                                ?.assessmentName ??
-                            '';
-                        name = await NoteMessage.showMyDialog(
-                          context,
-                          child: Builder(builder: (context) {
-                            final c = TextEditingController(text: name);
-                            return Padding(
-                              padding: const EdgeInsets.all(20.0).r,
-                              child: Column(
-                                children: [
-                                  QHeaderWidget(
-                                    q: Questions.fromJson(
-                                      {'6': S.of(context).addAssessmentName, '11': true},
-                                    ),
-                                  ),
-                                  5.0.verticalSpace,
-                                  MyTextFormOutLineWidget(
-                                    controller: c,
-                                    label: S.of(context).assessmentName,
-                                  ),
-                                  MyButton(
-                                    text: S.of(context).done,
-                                    onTap: () {
-                                      Navigator.pop(context, c.text);
-                                    },
-                                  ),
-                                ],
-                              ),
-                            );
-                          }),
-                        );
-
-                        if (!mounted) return;
-                        if (name.trim().isEmpty) {
-                          NoteMessage.showErrorSnackBar(
-                              message: S.of(context).addAssessmentName, context: context);
-                          return;
-                        }
-
-                        if (deleteIndex >= 0) {
-                          final box =
-                              await Hive.openBox<String>(AppStringManager.answerBox);
-                          box.deleteAt(deleteIndex);
-                          deleteIndex = -1;
-                        }
-                        final box =
-                            await Hive.openBox<String>(AppStringManager.answerBox);
-
-                        if (!mounted) return;
-
-                        final model = HistoryModel(
-                          list: context.read<GetFormCubit>().state.result,
-                          date: DateTime.now(),
-                          name: name,
-                        );
-
-                        box.add(
-                          jsonEncode(model.toJson()),
-                        );
-
-                        await box.close();
-                        if (!mounted) return;
-                        Navigator.pushNamedAndRemoveUntil(
-                          context,
-                          RouteName.home,
-                          (route) => false,
-                        );
-                      },
-                    ),
-                  20.0.verticalSpace,
                 ],
               ),
             );

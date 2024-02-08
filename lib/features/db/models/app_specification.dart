@@ -136,19 +136,17 @@ class Questions {
     if (equalTo.isNotEmpty) return 0.0.verticalSpace;
     switch (qstType) {
       case QType.list:
-        return ListAnswerWidget(q: this);
       case QType.rList:
         return ListAnswerWidget(q: this);
+      case QType.lString:
+      case QType.date:
+      case QType.number:
       case QType.string:
         return StringAnswerWidget(q: this);
-      case QType.lString:
-        return StringAnswerWidget(q: this);
-      case QType.date:
-        return StringAnswerWidget(q: this);
-      case QType.number:
-        return StringAnswerWidget(q: this);
+
       case QType.mCheckbox:
         return 0.0.verticalSpace;
+
       case QType.table:
         return TableAnswerWidget(q: this);
       case QType.header:
