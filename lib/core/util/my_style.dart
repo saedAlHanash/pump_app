@@ -129,18 +129,22 @@ class BackBtnWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return IconButton(
-      onPressed: () {
-        if (onBack != null) {
-          onBack!.call();
-          return;
-        }
-        if (!Navigator.canPop(context)) return;
-        Navigator.pop(context);
-      },
-      icon: Icon(
-        Platform.isAndroid ? Icons.arrow_back : Icons.arrow_back_ios,
-        color: AppColorManager.whit,
+    return SizedBox(
+      height: 30.0.r,
+      width: 30.0.r,
+      child: IconButton(
+        onPressed: () {
+          if (onBack != null) {
+            onBack!.call();
+            return;
+          }
+          if (!Navigator.canPop(context)) return;
+          Navigator.pop(context);
+        },
+        icon: Icon(
+          Platform.isAndroid ? Icons.arrow_back : Icons.arrow_back_ios,
+          color: AppColorManager.whit,
+        ),
       ),
     );
   }

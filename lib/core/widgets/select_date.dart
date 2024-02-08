@@ -1,6 +1,10 @@
+import 'package:drawable_text/drawable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:image_multi_type/image_multi_type.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
+
+import '../strings/app_color_manager.dart';
 
 class SelectSingeDateWidget extends StatelessWidget {
   const SelectSingeDateWidget({
@@ -9,16 +13,19 @@ class SelectSingeDateWidget extends StatelessWidget {
     this.initial,
     this.maxDate,
     this.minDate,
+    required this.controller,
   });
 
   final DateTime? initial;
   final DateTime? maxDate;
   final DateTime? minDate;
+  final TextEditingController controller;
   final Function(DateTime? selected)? onSelect;
 
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton(
+      surfaceTintColor: Colors.white,
       constraints: BoxConstraints(maxHeight: 1.0.sh, maxWidth: 1.0.sw),
       splashRadius: 0.001,
       color: Colors.white,
@@ -57,10 +64,20 @@ class SelectSingeDateWidget extends StatelessWidget {
           ),
         ),
       ],
-      child: Icon(
-        Icons.date_range,
-        size: 30.0.r,
+      child: IgnorePointer(
+        child: SizedBox(
+          width: 1.0.sw,
+          child: DrawableText(
+            text: controller.text,
+            matchParent: true,
+            drawablePadding: 10.0.w,
+            padding: const EdgeInsets.symmetric(vertical: 10.0,horizontal: 30.0).r,
+            drawableStart: const ImageMultiType(url: Icons.date_range),
+          ),
+        ),
       ),
     );
   }
 }
+
+

@@ -25,6 +25,7 @@ class MyTextFormOutLineWidget extends StatefulWidget {
     this.color = Colors.black,
     this.initialValue,
     this.textDirection,
+    this.textInputAction,
     this.validator,
     this.iconWidget,
     this.iconWidgetLift,
@@ -45,7 +46,7 @@ class MyTextFormOutLineWidget extends StatefulWidget {
   final TextAlign textAlign;
   final Function(String)? onChanged;
   final Function(bool)? onChangedFocus;
-
+  final TextInputAction? textInputAction;
   final String? Function(String?)? validator;
   final TextEditingController? controller;
   final TextInputType? keyBordType;
@@ -160,7 +161,7 @@ class _MyTextFormOutLineWidgetState extends State<MyTextFormOutLineWidget> {
           validator: widget.validator,
           decoration: inputDecoration,
           maxLines: widget.maxLines,
-          textInputAction: TextInputAction.next,
+          textInputAction: widget.textInputAction ?? TextInputAction.next,
           readOnly: !(widget.enable ?? true),
           initialValue: widget.initialValue,
           obscureText: obscureText,

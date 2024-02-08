@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:collection/collection.dart';
+import 'package:drawable_text/drawable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -39,20 +40,41 @@ class _StartFormState extends State<StartForm> {
       extendBody: false,
       extendBodyBehindAppBar: false,
       appBar: AppBarWidget(
+        height: 130.0.h,
         title: BlocBuilder<GetFormCubit, GetFormInitial>(
           builder: (context, state) {
             if (state.statuses.loading) {
               return 0.0.verticalSpace;
             }
-            return IconStepperDemo(
-              items: state.result
-                  .mapIndexed(
-                    (i, e) => StepperItem(
-                      active: i == pageNumber,
-                      complete: i < pageNumber,
-                    ),
-                  )
-                  .toList(),
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                IconStepperDemo(
+                  items: state.result
+                      .mapIndexed(
+                        (i, e) => StepperItem(
+                          active: i == pageNumber,
+                          complete: i < pageNumber,
+                        ),
+                      )
+                      .toList(),
+                ),
+
+                DrawableText(
+                  padding: EdgeInsets.only(left: 30.0.w),
+                  text: context
+                          .read<GetFormCubit>()
+                          .state
+                          .result
+                          .firstOrNull
+                          ?.firstOrNull
+                          ?.assessmentName ??
+                      '',
+                  color: Colors.white,
+                  size: 16.0.sp,
+                  fontFamily: FontManager.cairoBold.name,
+                ),
+              ],
             );
           },
         ),

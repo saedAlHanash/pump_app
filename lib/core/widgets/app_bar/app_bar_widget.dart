@@ -15,7 +15,9 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
     this.leading,
     this.zeroHeight,
     this.actions,
-    this.title, this.onBack,
+    this.height,
+    this.title,
+    this.onBack,
   }) : super(key: key);
 
   final String? titleText;
@@ -24,13 +26,14 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   final Function()? onBack;
   final bool? zeroHeight;
   final double? elevation;
+  final double? height;
   final List<Widget>? actions;
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
       backgroundColor: AppColorManager.mainColor,
-      toolbarHeight: (zeroHeight ?? false) ? 0 : 80.0.h,
+      toolbarHeight: (zeroHeight ?? false) ? 0 : height ?? 80.0.h,
       title: title ??
           DrawableText(
             text: titleText ?? '',
@@ -48,7 +51,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   // TODO: implement preferredSize
-  Size get preferredSize => Size(1.0.sw, (zeroHeight ?? false) ? 0 : 80.0.h);
+  Size get preferredSize => Size(1.0.sw, (zeroHeight ?? false) ? 0 : height ?? 80.0.h);
 }
 
 class ActionLeading extends StatelessWidget {

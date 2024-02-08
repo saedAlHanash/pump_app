@@ -42,10 +42,11 @@ class _DateWidgetState extends State<DateWidget> {
           if (max.isBefore(min) || max == min) min = DateTime(1900);
 
           return MyTextFormOutLineWidget(
-            controller: controller,
             enable: false,
+            textInputAction: TextInputAction.done,
             isRequired: widget.q.isRequired,
             iconWidget: SelectSingeDateWidget(
+              controller: controller,
               initial: DateTime.tryParse(widget.q.answer?.answer ?? ''),
               minDate: min,
               maxDate: max,

@@ -128,113 +128,114 @@ class _HistoryPageState extends State<HistoryPage> {
     String? selectedNum;
     return await NoteMessage.showBottomSheet1(
       context,
-      Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          10.0.verticalSpace,
-          SpinnerWidget(
-            hintText: S.of(context).assessmentType,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12.0.r),
-              boxShadow: MyStyle.lightShadow,
-              color: AppColorManager.f1,
+      Container(
+        padding: const EdgeInsets.symmetric(horizontal: 30.0,vertical: 15.0).r,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SpinnerWidget(
+              hintText: S.of(context).assessmentType,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12.0.r),
+                boxShadow: MyStyle.lightShadow,
+                color: AppColorManager.f1,
+              ),
+              isRequired: true,
+              width: 0.9.sw,
+              items: context.read<GetFormCubit>().getAssessmentSpinnerItems,
+              onChanged: (spinnerItem) => selectedNum = spinnerItem.id,
             ),
-            isRequired: true,
-            width: 0.9.sw,
-            items: context.read<GetFormCubit>().getAssessmentSpinnerItems,
-            onChanged: (spinnerItem) => selectedNum = spinnerItem.id,
-          ),
-          StatefulBuilder(
-            builder: (context, setState) {
-              return Column(
-                children: [
-                  GestureDetector(
-                    onTap: () => setState(() => selected = ExportType.db),
-                    child: MyCardWidget(
-                        cardColor: selected == ExportType.db
-                            ? AppColorManager.mainColor.withOpacity(0.2)
-                            : AppColorManager.cardColor,
-                        elevation: selected == ExportType.db ? 0 : 5.0.r,
-                        padding: EdgeInsets.zero,
-                        margin: const EdgeInsets.all(10.0).r,
-                        child: SizedBox(
-                          height: 152.0.h,
-                          width: .9.sw,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              ImageMultiType(
-                                url: Assets.iconsDb,
-                                height: 70.0.r,
-                                width: 70.0.r,
-                              ),
-                              10.0.verticalSpace,
-                              DrawableText(
-                                text: S.of(context).exportForDb,
-                                color: AppColorManager.black,
-                                fontFamily: FontManager.cairoBold.name,
-                              ),
-                            ],
-                          ),
-                        )),
-                  ),
-                  GestureDetector(
-                    onTap: () => setState(() => selected = ExportType.review),
-                    child: MyCardWidget(
-                        cardColor: selected == ExportType.review
-                            ? AppColorManager.mainColor.withOpacity(0.2)
-                            : AppColorManager.cardColor,
-                        elevation: selected == ExportType.review ? 0 : 5.0.r,
-                        padding: EdgeInsets.zero,
-                        margin: const EdgeInsets.all(10.0).r,
-                        child: SizedBox(
-                          height: 152.0.h,
-                          width: .9.sw,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              ImageMultiType(
-                                url: Assets.iconsReview,
-                                height: 70.0.r,
-                                width: 70.0.r,
-                              ),
-                              10.0.verticalSpace,
-                              DrawableText(
-                                text: S.of(context).exportForReview,
-                                color: AppColorManager.black,
-                                fontFamily: FontManager.cairoBold.name,
-                              ),
-                            ],
-                          ),
-                        )),
-                  ),
-                  MyButton(
-                    text: S.of(context).done,
-                    onTap: () {
-                      if (selected == null) {
-                        NoteMessage.showAwesomeError(
-                          context: context,
-                          message: S.of(context).pleasSelectExportType,
-                        );
-                        return;
-                      }
-                      if (selectedNum == null) {
-                        NoteMessage.showAwesomeError(
-                          context: context,
-                          message: S.of(context).pleasSelectAssessmentType,
-                        );
-                        return;
-                      }
-                      Navigator.pop(context, Pair(selected!, selectedNum!));
-                    },
-                  ),
-                ],
-              );
-            },
-          ),
-          20.0.verticalSpace,
-        ],
+            StatefulBuilder(
+              builder: (context, setState) {
+                return Column(
+                  children: [
+                    GestureDetector(
+                      onTap: () => setState(() => selected = ExportType.db),
+                      child: MyCardWidget(
+                          cardColor: selected == ExportType.db
+                              ? AppColorManager.mainColor.withOpacity(0.2)
+                              : AppColorManager.cardColor,
+                          elevation: selected == ExportType.db ? 0 : 5.0.r,
+                          padding: EdgeInsets.zero,
+                          margin: const EdgeInsets.all(10.0).r,
+                          child: SizedBox(
+                            height: 152.0.h,
+                            width: .9.sw,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                ImageMultiType(
+                                  url: Assets.iconsDb,
+                                  height: 70.0.r,
+                                  width: 70.0.r,
+                                ),
+                                10.0.verticalSpace,
+                                DrawableText(
+                                  text: S.of(context).exportForDb,
+                                  color: AppColorManager.black,
+                                  fontFamily: FontManager.cairoBold.name,
+                                ),
+                              ],
+                            ),
+                          )),
+                    ),
+                    GestureDetector(
+                      onTap: () => setState(() => selected = ExportType.review),
+                      child: MyCardWidget(
+                          cardColor: selected == ExportType.review
+                              ? AppColorManager.mainColor.withOpacity(0.2)
+                              : AppColorManager.cardColor,
+                          elevation: selected == ExportType.review ? 0 : 5.0.r,
+                          padding: EdgeInsets.zero,
+                          margin: const EdgeInsets.all(10.0).r,
+                          child: SizedBox(
+                            height: 152.0.h,
+                            width: .9.sw,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                ImageMultiType(
+                                  url: Assets.iconsReview,
+                                  height: 70.0.r,
+                                  width: 70.0.r,
+                                ),
+                                10.0.verticalSpace,
+                                DrawableText(
+                                  text: S.of(context).exportForReview,
+                                  color: AppColorManager.black,
+                                  fontFamily: FontManager.cairoBold.name,
+                                ),
+                              ],
+                            ),
+                          )),
+                    ),
+                    MyButton(
+                      text: S.of(context).done,
+                      onTap: () {
+                        if (selected == null) {
+                          NoteMessage.showAwesomeError(
+                            context: context,
+                            message: S.of(context).pleasSelectExportType,
+                          );
+                          return;
+                        }
+                        if (selectedNum == null) {
+                          NoteMessage.showAwesomeError(
+                            context: context,
+                            message: S.of(context).pleasSelectAssessmentType,
+                          );
+                          return;
+                        }
+                        Navigator.pop(context, Pair(selected!, selectedNum!));
+                      },
+                    ),
+                  ],
+                );
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
