@@ -48,11 +48,11 @@ class _StartFormState extends State<StartForm> {
                 MyButton(
                   text: S.of(context).next,
                   onTap: () {
-                    // final error = context.read<GetFormCubit>().isComplete(pageNumber);
-                    // if (error.isNotEmpty) {
-                    //   NoteMessage.showAwesomeError(context: context, message: error);
-                    //   return;
-                    // }
+                    final error = context.read<GetFormCubit>().isComplete(pageNumber);
+                    if (error.isNotEmpty) {
+                      NoteMessage.showAwesomeError(context: context, message: error);
+                      return;
+                    }
                     pageNumber += 1;
 
                     Navigator.pushNamed(context, RouteName.startForm).then((value) {
