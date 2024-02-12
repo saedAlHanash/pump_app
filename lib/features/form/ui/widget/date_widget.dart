@@ -29,40 +29,42 @@ class _DateWidgetState extends State<DateWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        QHeaderWidget(q: widget.q),
-        5.0.verticalSpace,
-        Builder(builder: (context) {
-          var max =
-              (widget.q.max is! DateTime) ? DateTime.now() : widget.q.max as DateTime;
-          var min =
-              (widget.q.min is! DateTime) ? DateTime(1900) : widget.q.min as DateTime;
+    return SizedBox(
+      child: Column(
+        children: [
+          QHeaderWidget(q: widget.q),
+          5.0.verticalSpace,
+          Builder(builder: (context) {
+            var max =
+                (widget.q.max is! DateTime) ? DateTime.now() : widget.q.max as DateTime;
+            var min =
+                (widget.q.min is! DateTime) ? DateTime(1900) : widget.q.min as DateTime;
 
-          if (max.isBefore(min) || max == min) min = DateTime(1900);
+            if (max.isBefore(min) || max == min) min = DateTime(1900);
 
-          return MyTextFormOutLineWidget(
-            enable: false,
-            textInputAction: TextInputAction.done,
-            isRequired: widget.q.isRequired,
-            iconWidget: SelectSingeDateWidget(
-              controller: controller,
-              initial: DateTime.tryParse(widget.q.answer?.answer ?? ''),
-              minDate: min,
-              maxDate: max,
-              onSelect: (selected) {
-                setState(() {
-                  controller.text = selected?.formatDate ?? '';
-                  context.read<GetFormCubit>().setAnswer(
-                        widget.q,
-                        sAnswer: selected?.formatDate,
-                      );
-                });
-              },
-            ),
-          );
-        }),
-      ],
+            return MyTextFormOutLineWidget(
+              enable: false,
+              textInputAction: TextInputAction.done,
+              isRequired: widget.q.isRequired,
+              iconWidget: SelectSingeDateWidget(
+                controller: controller,
+                initial: DateTime.tryParse(widget.q.answer?.answer ?? ''),
+                minDate: min,
+                maxDate: max,
+                onSelect: (selected) {
+                  setState(() {
+                    controller.text = selected?.formatDate ?? '';
+                    context.read<GetFormCubit>().setAnswer(
+                          widget.q,
+                          sAnswer: selected?.formatDate,
+                        );
+                  });
+                },
+              ),
+            );
+          }),
+        ],
+      ),
     );
   }
 }

@@ -40,50 +40,43 @@ class _TableWidgetState extends State<TableWidget> {
                 },
               ),
             );
-
             if (list != null) {
-              Future.delayed(
-                const Duration(milliseconds: 600),
-                () {
-                  setState(() =>
-                      context.read<GetFormCubit>().setAnswer(widget.q, answers: list));
-                },
-              );
+              setState(
+                  () => context.read<GetFormCubit>().setAnswer(widget.q, answers: list));
             }
           },
         ),
         30.0.verticalSpace,
         Container(
           constraints: BoxConstraints(minHeight: 100.0.h, maxHeight: 1.0.sh),
-          child: Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  ...(widget.q.answer?.answers ?? []).mapIndexed((i, e) {
-                    return SizedBox(
-                      height: e.length * 120.0.h,
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: Column(
-                              children: e.map((e1) => e1.getTableAnswerWidget).toList()
-                                ..add(const Divider()),
-                            ),
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.only(bottom: 500.0).h,
+            child: Column(
+              children: [
+                ...(widget.q.answer?.answers ?? []).mapIndexed((i, e) {
+                  return SizedBox(
+                    height: e.length * 95.0.h,
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Column(
+                            children: e.map((e1) => e1.getTableAnswerWidget).toList()
+                              ..add(const Divider(height: 1,endIndent: 0,indent: 0,)),
                           ),
-                          IconButton(
-                            onPressed: () =>
-                                setState(() => widget.q.answer?.answers.removeAt(i)),
-                            icon: const ImageMultiType(
-                              url: Icons.remove_circle,
-                              color: Colors.red,
-                            ),
-                          )
-                        ],
-                      ),
-                    );
-                  }),
-                ],
-              ),
+                        ),
+                        IconButton(
+                          onPressed: () =>
+                              setState(() => widget.q.answer?.answers.removeAt(i)),
+                          icon: const ImageMultiType(
+                            url: Icons.remove_circle,
+                            color: Colors.red,
+                          ),
+                        )
+                      ],
+                    ),
+                  );
+                }),
+              ],
             ),
           ),
         ),

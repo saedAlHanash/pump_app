@@ -110,19 +110,20 @@ class Questions {
 
   Widget get getTableWidget {
     if (equalTo.isNotEmpty) return 0.0.verticalSpace;
+    late final Widget w;
     switch (qstType) {
       case QType.list:
-        return ListWidget(q: this);
+        w = ListWidget(q: this);
       case QType.rList:
-        return RListWidget(q: this);
+        w = RListWidget(q: this);
       case QType.string:
-        return StringWidget(q: this);
+        w = StringWidget(q: this);
       case QType.lString:
-        return ListStringWidget(q: this);
+        w = ListStringWidget(q: this);
       case QType.date:
-        return DateWidget(q: this);
+        w = DateWidget(q: this);
       case QType.number:
-        return NumberWidget(q: this);
+        w = NumberWidget(q: this);
       case QType.mCheckbox:
         return 0.0.verticalSpace;
       case QType.table:
@@ -130,6 +131,10 @@ class Questions {
       case QType.header:
         return HeaderWidget(q: this);
     }
+    return SizedBox(
+      height: 90.0.h,
+      child: w,
+    );
   }
 
   Widget get getTableAnswerWidget {
@@ -137,20 +142,28 @@ class Questions {
     switch (qstType) {
       case QType.list:
       case QType.rList:
-        return ListAnswerWidget(q: this);
+        return ListAnswerWidget(
+          q: this,
+        );
       case QType.lString:
       case QType.date:
       case QType.number:
       case QType.string:
-        return StringAnswerWidget(q: this);
+        return StringAnswerWidget(
+          q: this,
+        );
 
       case QType.mCheckbox:
         return 0.0.verticalSpace;
 
       case QType.table:
-        return TableAnswerWidget(q: this);
+        return TableAnswerWidget(
+          q: this,
+        );
       case QType.header:
-        return HeaderWidget(q: this);
+        return HeaderWidget(
+          q: this,
+        );
     }
   }
 
