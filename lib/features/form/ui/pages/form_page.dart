@@ -181,35 +181,29 @@ class _StartFormState extends State<StartForm> {
           },
         ),
       ),
-      body: SizedBox(
-        width: 1.0.sw,
-        height: 1.0.sh,
-        child: BlocBuilder<GetFormCubit, GetFormInitial>(
-          builder: (context, state) {
-            if (state.statuses.loading) {
-              return MyStyle.loadingWidget();
-            }
-            return SingleChildScrollView(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0).w,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  if (pageNumber < state.result.length)
-                    Column(
-                      children: state.result[pageNumber]
-                          .mapIndexed(
-                            (i, item) => Padding(
-                              padding: const EdgeInsets.only(bottom: 10.0).h,
-                              child: item.getWidget,
-                            ),
-                          )
-                          .toList(),
+      body: BlocBuilder<GetFormCubit, GetFormInitial>(
+        builder: (context, state) {
+          if (state.statuses.loading) {
+            return MyStyle.loadingWidget();
+          }
+
+          if (pageNumber >= state.result.length) return 0.0.verticalSpace;
+
+          return SingleChildScrollView(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0).w,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: state.result[pageNumber]
+                  .mapIndexed(
+                    (i, item) => Padding(
+                      padding: const EdgeInsets.only(bottom: 10.0).h,
+                      child: item.getWidget,
                     ),
-                ],
-              ),
-            );
-          },
-        ),
+                  )
+                  .toList(),
+            ),
+          );
+        },
       ),
     );
   }

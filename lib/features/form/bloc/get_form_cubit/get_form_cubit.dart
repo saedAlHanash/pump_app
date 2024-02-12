@@ -29,12 +29,10 @@ class GetFormCubit extends Cubit<GetFormInitial> {
 
     mapGropingAsFormId.removeWhere((key, value) => value.isEmpty);
 
-    Future.delayed(const Duration(seconds: 1), () {
-      emit(state.copyWith(
-        statuses: CubitStatuses.done,
-        allFormes: mapGropingAsFormId,
-      ));
-    });
+    emit(state.copyWith(
+      statuses: CubitStatuses.done,
+      allFormes: mapGropingAsFormId,
+    ));
 
     await box.close();
   }
@@ -68,15 +66,17 @@ class GetFormCubit extends Cubit<GetFormInitial> {
       if (e.equalTo.isNotEmpty) eAnswers.add(e.equalTo);
     }
 
-    emit(
-      state.copyWith(
-        statuses: CubitStatuses.done,
-        result: gropingList,
-        rAnswers: rAnswers,
-        eAnswers: eAnswers,
-        rList: rList,
-      ),
-    );
+    Future.delayed(const Duration(seconds: 1), () {
+      emit(
+        state.copyWith(
+          statuses: CubitStatuses.done,
+          result: gropingList,
+          rAnswers: rAnswers,
+          eAnswers: eAnswers,
+          rList: rList,
+        ),
+      );
+    });
   }
 
   Future<void> setQuestionsFromHistory({required List<List<Questions>> list}) async {
