@@ -56,19 +56,22 @@ class _FormTablePageState extends State<FormTablePage> {
                     MyButton(
                       text: S.of(context).add,
                       onTap: () {
-                        final currentFocus = FocusScope.of(context);
+                        try {
+                          final currentFocus = FocusScope.of(context);
 
-                        if (!currentFocus.hasPrimaryFocus &&
-                            currentFocus.focusedChild != null) {
-                          FocusManager.instance.primaryFocus?.unfocus();
-                        }
+                          if (!currentFocus.hasPrimaryFocus &&
+                              currentFocus.focusedChild != null) {
+                            FocusManager.instance.primaryFocus?.unfocus();
+                          }
 
-                        final error = context.read<GetFormCubit>().iTable(list);
+                          final error = context.read<GetFormCubit>().iTable(list);
 
-                        if (error.isNotEmpty) {
-                          NoteMessage.showAwesomeError(context: context, message: error);
-                          return;
-                        }
+                          if (error.isNotEmpty) {
+                            NoteMessage.showAwesomeError(
+                                context: context, message: error);
+                            return;
+                          }
+                        } catch (e) {}
 
                         Future.delayed(
                           const Duration(milliseconds: 500),

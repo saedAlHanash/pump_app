@@ -42,13 +42,8 @@ class _TableWidgetState extends State<TableWidget> {
             );
 
             if (list != null) {
-              Future.delayed(
-                const Duration(milliseconds: 600),
-                () {
-                  setState(() =>
-                      context.read<GetFormCubit>().setAnswer(widget.q, answers: list));
-                },
-              );
+              setState(
+                  () => context.read<GetFormCubit>().setAnswer(widget.q, answers: list));
             }
           },
         ),
