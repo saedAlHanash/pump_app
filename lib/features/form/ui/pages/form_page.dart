@@ -189,25 +189,41 @@ class _StartFormState extends State<StartForm> {
             if (state.statuses.loading) {
               return MyStyle.loadingWidget();
             }
-            return SingleChildScrollView(
+
+            return ListView.builder(
+              itemCount:
+                  pageNumber >= state.result.length ? 0 : state.result[pageNumber].length,
               padding: const EdgeInsets.symmetric(horizontal: 20.0).w,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  if (pageNumber < state.result.length)
-                    Column(
-                      children: state.result[pageNumber]
-                          .mapIndexed(
-                            (i, item) => Padding(
-                              padding: const EdgeInsets.only(bottom: 10.0).h,
-                              child: item.getWidget,
-                            ),
-                          )
-                          .toList(),
-                    ),
-                ],
-              ),
+              itemBuilder: (context, i) {
+                if (pageNumber >= state.result.length) {
+                  return 0.0.verticalSpace;
+                }
+                final item = state.result[pageNumber][i];
+                return Padding(
+                  padding: const EdgeInsets.only(bottom: 10.0).h,
+                  child: item.getWidget,
+                );
+              },
             );
+            // return SingleChildScrollView(
+            //   padding: const EdgeInsets.symmetric(horizontal: 20.0).w,
+            //   child: Column(
+            //     crossAxisAlignment: CrossAxisAlignment.center,
+            //     children: [
+            //       if (pageNumber < state.result.length)
+            //         Column(
+            //           children: state.result[pageNumber]
+            //               .mapIndexed(
+            //                 (i, item) => Padding(
+            //                   padding: const EdgeInsets.only(bottom: 10.0).h,
+            //                   child: item.getWidget,
+            //                 ),
+            //               )
+            //               .toList(),
+            //         ),
+            //     ],
+            //   ),
+            // );
           },
         ),
       ),

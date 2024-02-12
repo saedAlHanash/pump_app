@@ -29,10 +29,12 @@ class GetFormCubit extends Cubit<GetFormInitial> {
 
     mapGropingAsFormId.removeWhere((key, value) => value.isEmpty);
 
-    emit(state.copyWith(
-      statuses: CubitStatuses.done,
-      allFormes: mapGropingAsFormId,
-    ));
+    Future.delayed(const Duration(seconds: 1), () {
+      emit(state.copyWith(
+        statuses: CubitStatuses.done,
+        allFormes: mapGropingAsFormId,
+      ));
+    });
 
     await box.close();
   }

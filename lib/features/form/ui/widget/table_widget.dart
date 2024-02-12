@@ -28,9 +28,7 @@ class _TableWidgetState extends State<TableWidget> {
       children: [
         MyButton(
           child: DrawableText(
-            text: S
-                .of(context)
-                .addDetails,
+            text: S.of(context).addDetails,
             color: Colors.white,
           ),
           onTap: () async {
@@ -45,8 +43,7 @@ class _TableWidgetState extends State<TableWidget> {
 
             if (list != null) {
               setState(
-                      () =>
-                      context.read<GetFormCubit>().setAnswer(widget.q, answers: list));
+                  () => context.read<GetFormCubit>().setAnswer(widget.q, answers: list));
             }
           },
         ),
@@ -91,32 +88,6 @@ class _TableItemWidget extends StatefulWidget {
 }
 
 class _TableItemWidgetState extends State<_TableItemWidget> {
-  var key = GlobalKey();
-  Size? redboxSize;
-
-  bool isOffstage = true;
-
-  @override
-  void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _getWidgetHeight();
-    });
-    super.initState();
-  }
-
-  void _getWidgetHeight() {
-    // Future.delayed(
-    //   const Duration(milliseconds: 100),
-    //   () {
-    if (redboxSize == null) {
-      final renderBox = key.currentContext?.findRenderObject() as RenderBox;
-      redboxSize = renderBox.size;
-      setState(() => isOffstage = false);
-    }
-    //   },
-    // );
-  }
-
   Size getRedBoxSize(BuildContext context) {
     final box = context.findRenderObject() as RenderBox;
     return box.size;
@@ -124,23 +95,10 @@ class _TableItemWidgetState extends State<_TableItemWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Offstage(
-      offstage: isOffstage,
-      child: Builder(
-        builder: (context) {
-          return Container(
-            color: Colors.red,
-            constraints: redboxSize?.height == null ? null : BoxConstraints(
-                maxHeight: redboxSize?.height ?? double.infinity),
-            height: redboxSize?.height,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: widget.list.map((e1) => e1.getTableAnswerWidget).toList()
-                ..add(const Divider()),
-            ),
-          );
-        },
-      ),
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: widget.list.map((e1) => e1.getTableAnswerWidget).toList()
+        ..add(const Divider()),
     );
   }
 }
