@@ -42,63 +42,52 @@ class _TableWidgetState extends State<TableWidget> {
             );
 
             if (list != null) {
-              setState(
-                  () => context.read<GetFormCubit>().setAnswer(widget.q, answers: list));
+              Future.delayed(
+                const Duration(milliseconds: 600),
+                () {
+                  setState(() =>
+                      context.read<GetFormCubit>().setAnswer(widget.q, answers: list));
+                },
+              );
             }
           },
         ),
-        DrawableText(text: (widget.q.answer?.answers ?? []).length.toString()),
         30.0.verticalSpace,
         Container(
           constraints: BoxConstraints(minHeight: 100.0.h, maxHeight: 1.0.sh),
-          child: ListView.builder(
-            itemCount: (widget.q.answer?.answers ?? []).length,
-            itemBuilder: (_, i) {
-              final e = widget.q.answer?.answers[i];
-              if (e == null) return 0.0.verticalSpace;
-
-              final itemWidget = _TableItemWidget(
-                list: e,
-                q: widget.q,
-                onDelete: () {
-                  setState(() => widget.q.answer?.answers.removeAt(i));
-                },
-              );
-
-              return itemWidget;
-            },
+          child: Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  ...(widget.q.answer?.answers ?? []).mapIndexed((i, e) {
+                    return SizedBox(
+                      height: e.length * 120.0.h,
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Column(
+                              children: e.map((e1) => e1.getTableAnswerWidget).toList()
+                                ..add(const Divider()),
+                            ),
+                          ),
+                          IconButton(
+                            onPressed: () =>
+                                setState(() => widget.q.answer?.answers.removeAt(i)),
+                            icon: const ImageMultiType(
+                              url: Icons.remove_circle,
+                              color: Colors.red,
+                            ),
+                          )
+                        ],
+                      ),
+                    );
+                  }),
+                ],
+              ),
+            ),
           ),
         ),
       ],
-    );
-  }
-}
-
-class _TableItemWidget extends StatefulWidget {
-  const _TableItemWidget(
-      {super.key, required this.list, required this.q, required this.onDelete});
-
-  final List<Questions> list;
-  final Questions q;
-
-  final Function() onDelete;
-
-  @override
-  State<_TableItemWidget> createState() => _TableItemWidgetState();
-}
-
-class _TableItemWidgetState extends State<_TableItemWidget> {
-  Size getRedBoxSize(BuildContext context) {
-    final box = context.findRenderObject() as RenderBox;
-    return box.size;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: widget.list.map((e1) => e1.getTableAnswerWidget).toList()
-        ..add(const Divider()),
     );
   }
 }

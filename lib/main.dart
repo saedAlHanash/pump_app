@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/adapters.dart';
@@ -12,8 +11,7 @@ import 'core/util/shared_preferences.dart';
 
 //adb shell setprop debug.firebase.analytics.app com.slf.pump_app
 
-
-final  loggerObject = Logger(
+final loggerObject = Logger(
   printer: PrettyPrinter(
     methodCount: 0,
     // number of method calls to be displayed
@@ -30,15 +28,12 @@ final  loggerObject = Logger(
 );
 late Box<String> memberBox;
 
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await di.init();
 
-
-await Hive.initFlutter();
-
+  await Hive.initFlutter();
 
   await SharedPreferences.getInstance().then((value) {
     AppSharedPreference.init(value);

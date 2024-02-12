@@ -48,11 +48,11 @@ class _StartFormState extends State<StartForm> {
                 MyButton(
                   text: S.of(context).next,
                   onTap: () {
-                    // final error = context.read<GetFormCubit>().isComplete(pageNumber);
-                    // if (error.isNotEmpty) {
-                    //   NoteMessage.showAwesomeError(context: context, message: error);
-                    //   return;
-                    // }
+                    final error = context.read<GetFormCubit>().isComplete(pageNumber);
+                    if (error.isNotEmpty) {
+                      NoteMessage.showAwesomeError(context: context, message: error);
+                      return;
+                    }
                     pageNumber += 1;
 
                     Navigator.pushNamed(context, RouteName.startForm).then((value) {
@@ -189,41 +189,25 @@ class _StartFormState extends State<StartForm> {
             if (state.statuses.loading) {
               return MyStyle.loadingWidget();
             }
-
-            return ListView.builder(
-              itemCount:
-                  pageNumber >= state.result.length ? 0 : state.result[pageNumber].length,
+            return SingleChildScrollView(
               padding: const EdgeInsets.symmetric(horizontal: 20.0).w,
-              itemBuilder: (context, i) {
-                if (pageNumber >= state.result.length) {
-                  return 0.0.verticalSpace;
-                }
-                final item = state.result[pageNumber][i];
-                return Padding(
-                  padding: const EdgeInsets.only(bottom: 10.0).h,
-                  child: item.getWidget,
-                );
-              },
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  if (pageNumber < state.result.length)
+                    Column(
+                      children: state.result[pageNumber]
+                          .mapIndexed(
+                            (i, item) => Padding(
+                              padding: const EdgeInsets.only(bottom: 10.0).h,
+                              child: item.getWidget,
+                            ),
+                          )
+                          .toList(),
+                    ),
+                ],
+              ),
             );
-            // return SingleChildScrollView(
-            //   padding: const EdgeInsets.symmetric(horizontal: 20.0).w,
-            //   child: Column(
-            //     crossAxisAlignment: CrossAxisAlignment.center,
-            //     children: [
-            //       if (pageNumber < state.result.length)
-            //         Column(
-            //           children: state.result[pageNumber]
-            //               .mapIndexed(
-            //                 (i, item) => Padding(
-            //                   padding: const EdgeInsets.only(bottom: 10.0).h,
-            //                   child: item.getWidget,
-            //                 ),
-            //               )
-            //               .toList(),
-            //         ),
-            //     ],
-            //   ),
-            // );
           },
         ),
       ),
