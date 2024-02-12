@@ -127,7 +127,7 @@ class _TableItemWidgetState extends State<_TableItemWidget> {
         builder: (context) {
           return Container(
             color: Colors.red,
-            constraints: BoxConstraints(maxHeight: 1.0.sh),
+            constraints: BoxConstraints(maxHeight: redboxSize?.height ?? double.infinity),
             height: redboxSize?.height,
             child: Row(
               key: key,
