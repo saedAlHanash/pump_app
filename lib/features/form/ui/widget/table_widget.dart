@@ -47,6 +47,7 @@ class _TableWidgetState extends State<TableWidget> {
             }
           },
         ),
+        DrawableText(text: (widget.q.answer?.answers ?? []).length.toString()),
         30.0.verticalSpace,
         Container(
           constraints: BoxConstraints(minHeight: 100.0.h, maxHeight: 1.0.sh),
@@ -128,26 +129,24 @@ class _TableItemWidgetState extends State<_TableItemWidget> {
             color: Colors.red,
             constraints: BoxConstraints(maxHeight: 1.0.sh),
             height: redboxSize?.height,
-            child: Flexible(
-              child: Row(
-                key: key,
-                children: [
-                  Expanded(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: widget.list.map((e1) => e1.getTableAnswerWidget).toList()
-                        ..add(const Divider()),
-                    ),
+            child: Row(
+              key: key,
+              children: [
+                Expanded(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: widget.list.map((e1) => e1.getTableAnswerWidget).toList()
+                      ..add(const Divider()),
                   ),
-                  IconButton(
-                    onPressed: () => widget.onDelete.call(),
-                    icon: const ImageMultiType(
-                      url: Icons.remove_circle,
-                      color: Colors.red,
-                    ),
-                  )
-                ],
-              ),
+                ),
+                IconButton(
+                  onPressed: () => widget.onDelete.call(),
+                  icon: const ImageMultiType(
+                    url: Icons.remove_circle,
+                    color: Colors.red,
+                  ),
+                )
+              ],
             ),
           );
         },
