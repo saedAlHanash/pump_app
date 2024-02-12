@@ -28,7 +28,9 @@ class _TableWidgetState extends State<TableWidget> {
       children: [
         MyButton(
           child: DrawableText(
-            text: S.of(context).addDetails,
+            text: S
+                .of(context)
+                .addDetails,
             color: Colors.white,
           ),
           onTap: () async {
@@ -43,7 +45,8 @@ class _TableWidgetState extends State<TableWidget> {
 
             if (list != null) {
               setState(
-                  () => context.read<GetFormCubit>().setAnswer(widget.q, answers: list));
+                      () =>
+                      context.read<GetFormCubit>().setAnswer(widget.q, answers: list));
             }
           },
         ),
@@ -127,26 +130,13 @@ class _TableItemWidgetState extends State<_TableItemWidget> {
         builder: (context) {
           return Container(
             color: Colors.red,
-            constraints: BoxConstraints(maxHeight: redboxSize?.height ?? double.infinity),
+            constraints: redboxSize?.height == null ? null : BoxConstraints(
+                maxHeight: redboxSize?.height ?? double.infinity),
             height: redboxSize?.height,
-            child: Row(
-              key: key,
-              children: [
-                Expanded(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: widget.list.map((e1) => e1.getTableAnswerWidget).toList()
-                      ..add(const Divider()),
-                  ),
-                ),
-                IconButton(
-                  onPressed: () => widget.onDelete.call(),
-                  icon: const ImageMultiType(
-                    url: Icons.remove_circle,
-                    color: Colors.red,
-                  ),
-                )
-              ],
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: widget.list.map((e1) => e1.getTableAnswerWidget).toList()
+                ..add(const Divider()),
             ),
           );
         },
