@@ -13,7 +13,6 @@ class TableAnswerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisSize: MainAxisSize.min,
       children: [
         QHeaderWidget(q: q),
         if (q.answer != null && q.answer!.answers.isNotEmpty)
@@ -25,14 +24,11 @@ class TableAnswerWidget extends StatelessWidget {
             ),
             child: Column(
                 children: q.answer!.answers.map((e) {
-              return SizedBox(
-                height: e.length * 95.0.h,
-                child: Column(
-                  children: e.map((e1) => e1.getTableAnswerWidget).toList()
-                    ..add(const Divider()),
-                ),
-              );
-            }).toList()),
+                  return Column(
+                    children: e.map((e1) => e1.getTableAnswerWidget).toList()
+                      ..add(const Divider()),
+                  );
+                }).toList()),
           ),
       ],
     );

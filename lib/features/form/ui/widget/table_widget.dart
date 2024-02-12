@@ -26,6 +26,7 @@ class _TableWidgetState extends State<TableWidget> {
   Widget build(BuildContext context) {
     return Column(
       children: [
+
         MyButton(
           child: DrawableText(
             text: S.of(context).addDetails,
@@ -40,9 +41,15 @@ class _TableWidgetState extends State<TableWidget> {
                 },
               ),
             );
+
             if (list != null) {
-              setState(
-                  () => context.read<GetFormCubit>().setAnswer(widget.q, answers: list));
+              Future.delayed(
+                const Duration(milliseconds: 600),
+                    () {
+                  setState(() =>
+                      context.read<GetFormCubit>().setAnswer(widget.q, answers: list));
+                },
+              );
             }
           },
         ),
@@ -50,36 +57,33 @@ class _TableWidgetState extends State<TableWidget> {
         Container(
           constraints: BoxConstraints(minHeight: 100.0.h, maxHeight: 1.0.sh),
           child: SingleChildScrollView(
-            padding: const EdgeInsets.only(bottom: 500.0).h,
             child: Column(
               children: [
                 ...(widget.q.answer?.answers ?? []).mapIndexed((i, e) {
-                  return SizedBox(
-                    height: e.length * 95.0.h,
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: Column(
-                            children: e.map((e1) => e1.getTableAnswerWidget).toList()
-                              ..add(const Divider(height: 1,endIndent: 0,indent: 0,)),
-                          ),
+                  return Row(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          children: e.map((e1) => e1.getTableAnswerWidget).toList()
+                            ..add(const Divider()),
                         ),
-                        IconButton(
-                          onPressed: () =>
-                              setState(() => widget.q.answer?.answers.removeAt(i)),
-                          icon: const ImageMultiType(
-                            url: Icons.remove_circle,
-                            color: Colors.red,
-                          ),
-                        )
-                      ],
-                    ),
+                      ),
+                      IconButton(
+                        onPressed: () =>
+                            setState(() => widget.q.answer?.answers.removeAt(i)),
+                        icon: const ImageMultiType(
+                          url: Icons.remove_circle,
+                          color: Colors.red,
+                        ),
+                      )
+                    ],
                   );
                 }),
               ],
             ),
           ),
         ),
+
       ],
     );
   }
